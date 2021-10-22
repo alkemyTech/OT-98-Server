@@ -58,7 +58,6 @@
       <artifactId>spring-session-core</artifactId>
       <groupId>org.springframework.session</groupId>
     </dependency>
-
     <dependency>
       <artifactId>mysql-connector-java</artifactId>
       <groupId>mysql</groupId>
@@ -77,6 +76,11 @@
     <dependency>
       <artifactId>spring-security-test</artifactId>
       <groupId>org.springframework.security</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
