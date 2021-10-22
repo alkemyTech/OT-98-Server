@@ -17,7 +17,29 @@
         </configuration>
         <groupId>org.springframework.boot</groupId>
       </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.rudikershaw.gitbuildhook</groupId>
+        <artifactId>git-build-hook-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <installHooks>
+            <pre-push>./etc/hooks/pre-push.sh</pre-push>
+          </installHooks>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
+
   </build>
   <dependencies>
     <dependency>
