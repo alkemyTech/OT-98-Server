@@ -25,25 +25,26 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Testimonial {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    @Column(name = "TESTIMONIALS_ID")
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Setter(AccessLevel.NONE)
+  @Column(name = "TESTIMONIALS_ID")
+  private long id;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+  @Column(name = "NAME", nullable = false)
+  private String name;
 
-    @Column(name = "IMAGE")
-    private String image;
+  @Column(name = "IMAGE")
+  private String image;
 
-    @Column(name = "CONTENT")
-    private String content;
+  @Column(name = "CONTENT")
+  private String content;
 
-    @Column(name = "TIMESTAMPS")
-    @CreationTimestamp
-    private Timestamp timestamps;
+  @Column(name = "TIMESTAMPS")
+  @CreationTimestamp
+  private Timestamp timestamps;
 
-    @Column(name = "SOFT_DELETE")
-    private boolean softDelete;
+  @Column(name = "SOFT_DELETE")
+  private boolean softDelete;
+
 }
