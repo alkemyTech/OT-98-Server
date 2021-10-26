@@ -17,7 +17,7 @@ public class EmailSendTest {
   public void sendEmailTest() {
     boolean emailSend = false;
     try {
-      emailHelper.send(new EmailTestClass());
+      emailHelper.send(new EmailTestConcreteClass());
       emailSend = true;
     } catch (SendEmailException e) {
       emailSend = false;

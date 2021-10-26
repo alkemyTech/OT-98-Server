@@ -3,7 +3,7 @@ package com.alkemy.ong.emailsender;
 import com.alkemy.ong.common.mail.IContent;
 import com.alkemy.ong.common.mail.IEmail;
 
-public class EmailTestClass implements IEmail, IContent {
+public class EmailTestConcreteClass implements IEmail, IContent {
 
   @Override
   public String getEmailTo() {
