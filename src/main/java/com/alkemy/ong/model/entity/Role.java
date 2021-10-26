@@ -1,11 +1,18 @@
 package com.alkemy.ong.model.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ROLES")
@@ -14,17 +21,18 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Setter(AccessLevel.NONE)
+  @Column(name = "ID")
+  private Long id;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+  @Column(name = "NAME", nullable = false)
+  private String name;
 
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String description;
+  @Column(name = "DESCRIPTION", nullable = false)
+  private String description;
 
-    @Column(name = "TIMESTAMP", nullable = false)
-    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+  @Column(name = "TIMESTAMP", nullable = false)
+  private Timestamp timestamp;
 }
