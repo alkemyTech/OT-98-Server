@@ -28,10 +28,14 @@ public class Category {
   @Setter(AccessLevel.NONE)
   private long id;
 
-  @Column(name = "DESCRIPTION", nullable = false)
+  @Column(name = "NAME")
+  private String name;
+
+
+  @Column(name = "DESCRIPTION", nullable = true)
   private String description;
 
-  @Column(name = "IMAGE", nullable = false)
+  @Column(name = "IMAGE", nullable = true)
   private String image;
 
   @CreationTimestamp
