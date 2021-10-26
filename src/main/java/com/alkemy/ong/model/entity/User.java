@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -50,23 +49,15 @@ public class User {
   @Column(name = "PHOTO", nullable = true)
   private String photo;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-      name = "USER_ROLE",
-      joinColumns = {
-          @JoinColumn(name = "USER_ID")
-      },
-      inverseJoinColumns = {
-          @JoinColumn(name = "ROLE_ID")
-      }
-  )
+  @JoinColumn(name = "ROLES_ID")
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private List<Role> roles;
 
   @CreationTimestamp
-  @Column(name = "TIMESTAMP", nullable = false)
+  @Column(name = "TIMESTAMP", nullable = true)
   private Timestamp timestamp;
 
-  @Column(name = "SOFT_DELETED", nullable = false)
+  @Column(name = "SOFT_DELETED", nullable = true)
   private boolean softDeleted;
 }
 
