@@ -5,7 +5,11 @@ import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,19 +20,23 @@ import lombok.Setter;
 @Table(name="ORGANIZATIONS")
 public class Organization {
 
-	@Column(name="NAME")
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name="NAME",nullable = false)
 	private String name;
-	@Column(name="IMAGE")
+	@Column(name="IMAGE",nullable = false)
 	private String image;
-	@Column(name="ADDRESS")
+	@Column(name="ADDRESS",nullable = true)
 	private String address;
-	@Column(name="PHONE")
+	@Column(name="PHONE",nullable = true)
 	private Integer phone;
-	@Column(name="EMAIL")
+	@Column(name="EMAIL",nullable = false)
 	private String email;
-	@Column(name="WELCOME_TEXT")
+	@Column(name="WELCOME_TEXT",nullable = false)
 	private String welcomeText;
-	@Column(name="ABOUT_US_TEXT")
+	@Column(name="ABOUT_US_TEXT",nullable = true)
 	private String aboutUsText;
 	@Column(name="TIMESTAMP")
 	private Timestamp timeStamp;
