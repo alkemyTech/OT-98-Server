@@ -20,8 +20,6 @@ public class ResponseUser {
 
   private String photo;
 
-  private String role;
-
   private Timestamp timestamp;
 
 }

@@ -2,7 +2,6 @@ package com.alkemy.ong.model.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,10 +30,5 @@ public class RequestUser {
   @NotBlank
   @Size(min = 4, max = 250)
   private String password;
-
-  private String photo;
-
-  @NotNull
-  private String role;
 
 }
