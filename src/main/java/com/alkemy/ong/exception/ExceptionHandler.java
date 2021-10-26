@@ -15,4 +15,9 @@ public class ExceptionHandler {
     return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
   }
 
+  @org.springframework.web.bind.annotation.ExceptionHandler(SendEmailException.class)
+  public ResponseEntity<?> handleSendEmailException(HttpServletRequest request,
+      SendEmailException e) {
+    return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
+  }
 }
