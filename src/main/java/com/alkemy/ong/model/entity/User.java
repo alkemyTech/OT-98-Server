@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 import java.util.List;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "USERS")
@@ -29,7 +30,7 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Setter(AccessLevel.NONE)
-  @Column(name = "ID")
+  @Column(name = "USERS_ID")
   private Long id;
 
   @Column(name = "FIRST_NAME", nullable = false)
@@ -59,6 +60,7 @@ public class User {
   )
   private List<Role> roles;
 
+  @CreationTimestamp
   @Column(name = "TIMESTAMP", nullable = false)
   private Timestamp timestamp;
 
