@@ -60,7 +60,7 @@ public class User {
   private List<Role> roles;
 
   @Column(name = "TIMESTAMP", nullable = false)
-  private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+  private Timestamp timestamp;
 
   @Column(name = "SOFT_DELETED", nullable = false)
   private boolean softDeleted;
