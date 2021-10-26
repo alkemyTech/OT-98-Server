@@ -25,7 +25,8 @@ public class EmailHelper {
     Email from = new Email(emailFrom);
     String subject = emailBody.getSubject();
     Email to = new Email(emailBody.getEmailTo());
-    Content content = emailBody.getEmailContent();
+    Content content =
+        new Content(emailBody.getContent().getType(), emailBody.getContent().getValue());
 
     Mail mail = new Mail(from, subject, to, content);
     SendGrid sendGrid = new SendGrid(sendGridToken);
