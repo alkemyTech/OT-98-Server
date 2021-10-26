@@ -15,14 +15,8 @@ public class OrganizationResponse {
 
   private String image;
 
-  private String address;
-
   private int phone;
 
-  private String email;
-
-  private String welcomeText;
-
-  private String aboutUsText;
+  private String address;
 
 }
