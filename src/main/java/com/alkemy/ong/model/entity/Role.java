@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
@@ -17,7 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "ROLES")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
@@ -31,10 +32,10 @@ public class Role {
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "DESCRIPTION", nullable = false)
+  @Column(name = "DESCRIPTION", nullable = true)
   private String description;
 
   @CreationTimestamp
-  @Column(name = "TIMESTAMP", nullable = false)
+  @Column(name = "TIMESTAMP", nullable = true)
   private Timestamp timestamp;
 }
