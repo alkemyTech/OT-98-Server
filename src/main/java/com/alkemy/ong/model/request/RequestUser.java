@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.request;
 
-import com.alkemy.ong.model.entity.Role;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,26 +15,26 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class RequestUser {
 
-  @NotBlank(message = "This field must not be empty")
-  @Size(max = 250, message = "max error size")
+  @NotBlank
+  @Size(max = 250)
   private String firstName;
 
-  @NotBlank(message = "This field must not be empty")
-  @Size(max = 250, message = "max error size")
+  @NotBlank
+  @Size(max = 250)
   private String lastName;
 
-  @Email(message = "invalid email")
-  @NotBlank(message = "This field must not be empty")
-  @Size(max = 250, message = "max error size")
+  @Email
+  @NotBlank
+  @Size(max = 250)
   private String email;
 
-  @NotBlank(message = "This field must not be empty")
-  @Size(min = 4, max = 250, message = "min error")
+  @NotBlank
+  @Size(min = 4, max = 250)
   private String password;
 
   private String photo;
 
   @NotNull
-  private Role role;
+  private String role;
 
 }
