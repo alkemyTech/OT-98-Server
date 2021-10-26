@@ -20,7 +20,7 @@ public class EmailService {
   @Value("${email.sender.sendgrid.token}")
   private String sendGridToken;
 
-  public String sendEmail(IEmailSend emailBody) throws IOException {
+  public int sendEmail(IEmailSend emailBody) throws IOException {
     Email from = new Email(emailFrom);
     String subject = emailBody.getSubject();
     Email to = new Email(emailBody.getEmailTo());
@@ -35,7 +35,7 @@ public class EmailService {
       request.setEndpoint("mail/send");
       request.setBody(mail.build());
       Response response = sg.api(request);
-      return response.getBody();
+      return response.getStatusCode();
     } catch (IOException e) {
       throw e;
     }
