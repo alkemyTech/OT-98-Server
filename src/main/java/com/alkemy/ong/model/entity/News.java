@@ -1,8 +1,10 @@
 package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,21 +14,22 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "news")
-public class New {
+@Table(name = "NEWS")
+public class News {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "NEW_ID")
+  @Column(name = "NEWS_ID")
   @Setter(AccessLevel.NONE)
   private long id;
 
@@ -39,8 +42,8 @@ public class New {
   @Column(name = "IMAGE", nullable = false)
   private String image;
 
-  @ManyToOne
-  @JoinColumn(name = "CATEGORY_ID")
+  @JoinColumn(name = "CATEGORYES_ID")
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private Category category;
 
   @CreationTimestamp
