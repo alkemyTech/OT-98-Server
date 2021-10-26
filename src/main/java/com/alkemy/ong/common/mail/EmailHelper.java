@@ -2,8 +2,8 @@ package com.alkemy.ong.common.mail;
 
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import com.alkemy.ong.exception.SendEmailException;
-import com.alkemy.ong.util.emailsender.IEmailSend;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -12,6 +12,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
+@Service
 public class EmailHelper {
   @Value("${email.sender.from}")
   private String emailFrom;
@@ -21,7 +22,7 @@ public class EmailHelper {
 
   private static final String SEND_ENDPOINT = "mail/send";
 
-  public void send(IEmailSend emailBody) throws IOException, SendEmailException {
+  public void send(IEmail emailBody) throws SendEmailException {
     Email from = new Email(emailFrom);
     String subject = emailBody.getSubject();
     Email to = new Email(emailBody.getEmailTo());

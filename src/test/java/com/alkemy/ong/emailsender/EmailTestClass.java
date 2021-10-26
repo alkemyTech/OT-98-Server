@@ -1,9 +1,9 @@
 package com.alkemy.ong.emailsender;
 
-import com.alkemy.ong.util.emailsender.IEmailSend;
-import com.sendgrid.helpers.mail.objects.Content;
+import com.alkemy.ong.common.mail.IContent;
+import com.alkemy.ong.common.mail.IEmail;
 
-public class EmailTestClass implements IEmailSend {
+public class EmailTestClass implements IEmail, IContent {
 
   @Override
   public String getEmailTo() {
@@ -16,8 +16,18 @@ public class EmailTestClass implements IEmailSend {
   }
 
   @Override
-  public Content getEmailContent() {
-    return new Content("text/plain", "Hii!, this is a test");
+  public IContent getContent() {
+    return this;
+  }
+
+  @Override
+  public String getType() {
+    return "text/plain";
+  }
+
+  @Override
+  public String getValue() {
+    return "Hi, this is a test";
   }
 
 }

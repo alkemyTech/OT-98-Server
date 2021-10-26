@@ -5,5 +5,5 @@ public interface IEmail {
 
   String getSubject();
 
-
+  IContent getContent();
 }
