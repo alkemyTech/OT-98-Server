@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
@@ -22,7 +23,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "USERS")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
