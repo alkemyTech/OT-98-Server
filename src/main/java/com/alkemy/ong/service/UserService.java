@@ -1,9 +1,7 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.common.validation.CustomExceptionMessages;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
-import com.alkemy.ong.exception.EmailAlreadyTakenException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
@@ -35,7 +33,7 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private IRoleService iRoleService;
+  private IRoleService roleService;
 
   private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(7);
 
@@ -70,23 +68,20 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
 
   @Override
   @Transactional
-  public User createUser(UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
-    if (userRepository.findByEmail(requestUser.getEmail()) != null) {
-      throw new EmailAlreadyTakenException(CustomExceptionMessages.EMAIL_ALREADY_TAKEN_MESSAGE);
-    }
+  public User createUser(UserRegisterRequest requestUser) {
     User user = new User();
     user.setFirstName(requestUser.getFirstName());
     user.setLastName(requestUser.getLastName());
     user.setEmail(requestUser.getEmail());
     user.setPassword(bCryptPasswordEncoder.encode(requestUser.getPassword()));
-    user.getRoles().add(iRoleService.findRoleByName("ROLE_USER"));
+    user.getRoles().add(roleService.findRoleByName("ROLE_USER"));
     userRepository.save(user);
     return user;
   }
 
   @Override
   @Transactional(readOnly = true)
-  public User findByEmail(String email) {
+  public User findEmail(String email) {
     return userRepository.findByEmail(email);
   }
 
