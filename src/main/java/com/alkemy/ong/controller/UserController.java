@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.alkemy.ong.common.validation.EmailValidation;
+import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRequest;
 import com.alkemy.ong.model.response.ErrorResponse;
@@ -21,11 +23,17 @@ public class UserController {
   @PostMapping(value = "auth/login")
   public ResponseEntity<?> validateUser(@RequestBody UserRequest userRequest) {
 
+    if (!EmailValidation.isValid(userRequest.getEmail())
+        || !PasswordValidation.isValid(userRequest.getPassword())) {
+      return ResponseEntity.badRequest()
+          .body(new ErrorResponse("Invalid email or password", HttpStatus.BAD_REQUEST.value()));
+    }
+
     User user = userService.validateUser(userRequest);
 
     if (user == null)
       return ResponseEntity.badRequest()
-          .body(new ErrorResponse("Invalid email or password", HttpStatus.BAD_REQUEST.value()));
+          .body(new ErrorResponse("Invalid credentials", HttpStatus.BAD_REQUEST.value()));
 
     return ResponseEntity.ok(new UserResponse(user));
   }

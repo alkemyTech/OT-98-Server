@@ -20,15 +20,11 @@ public class UserService {
   public User validateUser(UserRequest toValidate) {
     User user = userRepository.findByEmail(toValidate.getEmail());
 
-    if (user == null) {
+    if (user == null || !passwordEncoder.matches(toValidate.getPassword(), user.getPassword())) {
       return null;
     }
 
-    if (passwordEncoder.matches(toValidate.getPassword(), user.getPassword())) {
-      return user;
-    }
-
-    return null;
+    return user;
   }
 
 }
