@@ -1,9 +1,9 @@
 package com.alkemy.ong.service.abstraction;
 
-import org.springframework.http.ResponseEntity;
+import com.alkemy.ong.model.response.OrganizationResponse;
 
 public interface IOrganizationService {
 
-  ResponseEntity<?> getOrganizationDetails();
+  OrganizationResponse getOrganizationDetails();
 
 }
