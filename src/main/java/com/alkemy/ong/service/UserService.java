@@ -7,6 +7,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.alkemy.ong.common.validation.EmailValidation;
+import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.repository.IUserRepository;
@@ -25,7 +28,13 @@ public class UserService {
   private AuthenticationManager authManager;
 
   public User login(UserAuthenticationRequest toValidate)
-      throws EntityNotFoundException, AuthenticationException {
+      throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
+
+    if (!EmailValidation.isValid(toValidate.getEmail())
+        || !PasswordValidation.isValid(toValidate.getPassword())) {
+      throw new InvalidCredentialsException("Invalid email or password");
+    }
+
     User user = userRepository.findByEmail(toValidate.getEmail());
 
     if (user == null) {

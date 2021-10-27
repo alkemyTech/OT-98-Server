@@ -28,4 +28,10 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
   }
 
+  @org.springframework.web.bind.annotation.ExceptionHandler(InvalidCredentialsException.class)
+  public ResponseEntity<?> hanldeInvalidCredentiaslException(HttpServletRequest request,
+      InvalidCredentialsException e) {
+    return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
+  }
+
 }
