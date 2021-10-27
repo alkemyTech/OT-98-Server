@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.UserRequest;
+import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.response.ErrorResponse;
 import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.service.UserService;
@@ -23,7 +23,7 @@ public class UserController {
 
   @PostMapping(value = "auth/login", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> validateUser(@RequestBody UserRequest userRequest) {
+  public ResponseEntity<?> validateUser(@RequestBody UserAuthenticationRequest userRequest) {
 
     if (!EmailValidation.isValid(userRequest.getEmail())
         || !PasswordValidation.isValid(userRequest.getPassword())) {
