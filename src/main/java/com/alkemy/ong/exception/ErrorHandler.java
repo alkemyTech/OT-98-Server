@@ -1,6 +1,7 @@
 package com.alkemy.ong.exception;
 
 import com.alkemy.ong.model.response.ErrorResponse;
+import java.io.IOException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,17 @@ public class ErrorHandler {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<?> handleException(HttpServletRequest request, Exception e) {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.INTERNAL_SERVER_ERROR));
+  }
+
+  @ExceptionHandler(IOException.class)
+  public ResponseEntity<?> handleIOException(HttpServletRequest request, IOException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
+  @ExceptionHandler(SendEmailException.class)
+  public ResponseEntity<?> handleSendEmailException(HttpServletRequest request,
+      SendEmailException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
