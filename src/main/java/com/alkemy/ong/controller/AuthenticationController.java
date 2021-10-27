@@ -22,7 +22,7 @@ public class AuthenticationController {
 
   @PostMapping(value = "auth/login", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> validateUser(@RequestBody UserAuthenticationRequest userRequest)
+  public ResponseEntity<?> login(@RequestBody UserAuthenticationRequest userRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
     User user = authenticationService.login(userRequest);
     return ResponseEntity.ok(

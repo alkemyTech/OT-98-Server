@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements IAuthenticationService, UserDetailsService, IUserService {
+public class UserServiceImpl implements IAuthenticationService, UserDetailsService, IUserService {
 
   @Autowired
   private IUserRepository userRepository;

@@ -1,12 +1,14 @@
 package com.alkemy.ong.model.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class ErrorResponse {
 
-  private final String message;
-  private final int code;
+  private String message;
+  private int code;
 
   public ErrorResponse(Exception e, int code) {
     this(e.getMessage(), code);
