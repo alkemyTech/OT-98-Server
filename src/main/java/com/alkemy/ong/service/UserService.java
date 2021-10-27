@@ -24,7 +24,7 @@ public class UserService {
   @Autowired
   private AuthenticationManager authManager;
 
-  public User validateUser(UserAuthenticationRequest toValidate)
+  public User login(UserAuthenticationRequest toValidate)
       throws EntityNotFoundException, AuthenticationException {
     User user = userRepository.findByEmail(toValidate.getEmail());
 
