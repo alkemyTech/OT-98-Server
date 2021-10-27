@@ -20,7 +20,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
   public OrganizationResponse getOrganizationDetails() {
     Organization organization = organizationRepository.findAll().get(0);
     if (organization == null) {
-      throw new EntityNotFoundException("The requested resource could not be found");
+      throw new EntityNotFoundException("The requested resource could not be found.");
     }
 
     return OrganizationResponse.builder()
