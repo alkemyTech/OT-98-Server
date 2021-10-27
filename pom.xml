@@ -83,6 +83,10 @@
       <groupId>com.h2database</groupId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>com.sendgrid</groupId>
+    	<artifactId>sendgrid-java</artifactId>
+    </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>
