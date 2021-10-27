@@ -15,27 +15,36 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "TESTIMONIALS")
+@Table(name = "MEMBERS")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Testimonial {
+public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Setter(AccessLevel.NONE)
-  @Column(name = "TESTIMONIALS_ID")
+  @Column(name = "MEMBERS_ID")
   private long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE")
+  @Column(name = "FACEBOOK_URL")
+  private String facebookUrl;
+
+  @Column(name = "INSTAGRAM_URL")
+  private String instagramUrl;
+
+  @Column(name = "LINKEDIN_URL")
+  private String linkedinUrl;
+
+  @Column(name = "IMAGE", nullable = false)
   private String image;
 
-  @Column(name = "CONTENT")
-  private String content;
+  @Column(name = "DESCRIPTION")
+  private String description;
 
   @Column(name = "TIMESTAMPS")
   @CreationTimestamp
@@ -43,5 +52,4 @@ public class Testimonial {
 
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;
-
 }

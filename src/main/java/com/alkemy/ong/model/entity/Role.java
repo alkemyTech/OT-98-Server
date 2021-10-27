@@ -15,33 +15,27 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "TESTIMONIALS")
+@Table(name = "ROLES")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Testimonial {
+@AllArgsConstructor
+public class Role {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Setter(AccessLevel.NONE)
-  @Column(name = "TESTIMONIALS_ID")
-  private long id;
+  @Column(name = "ROLES_ID")
+  private Long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE")
-  private String image;
+  @Column(name = "DESCRIPTION", nullable = true)
+  private String description;
 
-  @Column(name = "CONTENT")
-  private String content;
-
-  @Column(name = "TIMESTAMPS")
   @CreationTimestamp
-  private Timestamp timestamps;
-
-  @Column(name = "SOFT_DELETE")
-  private boolean softDelete;
+  @Column(name = "TIMESTAMP", nullable = true)
+  private Timestamp timestamp;
 
 }

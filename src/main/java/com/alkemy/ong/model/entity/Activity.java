@@ -15,27 +15,27 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "TESTIMONIALS")
+@Table(name = "ACTIVITIES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Testimonial {
+public class Activity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Setter(AccessLevel.NONE)
-  @Column(name = "TESTIMONIALS_ID")
+  @Column(name = "ACTIVITIES_ID")
   private long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE")
-  private String image;
-
-  @Column(name = "CONTENT")
+  @Column(name = "CONTENT", nullable = false)
   private String content;
+
+  @Column(name = "IMAGE", nullable = false)
+  private String image;
 
   @Column(name = "TIMESTAMPS")
   @CreationTimestamp
