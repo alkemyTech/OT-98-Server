@@ -1,6 +1,7 @@
 package com.alkemy.ong.emailsender;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,7 @@ import com.alkemy.ong.common.mail.EmailHelper;
 import com.alkemy.ong.exception.SendEmailException;
 
 @SpringBootTest
+@Disabled
 public class EmailSendTest {
 
   @Autowired
