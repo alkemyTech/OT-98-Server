@@ -13,7 +13,6 @@ import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserService;
 import java.text.MessageFormat;
-import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService implements IAuthenticationService, UserDetailsService, IUserService {
@@ -48,7 +47,7 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
       throw new InvalidCredentialsException("Invalid email or password.");
     }
 
-    User user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
+    User user = userRepository.findByEmail(authenticationRequest.getEmail());
     if (user == null) {
       throw new EntityNotFoundException("User not found.");
     }
@@ -61,7 +60,7 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(username).orElseThrow();
+    User user = userRepository.findByEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException(
           MessageFormat.format("User {0} not found.", username));
@@ -70,6 +69,7 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
   }
 
   @Override
+  @Transactional
   public User createUser(UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
     if (userRepository.findByEmail(requestUser.getEmail()) != null) {
       throw new EmailAlreadyTakenException(CustomExceptionMessages.EMAIL_ALREADY_TAKEN_MESSAGE);
@@ -80,11 +80,13 @@ public class UserService implements IAuthenticationService, UserDetailsService, 
     user.setEmail(requestUser.getEmail());
     user.setPassword(bCryptPasswordEncoder.encode(requestUser.getPassword()));
     user.getRoles().add(iRoleService.findRoleByName("ROLE_USER"));
+    userRepository.save(user);
     return user;
   }
 
   @Override
-  public Optional<User> findByEmail(String email) {
+  @Transactional(readOnly = true)
+  public User findByEmail(String email) {
     return userRepository.findByEmail(email);
   }
 
