@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User.UserBuilder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
@@ -31,8 +30,8 @@ public class UserService implements UserDetailsService {
   @Autowired
   private AuthenticationManager authManager;
 
-  public User login(UserAuthenticationRequest toValidate)
-      throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
+  public User login(UserAuthenticationRequest toValidate) throws EntityNotFoundException,
+      AuthenticationException, InvalidCredentialsException, UsernameNotFoundException {
 
     if (!EmailValidation.isValid(toValidate.getEmail())
         || !PasswordValidation.isValid(toValidate.getPassword())) {
