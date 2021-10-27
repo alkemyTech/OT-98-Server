@@ -25,6 +25,7 @@ public class UserController {
   public ResponseEntity<?> validateUser(@RequestBody UserAuthenticationRequest userRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
     User user = userService.login(userRequest);
-    return ResponseEntity.ok(new UserResponse(user));
+    return ResponseEntity.ok(new UserResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPassword(), user.getPhoto()));
   }
 }
