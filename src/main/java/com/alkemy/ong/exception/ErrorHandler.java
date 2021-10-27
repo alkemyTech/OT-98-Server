@@ -11,8 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(value = Exception.class)
-  public ResponseEntity<GenericErrorResponse> NotAcceptableException(Exception e){
+  @ExceptionHandler(value = OrganizationNotAcceptableException.class)
+  public ResponseEntity<GenericErrorResponse> HandleOrganizationNotAcceptableException(OrganizationNotAcceptableException e){
     GenericErrorResponse genericErrorResponse = new GenericErrorResponse(e.getMessage(),
         HttpStatus.NOT_ACCEPTABLE, LocalDateTime.now());
     return new ResponseEntity(genericErrorResponse, HttpStatus.NOT_ACCEPTABLE);
