@@ -52,13 +52,13 @@ public class ErrorHandler {
 
   @ExceptionHandler(IOException.class)
   public ResponseEntity<?> handleIOException(HttpServletRequest request, IOException e) {
-    return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(SendEmailException.class)
   public ResponseEntity<?> handleSendEmailException(HttpServletRequest request,
       SendEmailException e) {
-    return ResponseEntity.badRequest().body(new ErrorResponse(e, HttpStatus.BAD_REQUEST.value()));
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
