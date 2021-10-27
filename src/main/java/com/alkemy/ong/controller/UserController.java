@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @PostMapping(value = "auth/login")
+  @PostMapping(value = "auth/login", consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> validateUser(@RequestBody UserRequest userRequest) {
 
     if (!EmailValidation.isValid(userRequest.getEmail())
