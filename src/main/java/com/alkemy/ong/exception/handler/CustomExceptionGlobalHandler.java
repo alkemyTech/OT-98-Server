@@ -2,7 +2,7 @@ package com.alkemy.ong.exception.handler;
 
 import com.alkemy.ong.exception.AbstractGeneralException;
 import com.alkemy.ong.exception.EmailAlreadyTakenException;
-import com.alkemy.ong.model.response.error.ErrorResponse;
+import com.alkemy.ong.exception.response.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

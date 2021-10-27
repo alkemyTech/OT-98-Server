@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.response.error;
+package com.alkemy.ong.exception.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

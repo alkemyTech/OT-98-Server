@@ -18,13 +18,11 @@ public class UserService implements IUserService {
 
   private final IUserRepository userRepository;
 
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  public BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(7);
 
-  public UserService(IRoleService roleService, IUserRepository userRepository,
-      BCryptPasswordEncoder bCryptPasswordEncoder) {
+  public UserService(IRoleService roleService, IUserRepository userRepository) {
     this.roleService = roleService;
     this.userRepository = userRepository;
-    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
 
   @Override

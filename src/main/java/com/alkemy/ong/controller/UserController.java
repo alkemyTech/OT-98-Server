@@ -20,7 +20,7 @@ public class UserController {
     this.iUserService = iUserService;
   }
 
-  @PostMapping("/auth/register")
+  @PostMapping(value = "/auth/register")
   public ResponseEntity<UserRegisterResponse> registerUser(
       @Valid @RequestBody UserRegisterRequest requestUser) {
     User user = iUserService.createUser(requestUser);
