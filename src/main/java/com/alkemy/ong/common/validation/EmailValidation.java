@@ -13,8 +13,8 @@ public class EmailValidation {
       return false;
     }
 
-    Pattern p = java.util.regex.Pattern.compile(EMAIL_PATTERN);
-    Matcher m = p.matcher(email);
-    return m.matches();
+    Pattern pattern = java.util.regex.Pattern.compile(EMAIL_PATTERN);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
   }
 }
