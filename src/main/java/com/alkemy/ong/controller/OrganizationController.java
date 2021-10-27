@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.response.OrganizationResponse;
+import com.alkemy.ong.exception.ErrorHandler;
 import com.alkemy.ong.service.OrganizationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +17,12 @@ public class OrganizationController {
   OrganizationServiceImpl organizationService;
 
   @GetMapping("/public")
-  public ResponseEntity<?> publicInformation() throws Exception {
+  public ResponseEntity<?> getOrganizationDetails(){
     try {
-      OrganizationResponse organization = organizationService.getOrganization();
-      return new ResponseEntity<>(organization, HttpStatus.OK);
+      return new ResponseEntity<>(organizationService.getOrganizationDetails().getBody(), HttpStatus.OK);
     }catch (Exception e){
-      return ResponseEntity.badRequest().body("");
+      return new ErrorHandler().NotAcceptableException(e);
     }
-
 
   }
 

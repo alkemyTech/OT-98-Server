@@ -1,17 +1,21 @@
 package com.alkemy.ong.exception;
 
+import com.alkemy.ong.exception.response.GenericErrorResponse;
+import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ErrorHandler {
+public class ErrorHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(value = Exception.class)
-  public ResponseEntity<Object> databaseConnection(Exception e){
-    ResponseEntity response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND );
-    return response;
+  public ResponseEntity<GenericErrorResponse> NotAcceptableException(Exception e){
+    GenericErrorResponse genericErrorResponse = new GenericErrorResponse(e.getMessage(),
+        HttpStatus.NOT_ACCEPTABLE, LocalDateTime.now());
+    return new ResponseEntity(genericErrorResponse, HttpStatus.NOT_ACCEPTABLE);
   }
 
 }

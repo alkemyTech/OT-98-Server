@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "13d50d33-86e1-48c8-be49-4c1e1039569a",
+		"name": "SomosMas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "organization",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/organization/public",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"organization",
+								"public"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

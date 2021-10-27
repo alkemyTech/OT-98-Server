@@ -1,13 +1,7 @@
 package com.alkemy.ong.model.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Builder
 public class OrganizationResponse {
 
@@ -19,4 +13,19 @@ public class OrganizationResponse {
 
   private String address;
 
+  public String getName() {
+    return name;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public int getPhone() {
+    return phone;
+  }
+
+  public String getAddress() {
+    return address;
+  }
 }
