@@ -28,8 +28,8 @@ public class UserService implements IAuthenticationService, UserDetailsService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  public User login(UserAuthenticationRequest authenticationRequest)
-      throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
+  public User login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
+      AuthenticationException, InvalidCredentialsException {
 
     if (!EmailValidation.isValid(authenticationRequest.getEmail())
         || !PasswordValidation.isValid(authenticationRequest.getPassword())) {
@@ -41,8 +41,9 @@ public class UserService implements IAuthenticationService, UserDetailsService {
       throw new EntityNotFoundException("User not found.");
     }
 
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+    authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
+            authenticationRequest.getPassword()));
 
     return user;
   }
@@ -51,7 +52,8 @@ public class UserService implements IAuthenticationService, UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username);
     if (user == null) {
-      throw new UsernameNotFoundException(MessageFormat.format("User {0} not found.", username));
+      throw new UsernameNotFoundException(
+          MessageFormat.format("User {0} not found.", username));
     }
     return user;
   }

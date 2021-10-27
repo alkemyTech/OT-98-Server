@@ -1,8 +1,5 @@
 package com.alkemy.ong.common.mail;
 
-import java.io.IOException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import com.alkemy.ong.exception.SendEmailException;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -11,9 +8,13 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import java.io.IOException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmailHelper {
+
   @Value("${email.sender.from}")
   private String emailFrom;
 
@@ -39,8 +40,9 @@ public class EmailHelper {
       request.setBody(mail.build());
       Response response = sendGrid.api(request);
 
-      if (!(response.getStatusCode() >= 200 || response.getStatusCode() < 300))
+      if (!(response.getStatusCode() >= 200 || response.getStatusCode() < 300)) {
         throw new SendEmailException("The email has not sent");
+      }
 
     } catch (IOException e) {
       throw new SendEmailException(e.getMessage());
