@@ -6,16 +6,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ErrorHandler extends ResponseEntityExceptionHandler {
+public class ErrorHandler {
 
-  @ExceptionHandler(value = OrganizationNotAcceptableException.class)
-  public ResponseEntity<GenericErrorResponse> HandleOrganizationNotAcceptableException(OrganizationNotAcceptableException e){
+  @ExceptionHandler(value = OrganizationNotFoundException.class)
+  public ResponseEntity<GenericErrorResponse> handleOrganizationNotFoundException(
+      OrganizationNotFoundException e){
     GenericErrorResponse genericErrorResponse = new GenericErrorResponse(e.getMessage(),
-        HttpStatus.NOT_ACCEPTABLE, LocalDateTime.now());
-    return new ResponseEntity(genericErrorResponse, HttpStatus.NOT_ACCEPTABLE);
+        HttpStatus.NOT_FOUND.value(), LocalDateTime.now());
+    return new ResponseEntity(genericErrorResponse, HttpStatus.NOT_FOUND);
   }
 
 }

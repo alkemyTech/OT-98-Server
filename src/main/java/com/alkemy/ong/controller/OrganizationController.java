@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.exception.OrganizationNotAcceptableException;
+import com.alkemy.ong.exception.OrganizationNotFoundException;
 import com.alkemy.ong.service.OrganizationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +17,7 @@ public class OrganizationController {
   OrganizationServiceImpl organizationService;
 
   @GetMapping("/public")
-  public ResponseEntity<?> getOrganizationDetails(){
-    try {
+  public ResponseEntity<?> getOrganizationDetails() throws OrganizationNotFoundException {
       return new ResponseEntity<>(organizationService.getOrganizationDetails().getBody(), HttpStatus.OK);
-    }catch (OrganizationNotAcceptableException e){
-      throw new OrganizationNotAcceptableException("El servidor no es capaz de devolver los datos en ninguno de los formatos aceptados");
-    }
-
   }
-
 }

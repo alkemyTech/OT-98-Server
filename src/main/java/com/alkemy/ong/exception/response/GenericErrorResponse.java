@@ -1,19 +1,18 @@
 package com.alkemy.ong.exception.response;
 
 import java.time.LocalDateTime;
-import org.springframework.http.HttpStatus;
 
 public class GenericErrorResponse {
 
   private String message;
 
-  private HttpStatus httpStatus;
+  private int code;
 
   private LocalDateTime date;
 
-  public GenericErrorResponse(String message, HttpStatus httpStatus, LocalDateTime date) {
+  public GenericErrorResponse(String message, int code, LocalDateTime date) {
     this.message = message;
-    this.httpStatus = httpStatus;
+    this.code = code;
     this.date = date;
   }
 }
