@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.request;
 
+import com.alkemy.ong.common.CustomErrorMessageModelValidation;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -14,21 +15,21 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class RequestUser {
 
-  @NotBlank
-  @Size(max = 250)
+  @NotBlank(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
+  @Size(max = 250, message = CustomErrorMessageModelValidation.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String firstName;
 
-  @NotBlank
-  @Size(max = 250)
+  @NotBlank(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
+  @Size(max = 250, message = CustomErrorMessageModelValidation.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String lastName;
 
-  @Email
-  @NotBlank
-  @Size(max = 250)
+  @Email(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMAIL_ERROR_MESSAGE)
+  @NotBlank(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
+  @Size(max = 250, message = CustomErrorMessageModelValidation.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String email;
 
-  @NotBlank
-  @Size(min = 4, max = 250)
+  @NotBlank(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
+  @Size(max = 250, message = CustomErrorMessageModelValidation.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String password;
 
 }
