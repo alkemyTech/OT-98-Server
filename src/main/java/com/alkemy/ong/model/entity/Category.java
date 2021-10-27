@@ -28,9 +28,8 @@ public class Category {
   @Setter(AccessLevel.NONE)
   private long id;
 
-  @Column(name = "NAME")
+  @Column(name = "NAME", nullable = false)
   private String name;
-
 
   @Column(name = "DESCRIPTION", nullable = true)
   private String description;
@@ -44,7 +43,5 @@ public class Category {
 
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;
-
-
 
 }
