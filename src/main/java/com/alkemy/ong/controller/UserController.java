@@ -1,8 +1,8 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RequestUser;
-import com.alkemy.ong.model.response.ResponseUser;
+import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IUserService;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,22 +21,14 @@ public class UserController {
   }
 
   @PostMapping("/auth/register")
-  public ResponseEntity<ResponseUser> registerUser(@Valid @RequestBody RequestUser requestUser) {
-    if (iUserService.findByEmail(requestUser.getEmail()) != null) {
-      try {
-        throw new Exception("Email already taken");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+  public ResponseEntity<UserRegisterResponse> registerUser(
+      @Valid @RequestBody UserRegisterRequest requestUser) {
     User user = iUserService.createUser(requestUser);
-    ResponseUser responseUser = new ResponseUser();
-    responseUser.setId(user.getId());
-    responseUser.setFirstsName(user.getFirstName());
-    responseUser.setLastName(user.getLastName());
-    responseUser.setPhoto(user.getPhoto());
-    responseUser.setTimestamp(user.getTimestamp());
-    return new ResponseEntity<ResponseUser>(responseUser, HttpStatus.OK);
+    UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
+    userRegisterResponse.setId(user.getId());
+    userRegisterResponse.setFirstsName(user.getFirstName());
+    userRegisterResponse.setLastName(user.getLastName());
+    return new ResponseEntity<UserRegisterResponse>(userRegisterResponse, HttpStatus.OK);
   }
 
 }

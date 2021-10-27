@@ -1,11 +1,12 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.common.validation.CustomExceptionMessages;
+import com.alkemy.ong.exception.EmailAlreadyTakenException;
 import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RequestUser;
+import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserService;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,10 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public User createUser(RequestUser requestUser) throws NoSuchElementException {
+  public User createUser(UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
     userRepository.findByEmail(requestUser.getEmail()).ifPresent(user -> {
-      try {
-        throw new Exception("Email already taken");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      throw new EmailAlreadyTakenException(CustomExceptionMessages.EMAIL_ALREADY_TAKEN_CODE,
+          CustomExceptionMessages.EMAIL_ALREADY_TAKEN_MESSAGE);
     });
     User user = new User();
     user.setFirstName(requestUser.getFirstName());

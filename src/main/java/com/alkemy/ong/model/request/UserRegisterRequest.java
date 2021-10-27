@@ -1,6 +1,6 @@
 package com.alkemy.ong.model.request;
 
-import com.alkemy.ong.common.CustomErrorMessageModelValidation;
+import com.alkemy.ong.common.validation.CustomErrorMessageModelValidation;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class RequestUser {
+public class UserRegisterRequest {
 
   @NotBlank(message = CustomErrorMessageModelValidation.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   @Size(max = 250, message = CustomErrorMessageModelValidation.REQUEST_PARAM_MAX_ERROR_MESSAGE)
