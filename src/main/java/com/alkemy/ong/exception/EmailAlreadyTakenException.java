@@ -1,23 +1,11 @@
 package com.alkemy.ong.exception;
 
-import org.springframework.http.HttpStatus;
+public class EmailAlreadyTakenException extends Exception {
 
-public class EmailAlreadyTakenException extends AbstractGeneralException {
+  private static final long serialVersionUID = 1L;
 
-  private final String code;
-
-  public EmailAlreadyTakenException(String code, String message) {
+  public EmailAlreadyTakenException(String message) {
     super(message);
-    this.code = code;
   }
 
-  @Override
-  public String getErrorCode() {
-    return code;
-  }
-
-  @Override
-  public HttpStatus getStatus() {
-    return HttpStatus.BAD_REQUEST;
-  }
 }
