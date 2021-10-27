@@ -1,17 +1,16 @@
 package com.alkemy.ong.controller;
 
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.alkemy.ong.common.validation.EmailValidation;
-import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
 import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.service.UserService;
 
@@ -23,20 +22,9 @@ public class UserController {
 
   @PostMapping(value = "auth/login", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> validateUser(@RequestBody UserAuthenticationRequest userRequest) {
-
-    if (!EmailValidation.isValid(userRequest.getEmail())
-        || !PasswordValidation.isValid(userRequest.getPassword())) {
-      return ResponseEntity.badRequest()
-          .body(new ErrorResponse("Invalid email or password", HttpStatus.BAD_REQUEST.value()));
-    }
-
-    User user = userService.validateUser(userRequest);
-
-    if (user == null)
-      return ResponseEntity.badRequest()
-          .body(new ErrorResponse("Invalid credentials", HttpStatus.BAD_REQUEST.value()));
-
+  public ResponseEntity<?> validateUser(@RequestBody UserAuthenticationRequest userRequest)
+      throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
+    User user = userService.login(userRequest);
     return ResponseEntity.ok(new UserResponse(user));
   }
 }
