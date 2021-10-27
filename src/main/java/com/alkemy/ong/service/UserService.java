@@ -15,7 +15,7 @@ public class UserService {
   private IUserRepository userRepository;
 
   @Autowired
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private BCryptPasswordEncoder passwordEncoder;
 
   public User validateUser(UserRequest toValidate) {
     User user = userRepository.findByEmail(toValidate.getEmail());
@@ -24,7 +24,7 @@ public class UserService {
       return null;
     }
 
-    if (bCryptPasswordEncoder.encode(toValidate.getPassword()).equals(user.getPassword())) {
+    if (passwordEncoder.matches(toValidate.getPassword(), user.getPassword())) {
       return user;
     }
 
