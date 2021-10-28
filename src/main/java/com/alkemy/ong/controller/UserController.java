@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.exception.EmailAlreadyTakenException;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
@@ -20,7 +21,7 @@ public class UserController {
 
   @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> registerUser(
-      @Valid @RequestBody UserRegisterRequest requestUser) {
+      @Valid @RequestBody UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
     User user = userService.createUser(requestUser);
     UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
     userRegisterResponse.setId(user.getId());

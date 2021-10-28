@@ -1,8 +1,11 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.common.validation.CustomExceptionMessages;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.exception.EmailAlreadyTakenException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
@@ -11,6 +14,8 @@ import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserService;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -68,13 +73,18 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public User createUser(UserRegisterRequest requestUser) {
+  public User createUser(UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
+    if (userRepository.findByEmail(requestUser.getEmail()) != null) {
+      throw new EmailAlreadyTakenException(CustomExceptionMessages.EMAIL_ALREADY_TAKEN_MESSAGE);
+    }
     User user = new User();
     user.setFirstName(requestUser.getFirstName());
     user.setLastName(requestUser.getLastName());
     user.setEmail(requestUser.getEmail());
     user.setPassword(bCryptPasswordEncoder.encode(requestUser.getPassword()));
-    user.getRoles().add(roleService.findRoleByName("ROLE_USER"));
+    List<Role> roles = new ArrayList<Role>();
+    roles.add(roleService.findRoleByName("ROLE_USER"));
+    user.setRoles(roles);
     userRepository.save(user);
     return user;
   }
