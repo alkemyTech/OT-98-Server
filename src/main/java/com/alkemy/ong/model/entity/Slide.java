@@ -23,22 +23,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Slide {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SLIDES_ID", nullable = false)
-    @Setter(AccessLevel.NONE)
-    private long id;
 
-    @Column(name = "IMAGE_URL")
-    private String image_Url;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "SLIDES_ID", nullable = false)
+  @Setter(AccessLevel.NONE)
+  private long id;
 
-    @Column(name = "TEXT")
-    private String text;
+  @Column(name = "IMAGE_URL")
+  private String image_Url;
 
-    @Column(name = "SLIDE_ORDER")
-    private int order;
+  @Column(name = "TEXT")
+  private String text;
 
-    @JoinColumn(name = "ORGANIZATION_ID")
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    private Organization organizationId;
+  @Column(name = "SLIDE_ORDER")
+  private int order;
+
+  @JoinColumn(name = "ORGANIZATION_ID")
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  private Organization organizationId;
+
 }
