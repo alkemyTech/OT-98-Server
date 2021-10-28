@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,9 +49,10 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
         new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
             authenticationRequest.getPassword()));
 
+    User user = (User) loadUserByUsername(authenticationRequest.getEmail());
 
     String jwt = "Bearer "+jwtUtil.generateToken(loadUserByUsername(authenticationRequest.getEmail()));
-    User user = userRepository.findByEmail(authenticationRequest.getEmail());
+     userRepository.findByEmail(authenticationRequest.getEmail());
     return new UserDetailsResponse(
         user.getId(),
         user.getFirstName(),
@@ -67,16 +66,11 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(email);
-    UserBuilder userBuilder = null;
-    if (user != null) {
-      userBuilder = org.springframework.security.core.userdetails.User.withUsername(email);
-      userBuilder.disabled(false);
-      userBuilder.password(bCryptPasswordEncoder.encode(user.getPassword()));
-      userBuilder.authorities(new SimpleGrantedAuthority("ROL_USER"));
-    } else {
+    if (user == null) {
       throw new UsernameNotFoundException(
           MessageFormat.format("User {0} not found.", email));
     }
-    return userBuilder.build();
+    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    return user;
   }
 }
