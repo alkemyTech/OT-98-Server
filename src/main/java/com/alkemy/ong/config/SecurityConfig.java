@@ -1,6 +1,6 @@
 package com.alkemy.ong.config;
 
-import com.alkemy.ong.service.UserServiceImpl;
+import com.alkemy.ong.service.UserRegisterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private UserServiceImpl userDetailsService;
+  private UserRegisterServiceImpl userDetailsService;
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {

@@ -1,18 +1,16 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.common.validation.CustomExceptionMessages;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
-import com.alkemy.ong.exception.EmailAlreadyTakenException;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
-import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IRoleService;
-import com.alkemy.ong.service.abstraction.IUserService;
+import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl implements IAuthenticationService, UserDetailsService, IUserService {
+public class UserRegisterServiceImpl implements IAuthenticationService, UserDetailsService,
+    IUserRegisterService {
 
   @Autowired
   private IUserRepository userRepository;
@@ -40,7 +39,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   @Autowired
   private IRoleService roleService;
 
-  private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(7);
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public User login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
       AuthenticationException, InvalidCredentialsException {
@@ -73,26 +73,20 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public User createUser(UserRegisterRequest requestUser) throws EmailAlreadyTakenException {
+  public User register(UserRegisterRequest requestUser) throws EmailAlreadyExistException {
     if (userRepository.findByEmail(requestUser.getEmail()) != null) {
-      throw new EmailAlreadyTakenException(CustomExceptionMessages.EMAIL_ALREADY_TAKEN_MESSAGE);
+      throw new EmailAlreadyExistException();
     }
     User user = new User();
     user.setFirstName(requestUser.getFirstName());
     user.setLastName(requestUser.getLastName());
     user.setEmail(requestUser.getEmail());
     user.setPassword(bCryptPasswordEncoder.encode(requestUser.getPassword()));
-    List<Role> roles = new ArrayList<Role>();
-    roles.add(roleService.findRoleByName("ROLE_USER"));
+    List roles = new ArrayList<>();
+    roles.add(roleService.findBy("ROLE_USER"));
     user.setRoles(roles);
     userRepository.save(user);
     return user;
-  }
-
-  @Override
-  @Transactional(readOnly = true)
-  public User findEmail(String email) {
-    return userRepository.findByEmail(email);
   }
 
 }

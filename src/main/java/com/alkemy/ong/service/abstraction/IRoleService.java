@@ -4,6 +4,6 @@ import com.alkemy.ong.model.entity.Role;
 
 public interface IRoleService {
 
-  Role findRoleByName(String name);
+  Role findBy(String name);
 
 }

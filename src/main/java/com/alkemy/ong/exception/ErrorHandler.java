@@ -33,9 +33,9 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.UNAUTHORIZED));
   }
 
-  @ExceptionHandler(EmailAlreadyTakenException.class)
+  @ExceptionHandler(EmailAlreadyExistException.class)
   public ResponseEntity<?> handleEmailAlreadyTaken(HttpServletRequest request,
-      EmailAlreadyTakenException e) {
+      EmailAlreadyExistException e) {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
