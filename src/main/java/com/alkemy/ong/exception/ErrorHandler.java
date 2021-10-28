@@ -33,6 +33,12 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.UNAUTHORIZED));
   }
 
+  @ExceptionHandler(EmailAlreadyExistException.class)
+  public ResponseEntity<?> handleEmailAlreadyExist(HttpServletRequest request,
+      EmailAlreadyExistException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
   @ExceptionHandler(UsernameNotFoundException.class)
   public ResponseEntity<?> handleUsernameNotFoundException(HttpServletRequest request,
       UsernameNotFoundException e) {

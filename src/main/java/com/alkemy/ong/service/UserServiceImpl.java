@@ -2,12 +2,19 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
+import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IRoleService;
+import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,17 +23,27 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl implements IAuthenticationService, UserDetailsService {
+public class UserServiceImpl
+    implements IAuthenticationService, UserDetailsService, IUserRegisterService {
+
+  private static final String ROLE_USER = "ROLE_USER";
 
   @Autowired
   private IUserRepository userRepository;
 
   @Autowired
   private AuthenticationManager authenticationManager;
+
+  @Autowired
+  private IRoleService roleService;
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public User login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
       AuthenticationException, InvalidCredentialsException {
@@ -48,7 +65,6 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     return user;
   }
 
-  @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username);
     if (user == null) {
@@ -57,4 +73,24 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     }
     return user;
   }
+
+  @Override
+  @Transactional
+  public User register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+    if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
+      throw new EmailAlreadyExistException();
+    }
+
+    User user = new User();
+    user.setFirstName(registerRequest.getFirstName());
+    user.setLastName(registerRequest.getLastName());
+    user.setEmail(registerRequest.getEmail());
+    user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
+    List<Role> roles = new ArrayList<>();
+    roles.add(roleService.findBy(ROLE_USER));
+    user.setRoles(roles);
+    userRepository.save(user);
+    return user;
+  }
+
 }
