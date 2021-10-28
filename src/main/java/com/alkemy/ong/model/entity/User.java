@@ -2,7 +2,9 @@ package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -52,7 +55,7 @@ public class User implements UserDetails {
   private String photo;
 
   @JoinColumn(name = "ROLES_ID")
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   private List<Role> roles;
 
   @CreationTimestamp
@@ -64,7 +67,13 @@ public class User implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    if (roles == null) {
+      return Collections.emptyList();
+    }
+
+    return roles.stream()
+        .map(role -> new SimpleGrantedAuthority(role.getName()))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -89,9 +98,6 @@ public class User implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return !softDeleted;
   }
-
 }
-
-
