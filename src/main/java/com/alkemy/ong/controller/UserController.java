@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @Autowired
-  public IUserRegisterService userService;
+  public IUserRegisterService registerService;
 
   @Autowired
   public ConvertUtils convertUtils;
 
   @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> register(
-      @Valid @RequestBody UserRegisterRequest requestUser) throws EmailAlreadyExistException {
-    User user = userService.register(requestUser);
+      @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+    User user = registerService.register(registerRequest);
     UserRegisterResponse userRegisterResponse = convertUtils.toResponse(user);
-    return new ResponseEntity<UserRegisterResponse>(userRegisterResponse, HttpStatus.CREATED);
+    return new ResponseEntity<>(userRegisterResponse, HttpStatus.CREATED);
   }
 
 }

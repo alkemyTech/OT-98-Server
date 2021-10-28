@@ -34,7 +34,7 @@ public class ErrorHandler {
   }
 
   @ExceptionHandler(EmailAlreadyExistException.class)
-  public ResponseEntity<?> handleEmailAlreadyTaken(HttpServletRequest request,
+  public ResponseEntity<?> handleEmailAlreadyExist(HttpServletRequest request,
       EmailAlreadyExistException e) {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }

@@ -6,6 +6,6 @@ import com.alkemy.ong.model.request.UserRegisterRequest;
 
 public interface IUserRegisterService {
 
-  User register(UserRegisterRequest requestUser) throws EmailAlreadyExistException;
+  User register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException;
 
 }
