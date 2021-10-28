@@ -1,8 +1,11 @@
 package com.alkemy.ong.config;
+import com.alkemy.ong.model.entity.Role;
+import com.alkemy.ong.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,11 @@ public class JwtUtil {
 
   public String generateToken(UserDetails userDetails) {
     Map<String, Object> claims = new HashMap<>();
+    User user = (User) userDetails;
+
+    for(Role role :user.getRoles()) {
+      claims.put(role.getId().toString(),role.getDescription());
+    }
     return createToken(claims, userDetails.getUsername());
   }
 
