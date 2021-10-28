@@ -22,30 +22,28 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "CONTACTS")
-
 public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CONTACTS_ID", nullable = false)
-    @Setter(AccessLevel.NONE)
-    private long id;
 
-    @Column(name = "NAME")
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "CONTACTS_ID", nullable = false)
+  @Setter(AccessLevel.NONE)
+  private long id;
 
-    @Column(name = "PHONE")
-    private String phone;
+  @Column(name = "NAME")
+  private String name;
 
-    @Column(name = "EMAIL")
-    private String email;
+  @Column(name = "PHONE")
+  private String phone;
 
-    @Column(name = "MESSAGE")
-    private String message;
+  @Column(name = "EMAIL")
+  private String email;
 
-    @Column(name = "DELETED_AT")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deletedAt;
+  @Column(name = "MESSAGE")
+  private String message;
 
-    private boolean softDelete= Boolean.FALSE;
+  @Column(name = "DELETED_AT")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date deletedAt;
 
 }
