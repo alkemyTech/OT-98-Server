@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
   private static final String BEARER_PART = "Bearer ";
-
+  private static final String SPACE = " ";
   @Autowired
   private UserServiceImpl userDetailService;
 
