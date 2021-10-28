@@ -74,7 +74,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
       userBuilder.password(bCryptPasswordEncoder.encode(user.getPassword()));
       userBuilder.authorities(new SimpleGrantedAuthority("ROL_USER"));
     } else {
-      throw new UsernameNotFoundException("Usuario no registrado");
+      throw new UsernameNotFoundException(
+          MessageFormat.format("User {0} not found.", email));
     }
     return userBuilder.build();
   }

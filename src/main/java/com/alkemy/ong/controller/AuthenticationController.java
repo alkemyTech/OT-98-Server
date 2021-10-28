@@ -1,7 +1,6 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.InvalidCredentialsException;
-import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
@@ -29,4 +28,5 @@ public class AuthenticationController {
     UserDetailsResponse user = authenticationService.login(userRequest);
     return ResponseEntity.ok(user);
   }
+
 }
