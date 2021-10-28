@@ -18,13 +18,11 @@
         <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
-        <groupId>com.rudikershaw.gitbuildhook</groupId>
         <artifactId>git-build-hook-maven-plugin</artifactId>
-        <version>3.0.0</version>
         <configuration>
           <installHooks>
             <pre-push>./etc/hooks/pre-push.sh</pre-push>
@@ -37,6 +35,8 @@
             </goals>
           </execution>
         </executions>
+        <groupId>com.rudikershaw.gitbuildhook</groupId>
+        <version>3.0.0</version>
       </plugin>
     </plugins>
 
@@ -69,6 +69,17 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
@@ -79,9 +90,13 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
+      <groupId>com.h2database</groupId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sendgrid</groupId>
+      <artifactId>sendgrid-java</artifactId>
     </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>

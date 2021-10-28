@@ -12,8 +12,8 @@ from [Google Java Style Guide](https://google.github.io/styleguide/javaguide.htm
 - Exceptions should be handled by ErrorHandler class. This class should be an implementation of
   ControllerAdvice.
 - All the configuration stuffs must go in the config package.
-- The name of abstract classes should start with prefix "Abstract". Example: "AbstractFileAttribute"
-  .
+- The name of abstract classes should start with prefix "Abstract". Example: "AbstractFile".
+- The integration test should go into the integration package.
 
 The code style for this repository is the used by [Google](https://github.com/google/styleguide).
 So, make sure to set up your IDE with the right code style format file.
