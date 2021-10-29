@@ -55,7 +55,7 @@ public class User implements UserDetails {
   private String photo;
 
   @JoinColumn(name = "ROLES_ID")
-  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private List<Role> roles;
 
   @CreationTimestamp
@@ -67,11 +67,7 @@ public class User implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    if (roles == null) {
-      return Collections.emptyList();
-    }
-
-    return roles.stream()
+    return this.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName()))
         .collect(Collectors.toList());
   }

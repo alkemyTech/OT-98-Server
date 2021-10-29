@@ -22,14 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final UserDetailsService userDetailsService;
-  private final JwtRequestFilter jwtRequestFilter;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
   @Autowired
-  public SecurityConfig(UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
-    this.userDetailsService = userDetailsService;
-    this.jwtRequestFilter = jwtRequestFilter;
-  }
+  private JwtRequestFilter jwtRequestFilter;
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
