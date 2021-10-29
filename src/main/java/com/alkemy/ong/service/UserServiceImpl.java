@@ -2,11 +2,13 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
+import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
@@ -34,6 +36,9 @@ public class UserServiceImpl
   private static final String ROLE_USER = "ROLE_USER";
 
   @Autowired
+  private JwtUtil jwtUtil;
+
+  @Autowired
   private IUserRepository userRepository;
 
   @Autowired
@@ -45,7 +50,7 @@ public class UserServiceImpl
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  public User login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
+  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
       AuthenticationException, InvalidCredentialsException {
 
     if (!EmailValidation.isValid(authenticationRequest.getEmail())
@@ -62,7 +67,14 @@ public class UserServiceImpl
         new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
             authenticationRequest.getPassword()));
 
-    return user;
+    return new UserDetailsResponse(
+        user.getId(),
+        user.getFirstName(),
+        user.getLastName(),
+        user.getEmail(),
+        user.getPassword(),
+        user.getPhoto(),
+        jwtUtil.generateToken(user));
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
