@@ -49,11 +49,11 @@ public class UserServiceImpl
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
-          AuthenticationException, InvalidCredentialsException {
+  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
+      throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
 
     if (!EmailValidation.isValid(authenticationRequest.getEmail())
-            || !PasswordValidation.isValid(authenticationRequest.getPassword())) {
+        || !PasswordValidation.isValid(authenticationRequest.getPassword())) {
       throw new InvalidCredentialsException("Invalid email or password.");
     }
 
@@ -63,24 +63,23 @@ public class UserServiceImpl
     }
 
     authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-                    authenticationRequest.getPassword()));
+        new UsernamePasswordAuthenticationToken(
+            authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
     return new UserDetailsResponse(
-            user.getId(),
-            user.getFirstName(),
-            user.getLastName(),
-            user.getEmail(),
-            user.getPassword(),
-            user.getPhoto(),
-            jwtUtil.generateToken(user));
+        user.getId(),
+        user.getFirstName(),
+        user.getLastName(),
+        user.getEmail(),
+        user.getPassword(),
+        user.getPhoto(),
+        jwtUtil.generateToken(user));
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username);
     if (user == null) {
-      throw new UsernameNotFoundException(
-              MessageFormat.format("User {0} not found.", username));
+      throw new UsernameNotFoundException(MessageFormat.format("User {0} not found.", username));
     }
     return user;
   }
