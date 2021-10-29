@@ -30,10 +30,6 @@ public class JwtUtil {
     return extractClaim(token, Claims::getExpiration);
   }
 
-//  public String getUsernameFromToken(String token){
-//    return extractAllClaims(token).;
-//  }
-
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
@@ -47,27 +43,9 @@ public class JwtUtil {
   }
 
   public String generateToken(User user) {
-    System.out.println("llego");
-    System.out.println(user.getAuthorities());
-    //List<String> claims = new List<String>();
-   // Map<String,List<String>> claims2 = new HashMap<String,List<String>>();
-    //claims = ;
     UserDetails userDetails = (UserDetails) user;
     List<String> claims = new ArrayList<String>();
-    claims = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
-
     claims = user.getRoles().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-    System.out.println(claims);
-   // Map <String,String> map = new HashMap <String,String>();
-
-    //claims2.put();
-//    System.out.println(claims);
-//    for(Role role :user.getRoles()) {
-//      claims.add(role.getName());
-//      //claims.put(role.getId().toString(),role.getDescription());
-//
-//    }
-    //map.put("Roles",claims.get(0));
     return createToken(claims, user.getUsername());
   }
 
