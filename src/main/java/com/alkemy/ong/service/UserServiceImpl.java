@@ -1,20 +1,5 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.common.validation.EmailValidation;
-import com.alkemy.ong.common.validation.PasswordValidation;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.exception.EmailAlreadyExistException;
-import com.alkemy.ong.exception.InvalidCredentialsException;
-import com.alkemy.ong.model.entity.Role;
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.UserAuthenticationRequest;
-import com.alkemy.ong.model.request.UserRegisterRequest;
-import com.alkemy.ong.model.response.UserDetailsResponse;
-import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.IAuthenticationService;
-import com.alkemy.ong.service.abstraction.IRoleService;
-import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +14,36 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.common.validation.EmailValidation;
+import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.exception.EmailAlreadyExistException;
+import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.model.entity.Role;
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.UserAuthenticationRequest;
+import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
+import com.alkemy.ong.model.response.UserDetailsResponse;
+import com.alkemy.ong.repository.IUserRepository;
+import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IRoleService;
+import com.alkemy.ong.service.abstraction.IUserRegisterService;
 
 @Service
-public class UserServiceImpl
-    implements IAuthenticationService, UserDetailsService, IUserRegisterService {
+public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
+    IUserRegisterService, IAuthenticatedUserDetails {
 
   @Autowired
   private JwtUtil jwtUtil;
 
   @Autowired
   private IUserRepository userRepository;
+
+  @Autowired
+  public IAuthenticatedUserDetails authenticatedUserDetails;
 
   @Autowired
   private AuthenticationManager authenticationManager;
@@ -49,6 +54,7 @@ public class UserServiceImpl
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
 
@@ -62,25 +68,18 @@ public class UserServiceImpl
       throw new EntityNotFoundException("User not found.");
     }
 
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-            authenticationRequest.getPassword()));
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
-    return new UserDetailsResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPassword(),
-        user.getPhoto(),
-        jwtUtil.generateToken(user));
+    return new UserDetailsResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPassword(), user.getPhoto(), jwtUtil.generateToken(user));
   }
 
+  @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(username);
     if (user == null) {
-      throw new UsernameNotFoundException(
-          MessageFormat.format("User {0} not found.", username));
+      throw new UsernameNotFoundException(MessageFormat.format("User {0} not found.", username));
     }
     return user;
   }
@@ -102,6 +101,18 @@ public class UserServiceImpl
     user.setRoles(roles);
     userRepository.save(user);
     return user;
+  }
+
+  @Override
+  public UserAuthenticatedMeResponse getUserDetails(String authorizationHeader) {
+
+    String username = jwtUtil.extractUsername(authorizationHeader);
+
+    User user = (User) authenticatedUserDetails.loadUserByUsername(username);
+
+    return new UserAuthenticatedMeResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPhoto());
+
   }
 
 }

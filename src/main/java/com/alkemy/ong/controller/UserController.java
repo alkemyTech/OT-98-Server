@@ -15,9 +15,8 @@ import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
-import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
-import com.alkemy.ong.service.UserServiceImpl;
+import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 
 @RestController
@@ -27,13 +26,16 @@ public class UserController {
   public IUserRegisterService registerService;
 
   @Autowired
+  public IAuthenticatedUserDetails authenticatedUserDetails;
+
+  @Autowired
   public ConvertUtils convertUtils;
 
   @Autowired
   private JwtUtil jwtUtil;
 
-  @Autowired
-  private UserServiceImpl userServiceImpl;
+  // @Autowired
+  // private UserServiceImpl userServiceImpl;
 
   @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,20 +47,11 @@ public class UserController {
   }
 
   @GetMapping(value = "auth/me")
-  public ResponseEntity<?> returnAuthenticatedUser(
+  public ResponseEntity<?> getAuthenticatedUserDetails(
       @RequestHeader(value = "Authorization") String authorizationHeader) {
 
-    String username;
-
-    username = jwtUtil.extractUsername(authorizationHeader);
-
-    User user = (User) userServiceImpl.loadUserByUsername(username);
-
-    UserAuthenticatedMeResponse userAuthenticatedMeResponse = new UserAuthenticatedMeResponse(
-        user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoto());
-
-    return new ResponseEntity<>(userAuthenticatedMeResponse, HttpStatus.ACCEPTED);
-
+    return new ResponseEntity<>(authenticatedUserDetails.getUserDetails(authorizationHeader),
+        HttpStatus.OK);
   }
 
 }
