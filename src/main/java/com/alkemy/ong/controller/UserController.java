@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.model.entity.User;
@@ -31,19 +30,17 @@ public class UserController {
   @Autowired
   public ConvertUtils convertUtils;
 
-  @Autowired
-  private JwtUtil jwtUtil;
-
-  @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = "/auth/register",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> register(@Valid @RequestBody UserRegisterRequest registerRequest)
-      throws EmailAlreadyExistException {
+  public ResponseEntity<?> register(
+      @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
     User user = registerService.register(registerRequest);
     UserRegisterResponse userRegisterResponse = convertUtils.toResponse(user);
     return new ResponseEntity<>(userRegisterResponse, HttpStatus.CREATED);
   }
 
-  @GetMapping(value = "auth/me")
+  @GetMapping(value = "auth/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getAuthenticatedUserDetails(
       @RequestHeader(value = "Authorization") String authorizationHeader) {
     return new ResponseEntity<>(authenticatedUserDetails.getUserDetails(authorizationHeader),

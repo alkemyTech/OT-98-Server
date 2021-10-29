@@ -68,11 +68,18 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
       throw new EntityNotFoundException("User not found.");
     }
 
-    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-        authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+    authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
+            authenticationRequest.getPassword()));
 
-    return new UserDetailsResponse(user.getId(), user.getFirstName(), user.getLastName(),
-        user.getEmail(), user.getPassword(), user.getPhoto(), jwtUtil.generateToken(user));
+    return new UserDetailsResponse(
+        user.getId(),
+        user.getFirstName(),
+        user.getLastName(),
+        user.getEmail(),
+        user.getPassword(),
+        user.getPhoto(),
+        jwtUtil.generateToken(user));
   }
 
   @Override
