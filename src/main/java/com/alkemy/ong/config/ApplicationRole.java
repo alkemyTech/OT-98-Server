@@ -4,13 +4,18 @@ public enum ApplicationRole {
   USER("USER"),
   ADMIN("ADMIN");
 
-  private final String roleName;
+  private final String name;
+  private static final String ROLE_PREFIX = "ROLE_";
 
-  ApplicationRole(String roleName) {
-    this.roleName = roleName;
+  ApplicationRole(String name) {
+    this.name = name;
   }
 
-  public String getRoleName() {
-    return roleName;
+  public String getName() {
+    return name;
+  }
+
+  public String getFullRoleName() {
+    return ROLE_PREFIX + name;
   }
 }
