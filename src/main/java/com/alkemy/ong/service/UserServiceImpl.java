@@ -47,6 +47,7 @@ public class UserServiceImpl
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  @Autowired
   private IRoleService roleService;
 
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
