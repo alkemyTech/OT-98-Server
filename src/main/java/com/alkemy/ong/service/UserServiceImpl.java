@@ -45,14 +45,12 @@ public class UserServiceImpl
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-  @Autowired
   private IRoleService roleService;
 
-  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
-      throws EntityNotFoundException,
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
       AuthenticationException, InvalidCredentialsException {
 
     if (!EmailValidation.isValid(authenticationRequest.getEmail())
@@ -60,14 +58,15 @@ public class UserServiceImpl
       throw new InvalidCredentialsException("Invalid email or password.");
     }
 
+    User user = userRepository.findByEmail(authenticationRequest.getEmail());
+    if (user == null) {
+      throw new EntityNotFoundException("User not found.");
+    }
+
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
             authenticationRequest.getPassword()));
 
-    User user = (User) loadUserByUsername(authenticationRequest.getEmail());
-    System.out.println(user);
-    String jwt =
-        "Bearer " + jwtUtil.generateToken(user);
     userRepository.findByEmail(authenticationRequest.getEmail());
     return new UserDetailsResponse(
         user.getId(),
@@ -75,18 +74,16 @@ public class UserServiceImpl
         user.getLastName(),
         user.getEmail(),
         user.getPassword(),
-        user.getPhoto()
-        , jwt);
+        user.getPhoto(),
+        jwtUtil.generateToken(user));
   }
 
-  @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(email);
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findByEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException(
-          MessageFormat.format("User {0} not found.", email));
+          MessageFormat.format("User {0} not found.", username));
     }
-    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     return user;
   }
 

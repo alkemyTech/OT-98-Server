@@ -21,7 +21,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role implements GrantedAuthority {
+public class Role {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,4 @@ public class Role implements GrantedAuthority {
   @Column(name = "TIMESTAMP", nullable = true)
   private Timestamp timestamp;
 
-  @Override
-  public String getAuthority() {
-    return name;
-  }
 }
