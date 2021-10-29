@@ -21,7 +21,8 @@ public class AuthenticationController {
   @Autowired
   private IAuthenticationService authenticationService;
 
-  @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = "/login",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody UserAuthenticationRequest userRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
