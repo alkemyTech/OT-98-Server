@@ -1,4 +1,5 @@
 package com.alkemy.ong.config;
+
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.service.UserServiceImpl;
 import io.jsonwebtoken.Claims;
@@ -17,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+
   private static final String BEARER_PART = "Bearer ";
   private static final String SPACE = " ";
   @Autowired
@@ -34,8 +36,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     Boolean isTokenSet = authorizationHeader != null && authorizationHeader.startsWith(BEARER_PART);
     if (isTokenSet) {
-        jwt = authorizationHeader.replace(BEARER_PART, SPACE);
-        username = jwtUtil.extractUsername(jwt);
+      jwt = authorizationHeader.replace(BEARER_PART, SPACE);
+      username = jwtUtil.extractUsername(jwt);
     }
 
     Boolean userAuthenticated = username != null &&
@@ -46,7 +48,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
       if (jwtUtil.validateToken(jwt, userDetails)) {
         User user = (User) userDetails;
-         Claims claim = jwtUtil.extractAllClaims(jwt);
+        Claims claim = jwtUtil.extractAllClaims(jwt);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
             username,
             null,
