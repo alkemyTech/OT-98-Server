@@ -62,5 +62,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   private boolean isTokenSet(String authorizationHeader) {
     return authorizationHeader != null && authorizationHeader.startsWith(BEARER_PART);
   }
-
 }

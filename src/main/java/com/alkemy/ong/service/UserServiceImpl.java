@@ -3,6 +3,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;
@@ -32,8 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserServiceImpl
     implements IAuthenticationService, UserDetailsService, IUserRegisterService {
-
-  private static final String ROLE_USER = "ROLE_USER";
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -99,7 +98,7 @@ public class UserServiceImpl
     user.setEmail(registerRequest.getEmail());
     user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
     List<Role> roles = new ArrayList<>();
-    roles.add(roleService.findBy(ROLE_USER));
+    roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
     userRepository.save(user);
     return user;
