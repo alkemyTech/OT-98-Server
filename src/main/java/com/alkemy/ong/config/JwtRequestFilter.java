@@ -25,14 +25,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   private static final String EMPTY = "";
   private static final String AUTHORITIES = "authorities";
 
-  @Autowired private UserServiceImpl userDetailService;
+  @Autowired
+  private UserServiceImpl userDetailService;
 
-  @Autowired private JwtUtil jwtUtil;
+  @Autowired
+  private JwtUtil jwtUtil;
 
   @Override
-  protected void doFilterInternal(
-      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws ServletException, IOException {
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
     if (isTokenSet(authorizationHeader)) {
@@ -49,11 +50,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     Claims claims = jwtUtil.extractAllClaims(jwtToken);
     List<String> authorities = (List) claims.get(AUTHORITIES);
     if (authorities != null) {
-      UsernamePasswordAuthenticationToken auth =
-          new UsernamePasswordAuthenticationToken(
-              claims.getSubject(),
-              null,
-              authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+          claims.getSubject(), null,
+          authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
       SecurityContextHolder.getContext().setAuthentication(auth);
     } else {
       SecurityContextHolder.clearContext();
