@@ -64,9 +64,9 @@ public class UserServiceImpl
             authenticationRequest.getPassword()));
 
     User user = (User) loadUserByUsername(authenticationRequest.getEmail());
-
+    System.out.println(user);
     String jwt =
-        "Bearer " + jwtUtil.generateToken(loadUserByUsername(authenticationRequest.getEmail()));
+        "Bearer " + jwtUtil.generateToken(user);
     userRepository.findByEmail(authenticationRequest.getEmail());
     return new UserDetailsResponse(
         user.getId(),
