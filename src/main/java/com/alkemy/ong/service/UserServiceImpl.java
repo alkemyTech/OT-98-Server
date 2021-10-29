@@ -2,8 +2,8 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.config.JwtUtil;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl
-    implements IAuthenticationService, UserDetailsService, IUserRegisterService {
+        implements IAuthenticationService, UserDetailsService, IUserRegisterService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -44,48 +44,44 @@ public class UserServiceImpl
   private AuthenticationManager authenticationManager;
 
   @Autowired
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-  @Autowired
   private IRoleService roleService;
 
-  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
-      throws EntityNotFoundException,
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-      AuthenticationException, InvalidCredentialsException {
+  public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest) throws EntityNotFoundException,
+          AuthenticationException, InvalidCredentialsException {
 
     if (!EmailValidation.isValid(authenticationRequest.getEmail())
-        || !PasswordValidation.isValid(authenticationRequest.getPassword())) {
+            || !PasswordValidation.isValid(authenticationRequest.getPassword())) {
       throw new InvalidCredentialsException("Invalid email or password.");
     }
 
+    User user = userRepository.findByEmail(authenticationRequest.getEmail());
+    if (user == null) {
+      throw new EntityNotFoundException("User not found.");
+    }
+
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-            authenticationRequest.getPassword()));
+            new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
+                    authenticationRequest.getPassword()));
 
-    User user = (User) loadUserByUsername(authenticationRequest.getEmail());
-
-    String jwt =
-        "Bearer " + jwtUtil.generateToken(loadUserByUsername(authenticationRequest.getEmail()));
-    userRepository.findByEmail(authenticationRequest.getEmail());
     return new UserDetailsResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPassword(),
-        user.getPhoto()
-        , jwt);
+            user.getId(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            user.getPassword(),
+            user.getPhoto(),
+            jwtUtil.generateToken(user));
   }
 
-  @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(email);
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findByEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException(
-          MessageFormat.format("User {0} not found.", email));
+              MessageFormat.format("User {0} not found.", username));
     }
-    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     return user;
   }
 
