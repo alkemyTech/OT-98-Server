@@ -2,7 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
-import com.alkemy.ong.config.JwtUtil;
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;

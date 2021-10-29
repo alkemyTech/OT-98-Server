@@ -1,5 +1,6 @@
 package com.alkemy.ong.config;
 
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.service.UserServiceImpl;
 import io.jsonwebtoken.Claims;
