@@ -1,19 +1,5 @@
 package com.alkemy.ong.service;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
@@ -31,6 +17,20 @@ import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
@@ -105,14 +105,14 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   public UserAuthenticatedMeResponse getUserDetails(String authorizationHeader) {
-
     String username = jwtUtil.extractUsername(authorizationHeader);
-
-    User user = (User) authenticatedUserDetails.loadUserByUsername(username);
-
-    return new UserAuthenticatedMeResponse(user.getId(), user.getFirstName(), user.getLastName(),
-        user.getEmail(), user.getPhoto());
-
+    User user = (User) this.loadUserByUsername(username);
+    return new UserAuthenticatedMeResponse(
+        user.getId(),
+        user.getFirstName(),
+        user.getLastName(),
+        user.getEmail(),
+        user.getPhoto());
   }
 
 }
