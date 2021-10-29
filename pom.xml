@@ -44,8 +44,8 @@
   <dependencies>
     <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
     <dependency>
-      <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
+      <groupId>io.jsonwebtoken</groupId>
       <version>0.9.1</version>
     </dependency>
     <dependency>
@@ -75,15 +75,15 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.hamcrest</groupId>
           <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
         </exclusion>
       </exclusions>
+      <groupId>org.junit.vintage</groupId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -101,12 +101,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <groupId>com.sendgrid</groupId>
       <artifactId>sendgrid-java</artifactId>
+      <groupId>com.sendgrid</groupId>
     </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>

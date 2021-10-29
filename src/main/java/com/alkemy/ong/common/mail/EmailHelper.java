@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailHelper {
 
+  private static final String SEND_ENDPOINT = "mail/send";
   @Value("${email.sender.from}")
   private String emailFrom;
-
   @Value("${email.sender.sendgrid.token}")
   private String sendGridToken;
-
-  private static final String SEND_ENDPOINT = "mail/send";
 
   public void send(IEmail emailBody) throws SendEmailException {
     Email from = new Email(emailFrom);
