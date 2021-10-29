@@ -67,7 +67,6 @@ public class UserServiceImpl
         new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
             authenticationRequest.getPassword()));
 
-    userRepository.findByEmail(authenticationRequest.getEmail());
     return new UserDetailsResponse(
         user.getId(),
         user.getFirstName(),
