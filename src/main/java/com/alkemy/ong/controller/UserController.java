@@ -40,7 +40,7 @@ public class UserController {
     return new ResponseEntity<>(userRegisterResponse, HttpStatus.CREATED);
   }
 
-  @GetMapping(value = "auth/me", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/auth/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getAuthenticatedUserDetails(
       @RequestHeader(value = "Authorization") String authorizationHeader) {
     return new ResponseEntity<>(authenticatedUserDetails.getUserDetails(authorizationHeader),
