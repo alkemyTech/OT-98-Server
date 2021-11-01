@@ -55,6 +55,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
+  
+  @Autowired
+  private ConvertUtils convertUtils;
 
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
@@ -109,7 +112,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
-    return ConvertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
+    return convertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
   }
 
   @Override
