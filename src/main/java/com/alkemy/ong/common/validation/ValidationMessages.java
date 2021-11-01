@@ -14,7 +14,7 @@ public final class ValidationMessages {
 
   public static final String REQUEST_PARAM_RANGE_ERROR_MESSAGE = "The %s attribute must be more than {min} characters and must not be more than {max} characters";
 
-  public static final String REGEX_VALIDATION_STRING = "^[a-zA-Z]$";
+  public static final String REGEX_VALIDATION_STRING = "^([a-zA-Z]+)$";
 
   public static final String REGEX_VALIDATION_STRING_MESSAGE = "This field must not contain any numbers";
 
