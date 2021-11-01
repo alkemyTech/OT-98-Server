@@ -1,6 +1,7 @@
 package com.alkemy.ong.integration;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import java.util.List;
 import org.assertj.core.util.Lists;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
@@ -30,7 +32,7 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
 
   @Test
   public void shouldReturnBadRequestWhenTheEmailAlredyExist() {
-    when(userRepository.findByEmail("example@gmail.com")).thenReturn(new User());
+    when(userRepository.findByEmail(eq("example@gmail.com"))).thenReturn(new User());
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
     registerRequest.setFirstName("Example");
@@ -49,8 +51,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
 
   @Test
   public void shouldReturnJwtToken() {
-    when(roleService.findBy(any())).thenReturn(stubRole("USER"));
-    when(userRepository.save(any())).thenReturn(stubUser("USER"));
+    when(roleService.findBy(eq(ApplicationRole.USER.getFullRoleName())))
+        .thenReturn(stubRole("USER"));
+    when(userRepository.save(isA(User.class))).thenReturn(stubUser("USER"));
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
     registerRequest.setFirstName("Example");
