@@ -1,6 +1,6 @@
 amazonProperties:
   endpointUrl: https://s3.sa-east-1.amazonaws.com
-  aws_access_key_id: XXXXXXXXXXXXXXXXX
-  aws_secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXX
-  aws_region: sa-east-1
+  accessKeyId: foo
+  secretAccessKey: foo
+  region: sa-east-1
   bucketName: alkemy-ong

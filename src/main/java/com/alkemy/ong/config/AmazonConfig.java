@@ -14,11 +14,11 @@ public class AmazonConfig {
 
   @Value("${amazonProperties.endpointUrl}")
   private String endpointUrl;
-  @Value("${amazonProperties.aws_access_key_id}")
+  @Value("${amazonProperties.accessKeyId}")
   private String accessKey;
-  @Value("${amazonProperties.aws_secret_access_key}")
+  @Value("${amazonProperties.secretAccessKey}")
   private String secretKey;
-  @Value("${amazonProperties.aws_region}")
+  @Value("${amazonProperties.region}")
   private String region;
   @Value("${amazonProperties.bucketName}")
   private String bucketName;
