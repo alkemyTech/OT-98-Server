@@ -1,6 +1,8 @@
 package com.alkemy.ong.common.converter;
 
+import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import org.springframework.stereotype.Component;
 
@@ -15,4 +17,12 @@ public class ConvertUtils {
     userRegisterResponse.setEmail(user.getEmail());
     return userRegisterResponse;
   }
+
+  public CreateCategoryResponse toResponse(Category category) {
+    CreateCategoryResponse createCategoryResponse = new CreateCategoryResponse();
+    createCategoryResponse.setId(category.getId());
+    createCategoryResponse.setName(category.getName());
+    return createCategoryResponse;
+  }
+
 }
