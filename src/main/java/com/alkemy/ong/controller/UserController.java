@@ -33,8 +33,7 @@ public class UserController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserRegisterResponse> register(
       @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
-    String registerUser = registerService.register(registerRequest);
-    return new ResponseEntity<>(new UserRegisterResponse(registerUser), HttpStatus.CREATED);
+    return new ResponseEntity<>(registerService.register(registerRequest), HttpStatus.CREATED);
   }
 
   @GetMapping(value = "/auth/me", produces = MediaType.APPLICATION_JSON_VALUE)

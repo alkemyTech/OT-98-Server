@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.config.ApplicationRole;
@@ -12,6 +13,7 @@ import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
+import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
@@ -68,18 +70,11 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
       throw new EntityNotFoundException("User not found.");
     }
 
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-            authenticationRequest.getPassword()));
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
-    return new UserDetailsResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPassword(),
-        user.getPhoto(),
-        jwtUtil.generateToken(user));
+    return new UserDetailsResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPassword(), user.getPhoto(), jwtUtil.generateToken(user));
   }
 
   @Override
@@ -93,7 +88,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public String register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+  public UserRegisterResponse register(UserRegisterRequest registerRequest)
+      throws EmailAlreadyExistException {
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
@@ -106,21 +102,15 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
-    userRepository.save(user);
-
-    return jwtUtil.generateToken(user);
+    return ConvertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
   }
 
   @Override
   public UserAuthenticatedMeResponse getUserDetails(String authorizationHeader) {
     String username = jwtUtil.extractUsername(authorizationHeader);
     User user = (User) this.loadUserByUsername(username);
-    return new UserAuthenticatedMeResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPhoto());
+    return new UserAuthenticatedMeResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPhoto());
   }
 
 }
