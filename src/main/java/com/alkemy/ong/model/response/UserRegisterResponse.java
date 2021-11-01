@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@JsonRootName("User")
+@JsonRootName("user")
 @Getter
 @Setter
 @AllArgsConstructor
