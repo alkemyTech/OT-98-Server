@@ -29,7 +29,8 @@ public class UserController {
   @Autowired
   public ConvertUtils convertUtils;
 
-  @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = "/auth/register",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserRegisterResponse> register(
       @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
