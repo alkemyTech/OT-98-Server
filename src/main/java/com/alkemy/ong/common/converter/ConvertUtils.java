@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component("convertUtils")
 public class ConvertUtils {
 
+  private ConvertUtils() {}
+
   public static UserRegisterResponse toResponse(User user, String jwt) {
     UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
     userRegisterResponse.setId(user.getId());
