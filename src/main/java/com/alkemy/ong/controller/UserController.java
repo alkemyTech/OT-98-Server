@@ -31,8 +31,8 @@ public class UserController {
 
   @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> register(@Valid @RequestBody UserRegisterRequest registerRequest)
-      throws EmailAlreadyExistException {
+  public ResponseEntity<UserRegisterResponse> register(
+      @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
     String registerUser = registerService.register(registerRequest);
     return new ResponseEntity<>(new UserRegisterResponse(registerUser), HttpStatus.CREATED);
   }
