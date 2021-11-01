@@ -2,10 +2,12 @@ package com.alkemy.ong.integration;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import java.util.List;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,6 +24,9 @@ import com.alkemy.ong.model.response.UserRegisterResponse;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
+
+  @Autowired
+  private JwtUtil jwtUtil;
 
   @Test
   public void shouldReturnBadRequestWhenTheEmailAlredyExist() {
@@ -47,8 +52,6 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
     when(roleService.findBy(any())).thenReturn(stubRole("USER"));
     when(userRepository.save(any())).thenReturn(stubUser("USER"));
 
-    JwtUtil jwtUtil = new JwtUtil();
-
     UserRegisterRequest registerRequest = new UserRegisterRequest();
     registerRequest.setFirstName("Example");
     registerRequest.setLastName("Example");
@@ -60,8 +63,8 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
     ResponseEntity<UserRegisterResponse> response = this.restTemplate.exchange(
         createURLWithPort("/auth/register"), HttpMethod.POST, entity, UserRegisterResponse.class);
 
-    Assert.assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
-    Assert.assertEquals(response.getBody().getJwt(), jwtUtil.generateToken(stubUser("USER")));
+    Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    Assert.assertTrue(jwtUtil.validateToken(response.getBody().getJwt(), stubUser("USER")));
   }
 
   private Role stubRole(String name) {
@@ -71,13 +74,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   }
 
   private User stubUser(String role) {
-    User user = new User();
-    user.setEmail("example@gmail.com");
-    user.setPhoto("photo");
-    user.setFirstName("Example");
-    user.setLastName("Example");
-    user.setPassword("123456789");
-    user.setRoles(Lists.list(stubRole(role)));
+    List<Role> roles = Lists.list(stubRole(role));
+    User user = new User((long) 12, "Example", "Example", "example@gmail.com", "123456789", "photo",
+        roles, null, false);
     return user;
   }
 }
