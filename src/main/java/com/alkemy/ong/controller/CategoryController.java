@@ -24,7 +24,9 @@ public class CategoryController {
   @Autowired
   private ConvertUtils convertUtils;
 
-  @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/categories",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateCategoryResponse> create(
       @Valid @RequestBody CreateCategoryRequest createCategoryRequest)
       throws EntityAlreadyExistException {
