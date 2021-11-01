@@ -39,9 +39,9 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
-  @ExceptionHandler(CategoryNameAlreadyExistException.class)
-  public ResponseEntity<?> handleCategoryNameAlreadyExist(HttpServletRequest request,
-      CategoryNameAlreadyExistException e) {
+  @ExceptionHandler(EntityAlreadyExistException.class)
+  public ResponseEntity<?> handleEntityAlreadyExist(HttpServletRequest request,
+      EntityAlreadyExistException e) {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 

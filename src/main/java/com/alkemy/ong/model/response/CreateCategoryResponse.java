@@ -7,7 +7,7 @@ import lombok.Setter;
 @JsonRootName("category")
 @Getter
 @Setter
-public class CategoryCreationResponse {
+public class CreateCategoryResponse {
 
   private long id;
 

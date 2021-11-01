@@ -1,11 +1,11 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
-import com.alkemy.ong.exception.CategoryNameAlreadyExistException;
+import com.alkemy.ong.exception.EntityAlreadyExistException;
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.model.request.CategoryCreationRequest;
-import com.alkemy.ong.model.response.CategoryCreationResponse;
-import com.alkemy.ong.service.abstraction.ICategoryCreationService;
+import com.alkemy.ong.model.request.CreateCategoryRequest;
+import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.service.abstraction.ICreateCategoryService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
 
   @Autowired
-  private ICategoryCreationService categoryCreationService;
+  private ICreateCategoryService createCategoryService;
 
   @Autowired
   private ConvertUtils convertUtils;
 
   @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CategoryCreationResponse> creation(
-      @Valid @RequestBody CategoryCreationRequest categoryCreationRequest)
-      throws CategoryNameAlreadyExistException {
-    Category category = categoryCreationService.creation(categoryCreationRequest);
-    CategoryCreationResponse categoryCreationResponse = convertUtils.toResponse(category);
-    return new ResponseEntity<>(categoryCreationResponse, HttpStatus.CREATED);
+  public ResponseEntity<CreateCategoryResponse> create(
+      @Valid @RequestBody CreateCategoryRequest createCategoryRequest)
+      throws EntityAlreadyExistException {
+    Category category = createCategoryService.create(createCategoryRequest);
+    CreateCategoryResponse createCategoryResponse = convertUtils.toResponse(category);
+    return new ResponseEntity<>(createCategoryResponse, HttpStatus.CREATED);
   }
 
 }
