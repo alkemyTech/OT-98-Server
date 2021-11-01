@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
@@ -26,11 +25,7 @@ public class UserController {
   @Autowired
   public IAuthenticatedUserDetails authenticatedUserDetails;
 
-  @Autowired
-  public ConvertUtils convertUtils;
-
-  @PostMapping(value = "/auth/register",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = "/auth/register", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserRegisterResponse> register(
       @Valid @RequestBody UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
