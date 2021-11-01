@@ -24,8 +24,7 @@ public class JwtUtil {
   private static final String EMPTY = "";
 
   public String extractUsername(String authorizationHeader) {
-    String jwtToken = authorizationHeader.replace(BEARER_PART, EMPTY);
-    return extractClaim(jwtToken, Claims::getSubject);
+    return extractClaim(getTokenWithoutBearer(authorizationHeader), Claims::getSubject);
   }
 
   public Date extractExpiration(String token) {
@@ -38,14 +37,12 @@ public class JwtUtil {
   }
 
   public Claims extractAllClaims(String token) {
-    return Jwts.parser()
-        .setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))
-        .parseClaimsJws(token)
-        .getBody();
+    return Jwts.parser().setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))
+        .parseClaimsJws(token).getBody();
   }
 
   private boolean isTokenExpired(String token) {
-    return extractExpiration(token).before(new Date());
+    return extractExpiration(getTokenWithoutBearer(token)).before(new Date());
   }
 
   public String generateToken(UserDetails userDetails) {
@@ -54,16 +51,14 @@ public class JwtUtil {
   }
 
   private String createToken(String subject, String role) {
-    List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-        .commaSeparatedStringToAuthorityList(role);
+    List<GrantedAuthority> grantedAuthorities =
+        AuthorityUtils.commaSeparatedStringToAuthorityList(role);
 
     String token = Jwts.builder()
         .claim(AUTHORITIES,
-            grantedAuthorities.stream()
-                .map(GrantedAuthority::getAuthority)
+            grantedAuthorities.stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()))
-        .setSubject(subject)
-        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes(StandardCharsets.UTF_8)).compact();
     return String.format(BEARER_TOKEN, token);
@@ -72,5 +67,9 @@ public class JwtUtil {
   public boolean validateToken(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+  }
+
+  private String getTokenWithoutBearer(String header) {
+    return header.replace(BEARER_PART, EMPTY);
   }
 }
