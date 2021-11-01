@@ -24,7 +24,7 @@ public class JwtUtil {
   private static final String EMPTY = "";
 
   public String extractUsername(String authorizationHeader) {
-    return extractClaim(getTokenWithoutBearer(authorizationHeader), Claims::getSubject);
+    return extractClaim(getToken(authorizationHeader), Claims::getSubject);
   }
 
   public Date extractExpiration(String token) {
@@ -43,8 +43,8 @@ public class JwtUtil {
         .getBody();
   }
 
-  private boolean isTokenExpired(String token) {
-    return extractExpiration(getTokenWithoutBearer(token)).before(new Date());
+  private boolean isTokenExpired(String authorizationHeader) {
+    return extractExpiration(getToken(authorizationHeader)).before(new Date());
   }
 
   public String generateToken(UserDetails userDetails) {
@@ -73,7 +73,7 @@ public class JwtUtil {
     return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
   }
 
-  private String getTokenWithoutBearer(String header) {
-    return header.replace(BEARER_PART, EMPTY);
+  private String getToken(String authorizationHeader) {
+    return authorizationHeader.replace(BEARER_PART, EMPTY);
   }
 }
