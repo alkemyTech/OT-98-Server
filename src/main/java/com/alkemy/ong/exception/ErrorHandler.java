@@ -39,6 +39,12 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
+  @ExceptionHandler(CategoryNameAlreadyExistException.class)
+  public ResponseEntity<?> handleCategoryNameAlreadyExist(HttpServletRequest request,
+      CategoryNameAlreadyExistException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
   @ExceptionHandler(UsernameNotFoundException.class)
   public ResponseEntity<?> handleUsernameNotFoundException(HttpServletRequest request,
       UsernameNotFoundException e) {

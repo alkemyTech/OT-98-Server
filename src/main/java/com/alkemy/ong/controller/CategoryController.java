@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
+import com.alkemy.ong.exception.CategoryNameAlreadyExistException;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CategoryCreationRequest;
 import com.alkemy.ong.model.response.CategoryCreationResponse;
@@ -25,7 +26,8 @@ public class CategoryController {
 
   @PostMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CategoryCreationResponse> creation(
-      @Valid @RequestBody CategoryCreationRequest categoryCreationRequest) {
+      @Valid @RequestBody CategoryCreationRequest categoryCreationRequest)
+      throws CategoryNameAlreadyExistException {
     Category category = categoryCreationService.creation(categoryCreationRequest);
     CategoryCreationResponse categoryCreationResponse = convertUtils.toResponse(category);
     return new ResponseEntity<>(categoryCreationResponse, HttpStatus.CREATED);
