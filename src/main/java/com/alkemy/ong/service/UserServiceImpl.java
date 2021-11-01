@@ -68,18 +68,11 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
       throw new EntityNotFoundException("User not found.");
     }
 
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-            authenticationRequest.getPassword()));
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
-    return new UserDetailsResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPassword(),
-        user.getPhoto(),
-        jwtUtil.generateToken(user));
+    return new UserDetailsResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPassword(), user.getPhoto(), jwtUtil.generateToken(user));
   }
 
   @Override
@@ -93,7 +86,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public User register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+  public String register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
@@ -107,19 +100,16 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
     userRepository.save(user);
-    return user;
+
+    return jwtUtil.generateToken(user);
   }
 
   @Override
   public UserAuthenticatedMeResponse getUserDetails(String authorizationHeader) {
     String username = jwtUtil.extractUsername(authorizationHeader);
     User user = (User) this.loadUserByUsername(username);
-    return new UserAuthenticatedMeResponse(
-        user.getId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getEmail(),
-        user.getPhoto());
+    return new UserAuthenticatedMeResponse(user.getId(), user.getFirstName(), user.getLastName(),
+        user.getEmail(), user.getPhoto());
   }
 
 }
