@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.config.ApplicationRole;
@@ -12,6 +13,7 @@ import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
+import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
@@ -53,6 +55,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
+  
+  @Autowired
+  private ConvertUtils convertUtils;
 
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
@@ -93,7 +98,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public User register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+  public UserRegisterResponse register(UserRegisterRequest registerRequest)
+      throws EmailAlreadyExistException {
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
@@ -106,8 +112,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
-    userRepository.save(user);
-    return user;
+    return convertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
   }
 
   @Override

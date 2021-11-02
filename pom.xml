@@ -108,6 +108,13 @@
       <artifactId>sendgrid-java</artifactId>
       <groupId>com.sendgrid</groupId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
+    <dependency>
+      <artifactId>aws-java-sdk-s3</artifactId>
+      <groupId>com.amazonaws</groupId>
+      <version>1.12.99</version>
+    </dependency>
+
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>
