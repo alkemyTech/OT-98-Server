@@ -62,11 +62,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.POST, "/categories")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.GET, "/users")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .anyRequest()
         .authenticated()
         .and()
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling()
         .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+
   }
 }

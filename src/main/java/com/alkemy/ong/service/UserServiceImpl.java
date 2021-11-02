@@ -14,11 +14,10 @@ import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
-import com.alkemy.ong.service.abstraction.IAuthenticationService;
-import com.alkemy.ong.service.abstraction.IRoleService;
-import com.alkemy.ong.service.abstraction.IUserRegisterService;
+import com.alkemy.ong.service.abstraction.*;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails {
+    IUserRegisterService, IAuthenticatedUserDetails, IUserService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -127,4 +126,25 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
         user.getPhoto());
   }
 
+
+  @Override
+  @Transactional
+  public List<UserResponse> listAllAssets() {
+
+    List<User> users  = userRepository.findBySoftDeletedFalse();
+    List<UserResponse> usersResponse = new ArrayList<>();
+
+    for(User user : users){
+       usersResponse.add(UserResponse.builder()
+           .id(user.getId())
+           .firstName(user.getFirstName())
+           .lastName(user.getLastName())
+           .email(user.getEmail())
+           .photo(user.getPhoto())
+           .password(user.getPassword())
+           .build());
+    }
+
+    return usersResponse;
+  }
 }
