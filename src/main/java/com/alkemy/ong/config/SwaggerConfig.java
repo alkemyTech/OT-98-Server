@@ -26,9 +26,9 @@ public class SwaggerConfig {
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
-        .title("SOMOS MAS")
-        .description("Ong destinada a mejorar la calidad de vida de niños y familias en "
-            + "situacion de vulnerabilidad")
+        .title("Somos Mas")
+        .description("Social Organization aimed to helping children and families "
+            + "in vulnerable situations")
         .build();
   }
 
