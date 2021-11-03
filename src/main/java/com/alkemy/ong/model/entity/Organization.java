@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+import com.alkemy.ong.common.SocialMedia;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ORGANIZATIONS")
-public class Organization {
+public class Organization extends SocialMedia {
 
   @Id
   @Column(name = "ORGANIZATIONS_ID")
