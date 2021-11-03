@@ -1,10 +1,13 @@
-package com.alkemy.ong.common.imageUploader;
+package com.alkemy.ong.common;
 
 import java.util.UUID;
 
-public class ValidateFileName implements IValidateFileName {
+public class FileUtils {
 
-  public String validate(String fileName) {
+  private FileUtils() {
+  }
+
+  public static String getFileNameOrDefault(String fileName) {
     if (fileName == null || fileName.isEmpty()) {
       UUID uuid = UUID.randomUUID();
       return uuid.toString();
