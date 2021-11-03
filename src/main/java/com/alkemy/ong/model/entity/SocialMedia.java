@@ -1,4 +1,4 @@
-package com.alkemy.ong.common;
+package com.alkemy.ong.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

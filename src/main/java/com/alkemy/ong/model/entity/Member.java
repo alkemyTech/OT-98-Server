@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.entity;
 
-import com.alkemy.ong.common.SocialMedia;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
