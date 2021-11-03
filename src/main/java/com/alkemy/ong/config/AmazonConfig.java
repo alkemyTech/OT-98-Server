@@ -5,6 +5,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +24,16 @@ public class AmazonConfig {
   @Value("${amazonProperties.bucketName}")
   private String bucketName;
 
+  public String getEndpointUrl() {
+    return this.endpointUrl;
+  }
+
   public String getBucketName() {
     return this.bucketName;
   }
 
   @Bean
+  @PostConstruct
   public AmazonS3 initialize() {
     AWSCredentials awsCredentials =
         new BasicAWSCredentials(this.accessKey, this.secretKey);
