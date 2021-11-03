@@ -17,5 +17,5 @@ public class CreateNewsResponse {
   private String name;
   private String content;
   private String image;
-  private Category category;
+  private String nameCategory;
 }

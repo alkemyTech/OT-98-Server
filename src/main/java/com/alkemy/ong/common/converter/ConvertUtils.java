@@ -1,8 +1,10 @@
 package com.alkemy.ong.common.converter;
 
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateNewsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import org.springframework.stereotype.Component;
 
@@ -26,4 +28,13 @@ public class ConvertUtils {
     return createCategoryResponse;
   }
 
+
+  public CreateNewsResponse toResponse(News news) {
+    CreateNewsResponse createNewsResponse = new CreateNewsResponse();
+    createNewsResponse.setName(news.getName());
+    createNewsResponse.setContent(news.getContent());
+    createNewsResponse.setImage(news.getImage());
+    createNewsResponse.setNameCategory(news.getCategory().getName());
+    return createNewsResponse;
+  }
 }
