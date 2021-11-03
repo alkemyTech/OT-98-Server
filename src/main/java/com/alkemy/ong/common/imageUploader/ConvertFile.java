@@ -12,7 +12,6 @@ public class ConvertFile implements IConvertFile {
 
   public File convertInputstreamToFile(InputStream inputStream, String fileName, ContentType contentType) throws IOException {
     File file = File.createTempFile(fileName, contentType.getMimeType());
-
     try (FileOutputStream fos = new FileOutputStream(file, false)) {
       int read;
       byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
@@ -22,4 +21,5 @@ public class ConvertFile implements IConvertFile {
     }
     return file;
   }
+
 }

@@ -13,37 +13,25 @@ public class UploadImage {
 
   @Autowired
   private AmazonConfig amazonConfig;
-
   @Autowired
   private IValidateFileName validateFileName;
-
   @Autowired
   private IConvertFile convertFile;
-
   private AmazonS3 amazonS3 = amazonConfig.initialize();
 
-
   public String uploadImage(InputStream inputStream, String fileName, ContentType contentType) {
-
     String url = amazonConfig.getEndpointUrl();
     String bucketName = amazonConfig.getBucketName();
     String fileUrl = "";
-
     try {
       File file = convertFile.convertInputstreamToFile(inputStream, fileName, contentType);
-
       String validatedFileName = validateFileName.validate(fileName);
-
       fileUrl = url + "/" + bucketName + "/" + validatedFileName + "." + contentType.getMimeType();
-
       uploadImageTos3Bucket(validatedFileName, file, bucketName);
-
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     return fileUrl;
-
   }
 
   private void uploadImageTos3Bucket(String validatedFileName, File file, String bucketName) {
