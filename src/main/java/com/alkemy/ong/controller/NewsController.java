@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,8 @@ public class NewsController {
   private ConvertUtils convertUtils;
 
   @PostMapping
-  public ResponseEntity<CreateNewsResponse> create(@RequestBody CreateNewsRequest createNewsRequest)
+  public ResponseEntity<CreateNewsResponse> create(
+      @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
       throws EntityNotExistException {
     return ResponseEntity.ok(convertUtils.toResponse(createNewsService.create(createNewsRequest)));
   }
