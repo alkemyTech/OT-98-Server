@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.alkemy.ong.exception.EntityAlreadyExistException;
+import com.alkemy.ong.exception.EntityNotExistException;
 import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 
@@ -19,7 +19,7 @@ public class NewsController {
 
   @PostMapping
   public ResponseEntity<?> create(@RequestBody CreateNewsRequest createNewsRequest)
-      throws EntityAlreadyExistException {
+      throws EntityNotExistException {
     return ResponseEntity.ok(createNewsService.create(createNewsRequest));
   }
 }
