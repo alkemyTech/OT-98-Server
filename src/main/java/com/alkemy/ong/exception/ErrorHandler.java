@@ -73,6 +73,12 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
+  @ExceptionHandler(ExternalServiceException.class)
+  public ResponseEntity<?> handleExternalServiceException(HttpServletRequest request,
+      ExternalServiceException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
