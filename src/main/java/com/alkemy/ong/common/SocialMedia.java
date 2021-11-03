@@ -12,24 +12,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SocialMedia {
 
-  @Column(name = "URL_FACEBOOK")
-  private String urlFacebook;
+  @Column(name = "FACEBOOK_URL")
+  private String facebookUrl;
 
-  @Column(name = "URL_LINKEDIN")
-  private String urlLinkedin;
+  @Column(name = "LINKEDIN_URL")
+  private String linkedinUrl;
 
-  @Column(name = "URL_INSTAGRAM")
-  private String urlInstagram;
+  @Column(name = "INSTAGRAM_URL")
+  private String instagramUrl;
 
-  public void setUrlFacebook(String urlFacebook) {
-    this.urlFacebook = "https://www.facebook.com/" + urlFacebook;
+  public void setFacebookUrl(String accountId) {
+    this.facebookUrl = "https://www.facebook.com/" + accountId;
   }
 
-  public void setUrlLinkedin(String urlLinkedin) {
-    this.urlLinkedin = "https://www.linkedin.com/in/" + urlLinkedin;
+  public void setLinkedinUrl(String accountId) {
+    this.linkedinUrl = "https://www.linkedin.com/in/" + accountId;
   }
 
-  public void setUrlInstagram(String urlInstagram) {
-    this.urlInstagram = "https://www.instagram.com/" + urlInstagram;
+  public void setInstagramUrl(String accountId) {
+    this.instagramUrl = "https://www.instagram.com/" + accountId;
   }
 }

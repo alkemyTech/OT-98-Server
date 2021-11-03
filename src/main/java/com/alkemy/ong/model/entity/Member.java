@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+import com.alkemy.ong.common.SocialMedia;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Member extends SocialMedia {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +31,6 @@ public class Member {
 
   @Column(name = "NAME", nullable = false)
   private String name;
-
-  @Column(name = "FACEBOOK_URL")
-  private String facebookUrl;
-
-  @Column(name = "INSTAGRAM_URL")
-  private String instagramUrl;
-
-  @Column(name = "LINKEDIN_URL")
-  private String linkedinUrl;
 
   @Column(name = "IMAGE", nullable = false)
   private String image;
