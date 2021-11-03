@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UploadS3ObjectHelper {
+public class S3ObjectHelper {
 
   @Autowired
   private AmazonConfig amazonConfig;
