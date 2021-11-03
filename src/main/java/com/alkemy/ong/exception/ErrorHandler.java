@@ -73,6 +73,12 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
+  @ExceptionHandler(EntityNotExistException.class)
+  public ResponseEntity<?> handleEntityNotExistException(HttpServletRequest request,
+      EntityNotExistException e) {
+    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
