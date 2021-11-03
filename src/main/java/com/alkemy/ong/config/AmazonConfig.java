@@ -24,10 +24,6 @@ public class AmazonConfig {
   @Value("${amazonProperties.bucketName}")
   private String bucketName;
 
-  public String getEndpointUrl() {
-    return this.endpointUrl;
-  }
-
   public String getBucketName() {
     return this.bucketName;
   }

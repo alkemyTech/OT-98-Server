@@ -17,6 +17,7 @@ public class UploadImage {
   private IValidateFileName validateFileName;
   @Autowired
   private IConvertFile convertFile;
+  @Autowired
   private AmazonS3 amazonS3 = amazonConfig.initialize();
 
   public String uploadImage(InputStream inputStream, String fileName, ContentType contentType) {
