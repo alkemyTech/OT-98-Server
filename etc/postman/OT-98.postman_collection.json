@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "93f285d5-b523-428a-9d29-c26f5a57c201",
+		"_postman_id": "38fa29d0-a3a5-42fb-a36d-a391f382ec7c",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -191,7 +191,7 @@
 					"response": []
 				},
 				{
-					"name": "News",
+					"name": "localhost:8080/users",
 					"request": {
 						"auth": {
 							"type": "bearer",
