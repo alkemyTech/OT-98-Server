@@ -38,17 +38,45 @@ public class DatabaseSeeder implements CommandLineRunner {
     if (roleRepository.count() == 0) {
       roleRepository.save(buildRole("ROLE_USER"));
       roleRepository.save(buildRole("ROLE_ADMIN"));
-      logger.trace("Roles table seeded.");
+      logger.info("Roles table seeded.");
     } else {
       logger.trace("Roles Seeding Not Required.");
     }
   }
 
+  private Role buildRole(String name) {
+    Role role = new Role();
+    if (name == "ROLE_ADMIN") {
+      role.setName(ApplicationRole.ADMIN.getFullRoleName());
+      role.setDescription(ApplicationRole.ADMIN.getName());
+      return role;
+    }
+    if (name == "ROLE_USER") {
+      role.setName(ApplicationRole.USER.getFullRoleName());
+      role.setDescription(ApplicationRole.USER.getName());
+      return role;
+    }
+    return null;
+  }
+
+  private User buildUser(String firstName, String lastName, String email, String password,
+      String photo, List<Role> roles) {
+    User user = new User();
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    user.setEmail(email);
+    user.setPassword(bCryptPasswordEncoder.encode(password));
+    user.setPhoto(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+    user.setRoles(roles);
+    return user;
+  }
+
   private void seedUsersTable() {
 
-    if (roleRepository.count() == 0) {
-      Role roleAdmin = roleRepository.findByName(ApplicationRole.ADMIN.getName());
-      Role roleUser = roleRepository.findByName(ApplicationRole.USER.getName());
+    if (userRepository.count() == 0) {
+      Role roleAdmin = roleRepository.findByName(ApplicationRole.ADMIN.getFullRoleName());
+      Role roleUser = roleRepository.findByName(ApplicationRole.USER.getFullRoleName());
       List<Role> rolesAdmin = new ArrayList<Role>();
       rolesAdmin.add(roleAdmin);
       List<Role> rolesUser = new ArrayList<Role>();
@@ -204,34 +232,5 @@ public class DatabaseSeeder implements CommandLineRunner {
       logger.trace("User Seeding Not Required.");
     }
   }
-
-  private Role buildRole(String name) {
-    Role role = new Role();
-    if (name == "ROLE_ADMIN") {
-      role.setName(ApplicationRole.ADMIN.getFullRoleName());
-      role.setDescription(ApplicationRole.ADMIN.getName());
-      return role;
-    }
-    if (name == "ROLE_USER") {
-      role.setName(ApplicationRole.USER.getFullRoleName());
-      role.setDescription(ApplicationRole.USER.getName());
-      return role;
-    }
-    return null;
-  }
-
-  private User buildUser(String firstName, String lastName, String email, String password,
-      String photo, List<Role> roles) {
-    User user = new User();
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setEmail(email);
-    user.setPassword(bCryptPasswordEncoder.encode(password));
-    user.setPhoto(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-    user.setRoles(roles);
-    return user;
-  }
-
 
 }
