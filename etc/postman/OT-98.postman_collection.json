@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "38fa29d0-a3a5-42fb-a36d-a391f382ec7c",
+		"_postman_id": "0a93c494-c067-42b4-82f6-0249b6f8d1b0",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -154,7 +154,44 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/categories",
+					"name": "News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"news\",\r\n    \"content\":\"content\",\r\n    \"image\":\"news.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/news",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/categories Copy",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -198,31 +235,21 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJ1c2VyIl0sInN1YiI6InJvcXVlQGdtYWlsLmNvbSIsImlhdCI6MTYzNTg4MDUzNywiZXhwIjoxNjM1OTE2NTM3fQ.D_FI-Jw6w7RcIa411KNnXRfqrG8Jdkk_v_kgnuMTFAY",
 									"type": "string"
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Example\",\r\n    \"content\":\"content\",\r\n    \"image\":\"img\",\r\n    \"categoryName\":\"category\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/news",
-							"protocol": "http",
+							"raw": "localhost:8080/users",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"news"
+								"users"
 							]
 						}
 					},
