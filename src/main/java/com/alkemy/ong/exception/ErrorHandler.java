@@ -102,4 +102,11 @@ public class ErrorHandler {
     return new ErrorResponse(e, httpStatus.value());
   }
 
+  @ExceptionHandler(UserNotFoundException.class)
+  public ResponseEntity<?> handleUserNotFoundException(HttpServletRequest request,
+      UserNotFoundException e) {
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
+  }
+
 }
