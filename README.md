@@ -30,3 +30,12 @@ So, make sure to set up your IDE with the right code style format file.
   add any other steps that are needed for execution.
 - Once you finish to addressing all the comments, leave a comment on the PR to the reviewer asking
   to re-review the PR.
+
+### SWAGGER DOCUMENTATION
+
+If you want to display the API documentation, run the below command and then go
+to: http://localhost:8080/api/docs/swagger-ui/
+
+```
+mvn spring-boot:run
+```

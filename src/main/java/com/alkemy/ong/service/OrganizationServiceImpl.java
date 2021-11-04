@@ -28,6 +28,9 @@ public class OrganizationServiceImpl implements IOrganizationService {
         .image(organization.getImage())
         .address(organization.getAddress())
         .phone(organization.getPhone())
+        .facebookUrl(organization.getFacebookUrl())
+        .instagramUrl(organization.getInstagramUrl())
+        .linkedinUrl(organization.getLinkedinUrl())
         .build();
 
   }
