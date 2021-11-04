@@ -154,7 +154,44 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/categories",
+					"name": "News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"news\",\r\n    \"content\":\"content\",\r\n    \"image\":\"news.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/news",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/categories Copy",
 					"request": {
 						"auth": {
 							"type": "bearer",
