@@ -1,7 +1,7 @@
 package com.alkemy.ong.model.request;
 
-import javax.validation.constraints.NotBlank;
 import com.alkemy.ong.common.validation.ValidationMessages;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +17,5 @@ public class CreateNewsRequest {
 
   @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   private String image;
+
 }

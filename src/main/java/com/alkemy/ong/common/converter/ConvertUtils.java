@@ -34,7 +34,7 @@ public class ConvertUtils {
     createNewsResponse.setName(news.getName());
     createNewsResponse.setContent(news.getContent());
     createNewsResponse.setImage(news.getImage());
-    createNewsResponse.setNameCategory(news.getCategory().getName());
+    createNewsResponse.setCategory(news.getCategory().getName());
     return createNewsResponse;
   }
 }
