@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails, IUserService {
+    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -129,7 +129,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public List<UserResponse> listAllAssets() {
+  public List<UserResponse> listActiveUsers() {
 
     List<User> users  = userRepository.findBySoftDeletedFalse();
     List<UserResponse> usersResponse = new ArrayList<>();
@@ -141,10 +141,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
            .lastName(user.getLastName())
            .email(user.getEmail())
            .photo(user.getPhoto())
-           .password(user.getPassword())
            .build());
     }
-
     return usersResponse;
   }
 }

@@ -27,11 +27,7 @@ public class UserResponse {
   public String getLastName() {
     return lastName;
   }
-
-  public String getPassword() {
-    return password;
-  }
-
+  
   public String getPhoto() {
     return photo;
   }

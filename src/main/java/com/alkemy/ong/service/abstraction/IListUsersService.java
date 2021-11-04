@@ -4,7 +4,7 @@ import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.UserResponse;
 import java.util.List;
 
-public interface IUserService {
+public interface IListUsersService {
 
-    List<UserResponse> listAllAssets();
+    List<UserResponse>  listActiveUsers();
 }

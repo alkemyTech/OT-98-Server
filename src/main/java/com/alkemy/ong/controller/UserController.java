@@ -7,7 +7,7 @@ import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import javax.validation.Valid;
 
-import com.alkemy.ong.service.abstraction.IUserService;
+import com.alkemy.ong.service.abstraction.IListUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,7 +28,7 @@ public class UserController {
   public IAuthenticatedUserDetails authenticatedUserDetails;
 
   @Autowired
-  public IUserService userService;
+  public IListUsersService userService;
 
   @PostMapping(value = "/auth/register",
       consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -46,8 +46,8 @@ public class UserController {
   }
 
   @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> listAll() {
-    return new ResponseEntity<>(userService.listAllAssets(), HttpStatus.OK);
+  public ResponseEntity<?> listActiveUsers() {
+    return new ResponseEntity<>(userService.listActiveUsers(), HttpStatus.OK);
   }
 
 }
