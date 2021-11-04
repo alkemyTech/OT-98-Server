@@ -1,12 +1,12 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.EmailAlreadyExistException;
-import com.alkemy.ong.exception.UserNotFoundException;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
-import com.alkemy.ong.service.abstraction.IUserService;
+import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import com.alkemy.ong.service.abstraction.IListUsersService;
@@ -35,7 +35,7 @@ public class UserController {
   public IListUsersService userService;
 
   @Autowired
-  public IUserService iUserService;
+  public IDeleteUserService deleteUserService;
 
   @PostMapping(value = "/auth/register",
       consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -58,9 +58,9 @@ public class UserController {
   }
 
   @DeleteMapping(value = "/users/{id}")
-  public ResponseEntity<Long> deleteUserById(@PathVariable Long id) throws UserNotFoundException {
-    iUserService.deleteUserById(id);
-    return new  ResponseEntity<>(id, HttpStatus.OK);
+  public ResponseEntity<Long> deleteBy(@PathVariable Long id) throws EntityNotFoundException {
+    deleteUserService.deleteUserById(id);
+    return new  ResponseEntity<>(id, HttpStatus.NO_CONTENT);
   }
 
 }
