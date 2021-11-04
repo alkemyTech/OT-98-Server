@@ -33,8 +33,8 @@ public class ErrorHandler {
   @ExceptionHandler(InvalidCredentialsException.class)
   public ResponseEntity<?> handleInvalidCredentialsException(HttpServletRequest request,
       InvalidCredentialsException e) {
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .body(buildResponse(e, HttpStatus.UNAUTHORIZED));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(EmailAlreadyExistException.class)

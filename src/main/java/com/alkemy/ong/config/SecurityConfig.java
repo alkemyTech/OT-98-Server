@@ -62,7 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.USER.getName(), ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.GET, "/auth/me")
         .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.POST, "/news")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.POST, "/categories")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.POST, "/activities")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.GET, "/users")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .anyRequest()
         .authenticated()
@@ -70,5 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling()
         .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+
   }
 }
