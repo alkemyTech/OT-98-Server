@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,8 @@ public class NewsController {
   @Autowired
   private ConvertUtils convertUtils;
 
-  @PostMapping
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateNewsResponse> create(
       @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
       throws EntityNotExistException {
