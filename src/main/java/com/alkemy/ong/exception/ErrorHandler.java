@@ -20,7 +20,7 @@ public class ErrorHandler {
   public ResponseEntity<?> handleEntityNotFoundException(HttpServletRequest request,
       EntityNotFoundException e) {
     return ResponseEntity.badRequest()
-        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
+        .body(buildResponse(e, HttpStatus.NOT_FOUND));
   }
 
   @ExceptionHandler(AuthenticationException.class)
@@ -100,13 +100,6 @@ public class ErrorHandler {
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
-  }
-
-  @ExceptionHandler(UserNotFoundException.class)
-  public ResponseEntity<?> handleUserNotFoundException(HttpServletRequest request,
-      UserNotFoundException e) {
-    return ResponseEntity.badRequest()
-        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
 }
