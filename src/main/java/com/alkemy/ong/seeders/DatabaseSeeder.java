@@ -35,7 +35,6 @@ public class DatabaseSeeder {
     seedUsersTable();
   }
 
-  @Transactional
   private void seedRolesTable() {
     String sql = "SELECT description FROM roles R WHERE R.description = \"ROLE_USER\" OR " +
         "R.description = \"ROLE_ADMIN\" LIMIT 1";
@@ -52,15 +51,34 @@ public class DatabaseSeeder {
 
       roleRepository.save(roleUser);
       roleRepository.save(roleAdmin);
+      System.out.println("Roles table seeded");
     } else {
-      System.out.println("Users Seeding Not Required");
+      System.out.println("Roles Seeding Not Required");
     }
   }
 
-  @Transactional
   private void seedUsersTable() {
     String sql =
-        "SELECT email FROM users U WHERE U.email = \"imontovio@alkemy.com\"  LIMIT 1";
+        "SELECT email FROM users U WHERE " +
+            "U.email = \"imontovio@alkemy.com\" OR " +
+            "U.email = \"abahi@alkemy.com\" OR " +
+            "U.email = \"jaman@alkemy.com\" OR " +
+            "U.email = \"klugo@alkemy.com\" OR " +
+            "U.email = \"lscaceres@alkemy.com\" OR " +
+            "U.email = \"mcevini@alkemy.com\" OR " +
+            "U.email = \"oruina@alkemy.com\" OR " +
+            "U.email = \"mkain@alkemy.com\" OR " +
+            "U.email = \"psamid@alkemy.com\" OR " +
+            "U.email = \"aruiz@alkemy.com\" OR " +
+            "U.email = \"mruiz@alkemy.com\" OR " +
+            "U.email = \"llopez@alkemy.com\" OR " +
+            "U.email = \"stierno@alkemy.com\" OR " +
+            "U.email = \"jtierno@alkemy.com\" OR " +
+            "U.email = \"dtierno@alkemy.com\" OR " +
+            "U.email = \"jpaez@alkemy.com\" OR " +
+            "U.email = \"jsantoro@alkemy.com\" OR " +
+            "U.email = \"fsantoro@alkemy.com\" OR " +
+            "U.email = \"esantoro@alkemy.com\" LIMIT 1";
     List<User> u = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
 
     if (u == null || u.size() <= 0) {
@@ -254,7 +272,7 @@ public class DatabaseSeeder {
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
       userEzequiel.setRoles(rolesUser);
 
-      userRepository.saveAll(new ArrayList<User>(){{
+      userRepository.saveAll(new ArrayList<User>() {{
         add(userIgnacio);
         add(userAlexis);
         add(userJoaquin);
@@ -276,9 +294,9 @@ public class DatabaseSeeder {
         add(userFederico);
         add(userEzequiel);
       }});
-      //logger.info("Users Seeded");
+      System.out.println("Users Seeded");
     } else {
-      //logger.trace("Users Seeding Not Required");
+      System.out.println("Users Seeding Not Required");
     }
   }
 }
