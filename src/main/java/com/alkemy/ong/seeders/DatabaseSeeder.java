@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseSeeder {
-//private Logger logger = Logger.getLogger(DatabaseSeeder.class);
 
   @Autowired
   private IUserRepository userRepository;
@@ -66,9 +65,11 @@ public class DatabaseSeeder {
 
     if (u == null || u.size() <= 0) {
       Role roleAdmin = roleRepository.findByName("ADMIN");
-      //Role roleUser = roleRepository.findByName("USER");
-      List<Role> rolesIgnacio = new ArrayList<Role>();
-      rolesIgnacio.add(roleAdmin);
+      Role roleUser = roleRepository.findByName("USER");
+      List<Role> rolesAdmin = new ArrayList<Role>();
+      rolesAdmin.add(roleAdmin);
+      List<Role> rolesUser = new ArrayList<Role>();
+      rolesUser.add(roleUser);
 
       //------------------ Admin -------------------------
       User userIgnacio = new User();
@@ -78,8 +79,7 @@ public class DatabaseSeeder {
       userIgnacio.setPassword(new BCryptPasswordEncoder().encode("imontovio"));
       userIgnacio.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userIgnacio.setRoles(rolesIgnacio);
-      userRepository.save(userIgnacio);
+      userIgnacio.setRoles(rolesAdmin);
 
       User userAlexis = new User();
       userAlexis.setFirstName("Alexis");
@@ -88,7 +88,7 @@ public class DatabaseSeeder {
       userAlexis.setPassword(new BCryptPasswordEncoder().encode("abahi"));
       userAlexis.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userAlexis);
+      userAlexis.setRoles(rolesAdmin);
 
       User userJoaquin = new User();
       userJoaquin.setFirstName("Joaquin");
@@ -97,7 +97,7 @@ public class DatabaseSeeder {
       userJoaquin.setPassword(new BCryptPasswordEncoder().encode("jaman"));
       userJoaquin.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userJoaquin);
+      userJoaquin.setRoles(rolesAdmin);
 
       User userKevin = new User();
       userKevin.setFirstName("Kevin");
@@ -106,7 +106,7 @@ public class DatabaseSeeder {
       userKevin.setPassword(new BCryptPasswordEncoder().encode("klugo"));
       userKevin.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userKevin);
+      userKevin.setRoles(rolesAdmin);
 
       User userLucio = new User();
       userLucio.setFirstName("Lucio");
@@ -115,7 +115,7 @@ public class DatabaseSeeder {
       userLucio.setPassword(new BCryptPasswordEncoder().encode("lscaceres"));
       userLucio.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userLucio);
+      userLucio.setRoles(rolesAdmin);
 
       User userMatias = new User();
       userMatias.setFirstName("Matias");
@@ -124,7 +124,7 @@ public class DatabaseSeeder {
       userMatias.setPassword(new BCryptPasswordEncoder().encode("mcevini"));
       userMatias.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userMatias);
+      userMatias.setRoles(rolesAdmin);
 
       User userOscar = new User();
       userOscar.setFirstName("Oscar");
@@ -133,7 +133,7 @@ public class DatabaseSeeder {
       userOscar.setPassword(new BCryptPasswordEncoder().encode("oruina"));
       userOscar.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userOscar);
+      userOscar.setRoles(rolesAdmin);
 
       User userMagali = new User();
       userMagali.setFirstName("Magali");
@@ -142,7 +142,7 @@ public class DatabaseSeeder {
       userMagali.setPassword(new BCryptPasswordEncoder().encode("mkain"));
       userMagali.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userMagali);
+      userMagali.setRoles(rolesAdmin);
 
       User userPablo = new User();
       userPablo.setFirstName("Pablo");
@@ -151,7 +151,7 @@ public class DatabaseSeeder {
       userPablo.setPassword(new BCryptPasswordEncoder().encode("psamid"));
       userPablo.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userPablo);
+      userPablo.setRoles(rolesAdmin);
 
       User userAlejandro = new User();
       userAlejandro.setFirstName("Alejandro");
@@ -160,7 +160,7 @@ public class DatabaseSeeder {
       userAlejandro.setPassword(new BCryptPasswordEncoder().encode("aruiz"));
       userAlejandro.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userRepository.save(userPablo);
+      userAlejandro.setRoles(rolesAdmin);
 
       //------------------ User -------------------------
 
@@ -171,6 +171,7 @@ public class DatabaseSeeder {
       userMario.setPassword(new BCryptPasswordEncoder().encode("mruiz"));
       userMario.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userMario.setRoles(rolesUser);
 
       User userLucas = new User();
       userLucas.setFirstName("Lucas");
@@ -179,6 +180,7 @@ public class DatabaseSeeder {
       userLucas.setPassword(new BCryptPasswordEncoder().encode("llopez"));
       userLucas.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userLucas.setRoles(rolesUser);
 
       User userSantiago = new User();
       userSantiago.setFirstName("Santiago");
@@ -187,6 +189,7 @@ public class DatabaseSeeder {
       userSantiago.setPassword(new BCryptPasswordEncoder().encode("stierno"));
       userSantiago.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userSantiago.setRoles(rolesUser);
 
       User userJulieta = new User();
       userJulieta.setFirstName("Julieta");
@@ -195,6 +198,7 @@ public class DatabaseSeeder {
       userJulieta.setPassword(new BCryptPasswordEncoder().encode("jtierno"));
       userJulieta.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userJulieta.setRoles(rolesUser);
 
       User userDaniela = new User();
       userDaniela.setFirstName("Daniela");
@@ -203,6 +207,7 @@ public class DatabaseSeeder {
       userDaniela.setPassword(new BCryptPasswordEncoder().encode("dtierno"));
       userDaniela.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userDaniela.setRoles(rolesUser);
 
       User userNaiara = new User();
       userNaiara.setFirstName("Naiara");
@@ -211,6 +216,7 @@ public class DatabaseSeeder {
       userNaiara.setPassword(new BCryptPasswordEncoder().encode("npaez"));
       userNaiara.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userNaiara.setRoles(rolesUser);
 
       User userJulian = new User();
       userJulian.setFirstName("Julian");
@@ -219,6 +225,7 @@ public class DatabaseSeeder {
       userJulian.setPassword(new BCryptPasswordEncoder().encode("jpaez"));
       userJulian.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userJulian.setRoles(rolesUser);
 
       User userJosias = new User();
       userJosias.setFirstName("Josias");
@@ -227,6 +234,7 @@ public class DatabaseSeeder {
       userJosias.setPassword(new BCryptPasswordEncoder().encode("jsantoro"));
       userJosias.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userJosias.setRoles(rolesUser);
 
       User userFederico = new User();
       userFederico.setFirstName("Federico");
@@ -235,6 +243,7 @@ public class DatabaseSeeder {
       userFederico.setPassword(new BCryptPasswordEncoder().encode("fsantoro"));
       userFederico.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userFederico.setRoles(rolesUser);
 
       User userEzequiel = new User();
       userEzequiel.setFirstName("Ezequiel");
@@ -243,8 +252,30 @@ public class DatabaseSeeder {
       userEzequiel.setPassword(new BCryptPasswordEncoder().encode("esantoro"));
       userEzequiel.setPhoto(
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      userEzequiel.setRoles(rolesUser);
 
-
+      userRepository.saveAll(new ArrayList<User>(){{
+        add(userIgnacio);
+        add(userAlexis);
+        add(userJoaquin);
+        add(userKevin);
+        add(userLucio);
+        add(userMatias);
+        add(userOscar);
+        add(userMagali);
+        add(userPablo);
+        add(userAlejandro);
+        add(userMario);
+        add(userLucas);
+        add(userSantiago);
+        add(userJulieta);
+        add(userDaniela);
+        add(userNaiara);
+        add(userJulian);
+        add(userJosias);
+        add(userFederico);
+        add(userEzequiel);
+      }});
       //logger.info("Users Seeded");
     } else {
       //logger.trace("Users Seeding Not Required");
