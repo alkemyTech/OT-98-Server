@@ -17,7 +17,4 @@ public class CreateNewsRequest {
 
   @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   private String image;
-
-  @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
-  private String categoryName;
 }

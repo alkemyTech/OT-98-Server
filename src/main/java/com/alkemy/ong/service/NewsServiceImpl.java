@@ -13,13 +13,15 @@ import com.alkemy.ong.service.abstraction.ICreateNewsService;
 @Service
 public class NewsServiceImpl implements ICreateNewsService {
 
+  private static final String NEWS_CATEGORY = "news";
+
   @Autowired
   private INewsRepository newsRepository;
 
   @Override
   @Transactional
   public News create(CreateNewsRequest createNewsRequest) throws EntityNotFoundException {
-    Category newsCategory = newsRepository.findCategoryByName(createNewsRequest.getCategoryName());
+    Category newsCategory = newsRepository.findCategoryByName(NEWS_CATEGORY);
 
     if (newsCategory == null)
       throw new EntityNotFoundException("News category not found.");
