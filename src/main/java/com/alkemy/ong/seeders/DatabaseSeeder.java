@@ -1,21 +1,21 @@
 package com.alkemy.ong.seeders;
 
+import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IRoleRepository;
 import com.alkemy.ong.repository.IUserRepository;
 import java.util.ArrayList;
 import java.util.List;
-import javax.transaction.Transactional;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DatabaseSeeder {
+//@Log
+public class DatabaseSeeder implements CommandLineRunner {
 
   @Autowired
   private IUserRepository userRepository;
@@ -26,251 +26,152 @@ public class DatabaseSeeder {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
-
-  @EventListener
-  public void seed(ContextRefreshedEvent event) {
+  @Override
+  public void run(String... args) throws Exception {
     seedRolesTable();
     seedUsersTable();
   }
 
   private void seedRolesTable() {
-    String sql = "SELECT description FROM roles R WHERE R.description = \"ROLE_USER\" OR " +
-        "R.description = \"ROLE_ADMIN\" LIMIT 1";
-    List<Role> u = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
-    if (u == null || u.size() <= 0) {
-
-      Role roleUser = new Role();
-      roleUser.setName("USER");
-      roleUser.setDescription("ROLE_USER");
-
-      Role roleAdmin = new Role();
-      roleAdmin.setName("ADMIN");
-      roleAdmin.setDescription("ROLE_ADMIN");
-
-      roleRepository.save(roleUser);
-      roleRepository.save(roleAdmin);
-      System.out.println("Roles table seeded");
-    } else {
-      System.out.println("Roles Seeding Not Required");
+    if (roleRepository.count() == 0) {
+      roleRepository.save(buildRole("ROLE_USER"));
+      roleRepository.save(buildRole("ROLE_ADMIN"));
     }
   }
 
   private void seedUsersTable() {
-    String sql =
-        "SELECT email FROM users U WHERE " +
-            "U.email = \"imontovio@alkemy.com\" OR " +
-            "U.email = \"abahi@alkemy.com\" OR " +
-            "U.email = \"jaman@alkemy.com\" OR " +
-            "U.email = \"klugo@alkemy.com\" OR " +
-            "U.email = \"lscaceres@alkemy.com\" OR " +
-            "U.email = \"mcevini@alkemy.com\" OR " +
-            "U.email = \"oruina@alkemy.com\" OR " +
-            "U.email = \"mkain@alkemy.com\" OR " +
-            "U.email = \"psamid@alkemy.com\" OR " +
-            "U.email = \"aruiz@alkemy.com\" OR " +
-            "U.email = \"mruiz@alkemy.com\" OR " +
-            "U.email = \"llopez@alkemy.com\" OR " +
-            "U.email = \"stierno@alkemy.com\" OR " +
-            "U.email = \"jtierno@alkemy.com\" OR " +
-            "U.email = \"dtierno@alkemy.com\" OR " +
-            "U.email = \"jpaez@alkemy.com\" OR " +
-            "U.email = \"jsantoro@alkemy.com\" OR " +
-            "U.email = \"fsantoro@alkemy.com\" OR " +
-            "U.email = \"esantoro@alkemy.com\" LIMIT 1";
-    List<User> u = jdbcTemplate.query(sql, (resultSet, rowNum) -> null);
 
-    if (u == null || u.size() <= 0) {
-      Role roleAdmin = roleRepository.findByName("ADMIN");
-      Role roleUser = roleRepository.findByName("USER");
+    if (roleRepository.count() == 0) {
+      Role roleAdmin = roleRepository.findByName(ApplicationRole.ADMIN.getName());
+      Role roleUser = roleRepository.findByName(ApplicationRole.USER.getName());
       List<Role> rolesAdmin = new ArrayList<Role>();
       rolesAdmin.add(roleAdmin);
       List<Role> rolesUser = new ArrayList<Role>();
       rolesUser.add(roleUser);
 
+
       //------------------ Admin -------------------------
-      User userIgnacio = new User();
-      userIgnacio.setFirstName("Ignacio");
-      userIgnacio.setLastName("Montovio");
-      userIgnacio.setEmail("imontovio@alkemy.com");
-      userIgnacio.setPassword(new BCryptPasswordEncoder().encode("imontovio"));
-      userIgnacio.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userIgnacio.setRoles(rolesAdmin);
+      User userIgnacio = buildUser("Ignacio","Montovio",
+          "imontovio@alkemy.com",
+          "imontovio",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userAlexis = new User();
-      userAlexis.setFirstName("Alexis");
-      userAlexis.setLastName("Bahi");
-      userAlexis.setEmail("abahi@alkemy.com");
-      userAlexis.setPassword(new BCryptPasswordEncoder().encode("abahi"));
-      userAlexis.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userAlexis.setRoles(rolesAdmin);
+      User userAlexis = buildUser("Alexis","Bahi",
+          "abahi@alkemy.com",
+          "abahi",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userJoaquin = new User();
-      userJoaquin.setFirstName("Joaquin");
-      userJoaquin.setLastName("Aman");
-      userJoaquin.setEmail("jaman@alkemy.com");
-      userJoaquin.setPassword(new BCryptPasswordEncoder().encode("jaman"));
-      userJoaquin.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userJoaquin.setRoles(rolesAdmin);
+      User userJoaquin = buildUser("Joaquin","Aman",
+          "jaman@alkemy.com",
+          "jaman",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userKevin = new User();
-      userKevin.setFirstName("Kevin");
-      userKevin.setLastName("Lugo");
-      userKevin.setEmail("klugo@alkemy.com");
-      userKevin.setPassword(new BCryptPasswordEncoder().encode("klugo"));
-      userKevin.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userKevin.setRoles(rolesAdmin);
+      User userKevin = buildUser("Kevin","Lugo",
+          "klugo@alkemy.com",
+          "klugo",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userLucio = new User();
-      userLucio.setFirstName("Lucio");
-      userLucio.setLastName("Scaceres");
-      userLucio.setEmail("lscaceres@alkemy.com");
-      userLucio.setPassword(new BCryptPasswordEncoder().encode("lscaceres"));
-      userLucio.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userLucio.setRoles(rolesAdmin);
+      User userLucio = buildUser("Lucio","Scaceres",
+          "lscaceres@alkemy.com",
+          "lscaceres",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userMatias = new User();
-      userMatias.setFirstName("Matias");
-      userMatias.setLastName("Cevini");
-      userMatias.setEmail("mcevini@alkemy.com");
-      userMatias.setPassword(new BCryptPasswordEncoder().encode("mcevini"));
-      userMatias.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userMatias.setRoles(rolesAdmin);
+      User userMatias = buildUser("Matias","Cevini",
+          "mcevini@alkemy.com",
+          "mcevini",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userOscar = new User();
-      userOscar.setFirstName("Oscar");
-      userOscar.setLastName("Ruina");
-      userOscar.setEmail("oruina@alkemy.com");
-      userOscar.setPassword(new BCryptPasswordEncoder().encode("oruina"));
-      userOscar.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userOscar.setRoles(rolesAdmin);
+      User userOscar = buildUser("Oscar","Ruina",
+          "oruina@alkemy.com",
+          "oruina",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userMagali = new User();
-      userMagali.setFirstName("Magali");
-      userMagali.setLastName("Kain");
-      userMagali.setEmail("mkain@alkemy.com");
-      userMagali.setPassword(new BCryptPasswordEncoder().encode("mkain"));
-      userMagali.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userMagali.setRoles(rolesAdmin);
+      User userMagali = buildUser("Magali","Kain",
+          "mkain@alkemy.com",
+          "mkain",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userPablo = new User();
-      userPablo.setFirstName("Pablo");
-      userPablo.setLastName("Samid");
-      userPablo.setEmail("psamid@alkemy.com");
-      userPablo.setPassword(new BCryptPasswordEncoder().encode("psamid"));
-      userPablo.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userPablo.setRoles(rolesAdmin);
+      User userPablo = buildUser("Pablo","Samid",
+          "psamid@alkemy.com",
+          "psamid",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
-      User userAlejandro = new User();
-      userAlejandro.setFirstName("Alejandro");
-      userAlejandro.setLastName("Ruiz");
-      userAlejandro.setEmail("aruiz@alkemy.com");
-      userAlejandro.setPassword(new BCryptPasswordEncoder().encode("aruiz"));
-      userAlejandro.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userAlejandro.setRoles(rolesAdmin);
+      User userAlejandro = buildUser("Alejandro","Ruiz",
+          "aruiz@alkemy.com",
+          "aruiz",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesAdmin);
 
       //------------------ User -------------------------
 
-      User userMario = new User();
-      userMario.setFirstName("Mario");
-      userMario.setLastName("Ruiz");
-      userMario.setEmail("mruiz@alkemy.com");
-      userMario.setPassword(new BCryptPasswordEncoder().encode("mruiz"));
-      userMario.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userMario.setRoles(rolesUser);
+      User userMario = buildUser("Mario","Ruiz",
+          "mruiz@alkemy.com",
+          "mruiz",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userLucas = new User();
-      userLucas.setFirstName("Lucas");
-      userLucas.setLastName("Lopez");
-      userLucas.setEmail("llopez@alkemy.com");
-      userLucas.setPassword(new BCryptPasswordEncoder().encode("llopez"));
-      userLucas.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userLucas.setRoles(rolesUser);
+      User userLucas = buildUser("Lucas","Lopez",
+          "llopez@alkemy.com",
+          "llopez",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userSantiago = new User();
-      userSantiago.setFirstName("Santiago");
-      userSantiago.setLastName("Tierno");
-      userSantiago.setEmail("stierno@alkemy.com");
-      userSantiago.setPassword(new BCryptPasswordEncoder().encode("stierno"));
-      userSantiago.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userSantiago.setRoles(rolesUser);
+      User userSantiago = buildUser("Santiago","Tierno",
+          "stierno@alkemy.com",
+          "stierno",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userJulieta = new User();
-      userJulieta.setFirstName("Julieta");
-      userJulieta.setLastName("Tierno");
-      userJulieta.setEmail("jtierno@alkemy.com");
-      userJulieta.setPassword(new BCryptPasswordEncoder().encode("jtierno"));
-      userJulieta.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userJulieta.setRoles(rolesUser);
+      User userJulieta = buildUser("Julieta","Tierno",
+          "jtierno@alkemy.com",
+          "jtierno",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userDaniela = new User();
-      userDaniela.setFirstName("Daniela");
-      userDaniela.setLastName("Tierno");
-      userDaniela.setEmail("dtierno@alkemy.com");
-      userDaniela.setPassword(new BCryptPasswordEncoder().encode("dtierno"));
-      userDaniela.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userDaniela.setRoles(rolesUser);
+      User userDaniela = buildUser("Daniela","Tierno",
+          "dtierno@alkemy.com",
+          "dtierno",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userNaiara = new User();
-      userNaiara.setFirstName("Naiara");
-      userNaiara.setLastName("Paez");
-      userNaiara.setEmail("npaez@alkemy.com");
-      userNaiara.setPassword(new BCryptPasswordEncoder().encode("npaez"));
-      userNaiara.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userNaiara.setRoles(rolesUser);
+      User userNaiara = buildUser("Naiara","Paez",
+          "npaez@alkemy.com",
+          "npaez",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userJulian = new User();
-      userJulian.setFirstName("Julian");
-      userJulian.setLastName("Paez");
-      userJulian.setEmail("jpaez@alkemy.com");
-      userJulian.setPassword(new BCryptPasswordEncoder().encode("jpaez"));
-      userJulian.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userJulian.setRoles(rolesUser);
+      User userJulian = buildUser("Julian","Paez",
+          "jpaez@alkemy.com",
+          "jpaez",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userJosias = new User();
-      userJosias.setFirstName("Josias");
-      userJosias.setLastName("Santoro");
-      userJosias.setEmail("jsantoro@alkemy.com");
-      userJosias.setPassword(new BCryptPasswordEncoder().encode("jsantoro"));
-      userJosias.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userJosias.setRoles(rolesUser);
+      User userJosias = buildUser("Josias","Santoro",
+          "jsantoro@alkemy.com",
+          "jsantoro",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userFederico = new User();
-      userFederico.setFirstName("Federico");
-      userFederico.setLastName("Santoro");
-      userFederico.setEmail("fsantoro@alkemy.com");
-      userFederico.setPassword(new BCryptPasswordEncoder().encode("fsantoro"));
-      userFederico.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userFederico.setRoles(rolesUser);
+      User userFederico = buildUser("Federico","Santoro",
+          "fsantoro@alkemy.com",
+          "fsantoro",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
-      User userEzequiel = new User();
-      userEzequiel.setFirstName("Ezequiel");
-      userEzequiel.setLastName("Santoro");
-      userEzequiel.setEmail("esantoro@alkemy.com");
-      userEzequiel.setPassword(new BCryptPasswordEncoder().encode("esantoro"));
-      userEzequiel.setPhoto(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
-      userEzequiel.setRoles(rolesUser);
+      User userEzequiel = buildUser("Ezequiel","Santoro",
+          "esantoro@alkemy.com",
+          "esantoro",
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+          rolesUser);
 
       userRepository.saveAll(new ArrayList<User>() {{
         add(userIgnacio);
@@ -294,9 +195,37 @@ public class DatabaseSeeder {
         add(userFederico);
         add(userEzequiel);
       }});
-      System.out.println("Users Seeded");
-    } else {
-      System.out.println("Users Seeding Not Required");
     }
+//    else{
+//
+//    }
   }
+
+  private Role buildRole(String name){
+    Role role = new Role();
+    if(name == "ROLE_ADMIN"){
+      role.setName(ApplicationRole.ADMIN.getFullRoleName());
+      role.setDescription(ApplicationRole.ADMIN.getName());
+      return role;
+    }
+    if(name == "ROLE_USER"){
+      role.setName(ApplicationRole.USER.getFullRoleName());
+      role.setDescription(ApplicationRole.USER.getName());
+      return role;
+    }
+    return null;
+  }
+  private User buildUser(String firstName,String lastName,String email, String password, String photo, List<Role> roles){
+    User user = new User ();
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    user.setEmail(email);
+    user.setPassword(bCryptPasswordEncoder.encode(password));
+    user.setPhoto(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+    user.setRoles(roles);
+    return user;
+  }
+
+
 }
