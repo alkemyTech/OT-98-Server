@@ -1,10 +1,12 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.EmailAlreadyExistException;
+import com.alkemy.ong.exception.UserNotFoundException;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
+import com.alkemy.ong.service.abstraction.IUserService;
 import javax.validation.Valid;
 
 import com.alkemy.ong.service.abstraction.IListUsersService;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -29,6 +33,9 @@ public class UserController {
 
   @Autowired
   public IListUsersService userService;
+
+  @Autowired
+  public IUserService iUserService;
 
   @PostMapping(value = "/auth/register",
       consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -48,6 +55,12 @@ public class UserController {
   @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> listActiveUsers() {
     return new ResponseEntity<>(userService.listActiveUsers(), HttpStatus.OK);
+  }
+
+  @DeleteMapping(value = "/users/{id}")
+  public ResponseEntity<Long> deleteUserById(@PathVariable Long id) throws UserNotFoundException {
+    iUserService.deleteUserById(id);
+    return new  ResponseEntity<>(id, HttpStatus.OK);
   }
 
 }
