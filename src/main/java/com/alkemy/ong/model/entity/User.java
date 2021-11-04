@@ -54,7 +54,7 @@ public class User implements UserDetails {
   private String photo;
 
   @JoinColumn(name = "ROLES_ID")
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   private List<Role> roles;
 
   @CreationTimestamp
