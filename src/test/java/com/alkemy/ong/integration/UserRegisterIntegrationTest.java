@@ -1,9 +1,16 @@
 package com.alkemy.ong.integration;
 
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
-import java.util.List;
+
+import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.model.entity.Role;
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.ErrorResponse;
+import com.alkemy.ong.model.response.UserRegisterResponse;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,13 +22,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.entity.Role;
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.UserRegisterRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
-import com.alkemy.ong.model.response.UserRegisterResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,7 +31,7 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   private JwtUtil jwtUtil;
 
   @Test
-  public void shouldReturnBadRequestWhenTheEmailAlredyExist() {
+  public void shouldReturnBadRequestWhenTheEmailAlreadyExist() {
     when(userRepository.findByEmail(eq("example@gmail.com"))).thenReturn(new User());
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
@@ -77,9 +77,14 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   }
 
   private User stubUser(String role) {
-    List<Role> roles = Lists.list(stubRole(role));
-    User user = new User((long) 12, "Example", "Example", "example@gmail.com", "123456789", "photo",
-        roles, null, false);
-    return user;
+    return new User(12L,
+        "Example",
+        "Example",
+        "example@gmail.com",
+        "123456789",
+        "photo",
+        Lists.list(stubRole(role)),
+        null,
+        false);
   }
 }
