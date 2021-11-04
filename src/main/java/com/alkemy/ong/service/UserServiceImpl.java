@@ -7,6 +7,7 @@ import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.exception.UserNotFoundException;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
@@ -21,6 +22,7 @@ import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
+import com.alkemy.ong.service.abstraction.IUserService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService {
+    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IUserService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -146,5 +148,17 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
           .build());
     }
     return new ListActiveUsersResponse(usersResponse);
+  }
+
+  @Override
+  public User getUserById(Long id) {
+    return userRepository.getUserById(id);
+  }
+
+  @Override
+  public void deleteUserById(Long id) throws UserNotFoundException {
+    User user = getUserById(id);
+    if (user == null) throw new UserNotFoundException("There's no User registered with that ID number!!!");
+    userRepository.deleteUserById(id);
   }
 }
