@@ -1,9 +1,9 @@
 package com.alkemy.ong.service;
 
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.alkemy.ong.exception.EntityNotExistException;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.CreateNewsRequest;
@@ -18,11 +18,11 @@ public class NewsServiceImpl implements ICreateNewsService {
 
   @Override
   @Transactional
-  public News create(CreateNewsRequest createNewsRequest) throws EntityNotExistException {
+  public News create(CreateNewsRequest createNewsRequest) throws EntityNotFoundException {
     Category newsCategory = newsRepository.findCategoryByName(createNewsRequest.getCategoryName());
 
     if (newsCategory == null)
-      throw new EntityNotExistException("Category not exist");
+      throw new EntityNotFoundException("News category not found.");
 
     News news = new News();
     news.setName(createNewsRequest.getName());

@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alkemy.ong.common.converter.ConvertUtils;
-import com.alkemy.ong.exception.EntityNotExistException;
 import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.model.response.CreateNewsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
@@ -28,7 +28,7 @@ public class NewsController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateNewsResponse> create(
       @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
-      throws EntityNotExistException {
+      throws EntityNotFoundException {
     return ResponseEntity.ok(convertUtils.toResponse(createNewsService.create(createNewsRequest)));
   }
 }
