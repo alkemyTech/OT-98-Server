@@ -39,3 +39,33 @@ to: http://localhost:8080/api/docs/swagger-ui/
 ```
 mvn spring-boot:run
 ```
+
+### USERS SEED
+
+users_id	email					first_name	last_name	password
+1       	imontovio@alkemy.com	Ignacio		Montovio    imontovio
+2       	abahi@alkemy.com		Alexis		Bahi        abahi    
+3       	jaman@alkemy.com		Joaquin		Aman        jaman    
+4       	klugo@alkemy.com		Kevin		Lugo        klugo    
+5       	lscaceres@alkemy.com	Lucio		Scaceres    lscaceres
+6       	mcevini@alkemy.com		Matias		Cevini      mcevini  
+7       	oruina@alkemy.com		Oscar		Ruina       oruina   
+8       	mkain@alkemy.com		Magali		Kain        mkain    
+9       	psamid@alkemy.com		Pablo		Samid       psamid   
+10      	aruiz@alkemy.com		Alejandro	Ruiz        aruiz    
+11      	mruiz@alkemy.com		Mario		Ruiz        mruiz    
+12      	llopez@alkemy.com		Lucas		Lopez       llopez   
+13      	stierno@alkemy.com		Santiago	Tierno      stierno  
+14      	jtierno@alkemy.com		Julieta		Tierno      jtierno  
+15      	dtierno@alkemy.com		Daniela		Tierno      dtierno  
+16      	npaez@alkemy.com		Naiara		Paez        npaez    
+17      	jpaez@alkemy.com		Julian		Paez        jpaez    
+18      	jsantoro@alkemy.com		Josias		Santoro     jsantoro 
+19      	fsantoro@alkemy.com		Federico	Santoro     fsantoro 
+20      	esantoro@alkemy.com		Ezequiel	Santoro     esantoro 
+	
+### ROLES SEED
+
+roles_id	description		name
+1			ROLE_USER		USER
+2			ROLE_ADMIN		ADMIN
