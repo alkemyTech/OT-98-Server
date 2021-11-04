@@ -1,10 +1,6 @@
 {
 	"info": {
-<<<<<<< HEAD
-		"_postman_id": "ff93fe5c-e219-4e8c-b623-04b96589b143",
-=======
-		"_postman_id": "38fa29d0-a3a5-42fb-a36d-a391f382ec7c",
->>>>>>> main
+		"_postman_id": "d7072607-ddc3-4b3c-a872-b1318cf7e1f8",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -158,9 +154,6 @@
 					"response": []
 				},
 				{
-<<<<<<< HEAD
-					"name": "localhost:8080/categories",
-=======
 					"name": "News",
 					"request": {
 						"auth": {
@@ -199,7 +192,6 @@
 				},
 				{
 					"name": "localhost:8080/categories Copy",
->>>>>>> main
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -234,48 +226,6 @@
 						}
 					},
 					"response": []
-<<<<<<< HEAD
-				}
-			]
-		},
-		{
-			"name": "http://localhost:8080/activities",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoib3NjYXJydWluYUBnbWFpbC5jb20iLCJpYXQiOjE2MzYwNDU3NjEsImV4cCI6MTYzNjA4MTc2MX0.iZ9AVWeh0KOvMe7fCFfXbAGxJOeR9NsSCyxOpiXU6Ew",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"pruebaUNO\",\r\n    \"content\": \"pruebaContenido\",\r\n    \"image\": \"pruebaImage\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/activities",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"activities"
-					]
-				}
-			},
-			"response": []
-=======
 				},
 				{
 					"name": "localhost:8080/users",
@@ -304,9 +254,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "http://localhost:8080/activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoib3NjYXJydWluYUBnbWFpbC5jb20iLCJpYXQiOjE2MzYwNDU3NjEsImV4cCI6MTYzNjA4MTc2MX0.iZ9AVWeh0KOvMe7fCFfXbAGxJOeR9NsSCyxOpiXU6Ew",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"pruebaUNO\",\r\n    \"content\": \"pruebaContenido\",\r\n    \"image\": \"pruebaImage\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/activities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
 				}
 			]
->>>>>>> main
 		}
 	]
 }
