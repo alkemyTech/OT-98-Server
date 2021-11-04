@@ -11,13 +11,16 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.ListActiveUsersResponse;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
-import com.alkemy.ong.model.response.UserResponse;
 import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.*;
-
+import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IListUsersService;
+import com.alkemy.ong.service.abstraction.IRoleService;
+import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
-  
+
   @Autowired
   private ConvertUtils convertUtils;
 
@@ -129,20 +132,19 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public List<UserResponse> listActiveUsers() {
+  public ListActiveUsersResponse listActiveUsers() {
+    List<User> users = userRepository.findBySoftDeletedFalse();
+    List<UserDetailsResponse> usersResponse = new ArrayList<>();
 
-    List<User> users  = userRepository.findBySoftDeletedFalse();
-    List<UserResponse> usersResponse = new ArrayList<>();
-
-    for(User user : users){
-       usersResponse.add(UserResponse.builder()
-           .id(user.getId())
-           .firstName(user.getFirstName())
-           .lastName(user.getLastName())
-           .email(user.getEmail())
-           .photo(user.getPhoto())
-           .build());
+    for (User user : users) {
+      usersResponse.add(UserDetailsResponse.builder()
+          .id(user.getId())
+          .firstName(user.getFirstName())
+          .lastName(user.getLastName())
+          .email(user.getEmail())
+          .photo(user.getPhoto())
+          .build());
     }
-    return usersResponse;
+    return new ListActiveUsersResponse(usersResponse);
   }
 }

@@ -1,10 +1,8 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.response.UserResponse;
-import java.util.List;
+import com.alkemy.ong.model.response.ListActiveUsersResponse;
 
 public interface IListUsersService {
 
-    List<UserResponse>  listActiveUsers();
+  ListActiveUsersResponse listActiveUsers();
 }
