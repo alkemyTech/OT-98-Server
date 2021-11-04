@@ -6,4 +6,5 @@ import com.alkemy.ong.model.request.CreateActivityRequest;
 public interface ICreateActivityService {
 
   Activity create(CreateActivityRequest createActivityRequest);
+
 }
