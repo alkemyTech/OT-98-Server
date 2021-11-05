@@ -42,9 +42,10 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService {
   @Transactional
   public void delete(long id) {
     News news = newsRepository.findById(id).get();
-    if (news != null) {
-      news.setSoftDelete(true);
-      newsRepository.save(news);
+    if (news == null) {
+      throw new EntityNotFoundException("News not found!");
     }
+    news.setSoftDelete(true);
+    newsRepository.save(news);
   }
 }
