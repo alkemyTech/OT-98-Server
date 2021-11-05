@@ -189,6 +189,43 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "localhost:8080/testimonials",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"news\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/categories",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     }
