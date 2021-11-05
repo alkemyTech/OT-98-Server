@@ -217,27 +217,93 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8080/users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJ1c2VyIl0sInN1YiI6InJvcXVlQGdtYWlsLmNvbSIsImlhdCI6MTYzNTg4MDUzNywiZXhwIjoxNjM1OTE2NTM3fQ.D_FI-Jw6w7RcIa411KNnXRfqrG8Jdkk_v_kgnuMTFAY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoib3NjYXJydWluYUBnbWFpbC5jb20iLCJpYXQiOjE2MzYwNDU3NjEsImV4cCI6MTYzNjA4MTc2MX0.iZ9AVWeh0KOvMe7fCFfXbAGxJOeR9NsSCyxOpiXU6Ew",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"pruebaUNO\",\r\n    \"content\": \"pruebaContenido\",\r\n    \"image\": \"pruebaImage\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/activities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/news/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/news/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
-		},
-		{
-			"name": "localhost:8020/news/1",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8020/news/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8020",
-					"path": [
-						"news",
-						"1"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
