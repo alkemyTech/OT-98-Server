@@ -27,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       "/swagger-ui/**", "/v2/api-docs",
       "/api/docs",
       "/api/docs/**",
-      "/v3/api-docs",
-      "/api/docs/swagger-ui.html"};
+      "/v3/api-docs/**",
+      "/api/docs/swagger-ui",
+      "/swagger-ui.html"};
 
   @Autowired
   private UserDetailsService userDetailsService;
@@ -65,8 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(SWAGGER)
         .permitAll()
         .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register")
-        .permitAll()
-        .antMatchers(SWAGGER)
         .permitAll()
         .antMatchers(HttpMethod.GET, "/organization/public")
         .hasAnyRole(ApplicationRole.USER.getName(), ApplicationRole.ADMIN.getName())
