@@ -115,19 +115,19 @@
       <version>1.12.99</version>
     </dependency>
     <dependency>
-      <artifactId>springfox-boot-starter</artifactId>
-      <groupId>io.springfox</groupId>
-      <version>3.0.0</version>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.5.12</version>
     </dependency>
     <dependency>
-      <artifactId>springfox-swagger2</artifactId>
-      <groupId>io.springfox</groupId>
-      <version>3.0.0</version>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-data-rest</artifactId>
+      <version>1.5.12</version>
     </dependency>
     <dependency>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <groupId>io.springfox</groupId>
-      <version>3.0.0</version>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-security</artifactId>
+      <version>1.5.12</version>
     </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>

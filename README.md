@@ -34,7 +34,7 @@ So, make sure to set up your IDE with the right code style format file.
 ### SWAGGER DOCUMENTATION
 
 If you want to display the API documentation, run the below command and then go
-to: http://localhost:8080/api/docs/swagger-ui/
+to: http://localhost:8080/api/docs/swagger-ui/ and look up for: /api/docs.
 
 ```
 mvn spring-boot:run
