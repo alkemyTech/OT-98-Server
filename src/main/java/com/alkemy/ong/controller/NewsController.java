@@ -3,13 +3,18 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.model.response.CreateNewsResponse;
+import com.alkemy.ong.model.response.DeleteNewsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
+import com.alkemy.ong.service.abstraction.IDeleteNewsService;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +28,9 @@ public class NewsController {
   private ICreateNewsService createNewsService;
 
   @Autowired
+  private IDeleteNewsService deleteNewsService;
+
+  @Autowired
   private ConvertUtils convertUtils;
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -32,5 +40,11 @@ public class NewsController {
       throws EntityNotFoundException {
     return new ResponseEntity<>(
         convertUtils.toResponse(createNewsService.create(createNewsRequest)), HttpStatus.CREATED);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<DeleteNewsResponse> delete(@PathVariable("id") long id)
+      throws EntityNotFoundException {
+    return new ResponseEntity<>(deleteNewsService.deleteNews(id), HttpStatus.OK);
   }
 }

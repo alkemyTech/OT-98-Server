@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d7072607-ddc3-4b3c-a872-b1318cf7e1f8",
+		"_postman_id": "38fa29d0-a3a5-42fb-a36d-a391f382ec7c",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -154,44 +154,7 @@
 					"response": []
 				},
 				{
-					"name": "News",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"news\",\r\n    \"content\":\"content\",\r\n    \"image\":\"news.png\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/news",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"news"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "localhost:8080/categories Copy",
+					"name": "localhost:8080/categories",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -254,46 +217,27 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "http://localhost:8080/activities",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoib3NjYXJydWluYUBnbWFpbC5jb20iLCJpYXQiOjE2MzYwNDU3NjEsImV4cCI6MTYzNjA4MTc2MX0.iZ9AVWeh0KOvMe7fCFfXbAGxJOeR9NsSCyxOpiXU6Ew",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"pruebaUNO\",\r\n    \"content\": \"pruebaContenido\",\r\n    \"image\": \"pruebaImage\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/activities",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"activities"
-							]
-						}
-					},
-					"response": []
 				}
 			]
+		},
+		{
+			"name": "localhost:8020/news/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8020/news/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8020",
+					"path": [
+						"news",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
