@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface IUserRepository extends JpaRepository<User, Long> {
 
   User findByEmail(String email);
-  User findById(long id);
+
   List<User> findBySoftDeletedFalse();
+
 }

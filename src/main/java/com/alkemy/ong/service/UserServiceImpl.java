@@ -18,10 +18,10 @@ import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +155,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   @Override
   public void delete(long id) throws EntityNotFoundException {
     User user = userRepository.getById(id);
-    if (user == null) throw new EntityNotFoundException("There's no User registered with that ID number!!!");
+    if (user == null) {
+      throw new EntityNotFoundException("There's no User registered with that ID number!!!");
+    }
     user.setSoftDeleted(true);
     userRepository.save(user);
   }
