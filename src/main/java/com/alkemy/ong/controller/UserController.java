@@ -4,6 +4,7 @@ import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserController {
   @Autowired
   public IAuthenticatedUserDetails authenticatedUserDetails;
 
+  @Autowired
+  public IListUsersService userService;
+
   @PostMapping(value = "/auth/register",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,6 +42,11 @@ public class UserController {
       @RequestHeader(value = "Authorization") String authorizationHeader) {
     return new ResponseEntity<>(authenticatedUserDetails.getUserDetails(authorizationHeader),
         HttpStatus.OK);
+  }
+
+  @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> listActiveUsers() {
+    return new ResponseEntity<>(userService.listActiveUsers(), HttpStatus.OK);
   }
 
 }
