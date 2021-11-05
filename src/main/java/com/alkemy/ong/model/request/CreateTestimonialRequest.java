@@ -12,7 +12,10 @@ public class CreateTestimonialRequest {
   @Size(max = 250, message = ValidationMessages.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String name;
 
+  private String image;
   @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   @Size(max = 250, message = ValidationMessages.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String content;
+
+
 }

@@ -16,7 +16,9 @@ public class TestimonialServiceImpl implements ICreateTestimonialService {
   public Testimonial create(CreateTestimonialRequest createTestimonialRequest) {
     Testimonial testimonial = new Testimonial();
     testimonial.setName(createTestimonialRequest.getName());
+    testimonial.setImage(createTestimonialRequest.getImage());
     testimonial.setContent(createTestimonialRequest.getContent());
+    testimonial.setSoftDelete(false);
     return this.testimonialRepository.save(testimonial);
   }
 }
