@@ -4,12 +4,11 @@ import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
-import com.alkemy.ong.service.abstraction.IListUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

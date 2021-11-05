@@ -22,6 +22,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private static final String[] SWAGGER = {
+      "/swagger-resources/**",
+      "/swagger-ui/**", "/v2/api-docs",
+      "/api/docs",
+      "/api/docs/**"};
+
   @Autowired
   private UserDetailsService userDetailsService;
 
@@ -54,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/swagger-resources/**", "/swagger-ui/**", "/v2/api-docs", "/api/docs", "/api/docs/**")
+        .antMatchers(SWAGGER)
         .permitAll()
         .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register")
         .permitAll()
@@ -65,6 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/news")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.POST, "/categories")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.POST, "/activities")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.GET, "/users")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
