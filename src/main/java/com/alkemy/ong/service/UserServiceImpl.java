@@ -153,9 +153,10 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   }
 
   @Override
-  public void deleteById(Long id) throws EntityNotFoundException {
+  public void delete(long id) throws EntityNotFoundException {
     User user = userRepository.getById(id);
     if (user == null) throw new EntityNotFoundException("There's no User registered with that ID number!!!");
-    deleteUserService.deleteById(id);
+    user.setSoftDeleted(true);
+    userRepository.save(user);
   }
 }
