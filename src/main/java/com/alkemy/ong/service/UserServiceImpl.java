@@ -18,6 +18,7 @@ import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
@@ -38,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService {
+    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IDeleteUserService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -60,6 +61,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private ConvertUtils convertUtils;
+
+  @Autowired
+  private IDeleteUserService deleteUserService;
 
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
@@ -146,5 +150,15 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
           .build());
     }
     return new ListActiveUsersResponse(usersResponse);
+  }
+
+  @Override
+  public void delete(long id) throws EntityNotFoundException {
+    User user = userRepository.getById(id);
+    if (user == null) {
+      throw new EntityNotFoundException("There's no User registered with that ID number!!!");
+    }
+    user.setSoftDeleted(true);
+    userRepository.save(user);
   }
 }
