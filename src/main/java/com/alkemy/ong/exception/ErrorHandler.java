@@ -20,7 +20,7 @@ public class ErrorHandler {
   public ResponseEntity<?> handleEntityNotFoundException(HttpServletRequest request,
       EntityNotFoundException e) {
     return ResponseEntity.badRequest()
-        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
+        .body(buildResponse(e, HttpStatus.NOT_FOUND));
   }
 
   @ExceptionHandler(AuthenticationException.class)

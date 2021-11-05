@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "38fa29d0-a3a5-42fb-a36d-a391f382ec7c",
+		"_postman_id": "42333ca0-ee11-4586-bf81-c739a870c438",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -154,6 +154,43 @@
 					"response": []
 				},
 				{
+					"name": "News",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"news\",\r\n    \"content\":\"content\",\r\n    \"image\":\"news.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/news",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "localhost:8080/categories",
 					"request": {
 						"auth": {
@@ -185,34 +222,6 @@
 							"port": "8080",
 							"path": [
 								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "localhost:8080/users",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJ1c2VyIl0sInN1YiI6InJvcXVlQGdtYWlsLmNvbSIsImlhdCI6MTYzNTg4MDUzNywiZXhwIjoxNjM1OTE2NTM3fQ.D_FI-Jw6w7RcIa411KNnXRfqrG8Jdkk_v_kgnuMTFAY",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/users",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users"
 							]
 						}
 					},
@@ -279,6 +288,35 @@
 							"port": "8080",
 							"path": [
 								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/users/21",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoianVhbnBhbG90ZXNAZ21haWwuY29tIiwiaWF0IjoxNjM2MTE4OTM3LCJleHAiOjE2MzYxNTQ5Mzd9.8ZkhXSlKh3cMjQZJV1GgeyeYSowa2zylOF8YZoJ5m3E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/21",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"21"
 							]
 						}
 					},

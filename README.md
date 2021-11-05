@@ -34,8 +34,42 @@ So, make sure to set up your IDE with the right code style format file.
 ### SWAGGER DOCUMENTATION
 
 If you want to display the API documentation, run the below command and then go
-to: http://localhost:8080/api/docs/swagger-ui/
+to: http://localhost:8080/api/docs/swagger-ui/ and look up for: /api/docs.
 
 ```
 mvn spring-boot:run
 ```
+
+### USERS SEED
+
+| id  | email				  |  first_name	   | last_name    | 
+|-----|-----------------------|----------------| -------------|
+| 1   | imontovio@alkemy.com  | 	Ignacio	   | 	Montovio  | 
+| 2   | abahi@alkemy.com	  | 	Alexis	   |    Bahi      | 
+| 3   | jaman@alkemy.com	  | 	Joaquin	   | 	Aman      | 
+| 4   | klugo@alkemy.com	  | 	Kevin	   | 	Lugo      |  
+| 5   | lscaceres@alkemy.com  | 	Lucio	   | 	Scaceres  |   
+| 6   | mcevini@alkemy.com	  | 	Matias	   | 	Cevini    |   
+| 7   | oruina@alkemy.com	  | 	Oscar	   | 	Ruina     |  
+| 8   | mkain@alkemy.com	  | 	Magali	   | 	Kain      | 
+| 9   | psamid@alkemy.com	  | 	Pablo	   | 	Samid     |  
+| 10  | aruiz@alkemy.com	  | 	Alejandro  | 	Ruiz      | 
+| 11  | mruiz@alkemy.com	  | 	Mario	   |    Ruiz      |  
+| 12  | llopez@alkemy.com	  | 	Lucas	   |  	Lopez     |  
+| 13  | stierno@alkemy.com	  | 	Santiago   |	Tierno    |  
+| 14  | jtierno@alkemy.com	  | 	Julieta	   |	Tierno    | 
+| 15  | dtierno@alkemy.com	  | 	Daniela	   |	Tierno    |   
+| 16  | npaez@alkemy.com	  | 	Naiara     |    Paez      |   
+| 17  | jpaez@alkemy.com	  | 	Julian	   |	Paez      |  
+| 18  | jsantoro@alkemy.com	  | 	Josias	   |	Santoro   | 
+| 19  | fsantoro@alkemy.com	  | 	Federico   |	Santoro   | 
+| 20  | esantoro@alkemy.com	  | 	Ezequiel   |	Santoro   | 
+
+All the users have "foo12345" as password.
+	
+### ROLES SEED
+
+| id | 	description	| 	name   |
+|----|--------------|----------| 
+| 1	 |  ROLE_USER   | 	USER   |
+| 2	 | 	ROLE_ADMIN  | 	ADMIN  | 
