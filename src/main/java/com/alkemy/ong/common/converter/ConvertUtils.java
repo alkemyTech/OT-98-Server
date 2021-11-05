@@ -1,6 +1,5 @@
 package com.alkemy.ong.common.converter;
 
-import org.springframework.stereotype.Component;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
@@ -9,6 +8,7 @@ import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateNewsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
 public class ConvertUtils {
