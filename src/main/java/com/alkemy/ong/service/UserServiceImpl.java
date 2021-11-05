@@ -62,6 +62,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   @Autowired
   private ConvertUtils convertUtils;
 
+  @Autowired
+  private IDeleteUserService deleteUserService;
+
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
@@ -150,9 +153,9 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   }
 
   @Override
-  public void deleteUserById(Long id) throws EntityNotFoundException {
+  public void deleteById(Long id) throws EntityNotFoundException {
     User user = userRepository.getById(id);
     if (user == null) throw new EntityNotFoundException("There's no User registered with that ID number!!!");
-    userRepository.deleteUserById(id);
+    deleteUserService.deleteById(id);
   }
 }

@@ -59,7 +59,7 @@ public class UserController {
 
   @DeleteMapping(value = "/users/{id}")
   public ResponseEntity<Long> deleteBy(@PathVariable Long id) throws EntityNotFoundException {
-    deleteUserService.deleteUserById(id);
+    deleteUserService.deleteById(id);
     return new  ResponseEntity<>(id, HttpStatus.NO_CONTENT);
   }
 

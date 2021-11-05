@@ -15,7 +15,7 @@ public class DeleteUserRepositoryImpl implements IDeleteUserRepository {
 
   @Override
   public void deleteById(Long id) {
-    String query = "UPDATE USERS SET SOFT_DELETED = 'TRUE' WHERE ID = :ID";
+    String query = "UPDATE USERS SET SOFT_DELETED = 1 WHERE ID = :ID";
     try {
       entityManager.createQuery(query, User.class)
           .setParameter("id", id);
