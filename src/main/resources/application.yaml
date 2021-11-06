@@ -5,10 +5,3 @@ amazonProperties:
   region: sa-east-1
   bucketName: alkemy-ong
 
-springfox:
-  documentation:
-    swaggerUi:
-      baseUrl: /api/docs
-    swagger:
-      v2:
-        path: /api/docs

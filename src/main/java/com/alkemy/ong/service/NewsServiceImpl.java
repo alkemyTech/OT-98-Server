@@ -5,13 +5,14 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
+import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class NewsServiceImpl implements ICreateNewsService {
+public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService {
 
   private static final String NEWS_CATEGORY = "news";
 
@@ -37,4 +38,14 @@ public class NewsServiceImpl implements ICreateNewsService {
     return newsRepository.save(news);
   }
 
+  @Override
+  @Transactional
+  public void delete(long id) {
+    News news = newsRepository.findById(id).get();
+    if (news == null) {
+      throw new EntityNotFoundException("News not found!");
+    }
+    news.setSoftDelete(true);
+    newsRepository.save(news);
+  }
 }
