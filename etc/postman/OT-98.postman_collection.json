@@ -358,43 +358,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "localhost:8080/testimonials",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoibHNjYWNlcmVzQGFsa2VteS5jb20iLCJpYXQiOjE2MzYxNTYyMzIsImV4cCI6MTYzNjE5MjIzMn0.CiMDM43nTJMz6YEPb6UOaFClGJU8-Xu0mwPCMeulcEU",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"lucio\",\r\n    \"image\":\"imagen.jpg\",\r\n    \"content\":\"prueba\"\r\n    \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/testimonials",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"testimonials"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}
