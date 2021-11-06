@@ -1,9 +1,11 @@
 package com.alkemy.ong.common.converter;
 
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateContactResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import org.springframework.stereotype.Component;
@@ -26,13 +28,15 @@ public class ConvertUtils {
     createCategoryResponse.setName(category.getName());
     return createCategoryResponse;
   }
-  public CreateTestimonialResponse toResponse(Testimonial testimonial){
-    CreateTestimonialResponse createTestimonialResponse = new CreateTestimonialResponse();
-    createTestimonialResponse.setId(testimonial.getId());
-    createTestimonialResponse.setName(testimonial.getName());
-    createTestimonialResponse.setImage(testimonial.getImage());
-    createTestimonialResponse.setContent(testimonial.getContent());
-    return createTestimonialResponse;
+
+  public CreateContactResponse toResponse(Contact contact){
+    CreateContactResponse  createContactResponse= new CreateContactResponse();
+    createContactResponse.setId(contact.getId());
+    createContactResponse.setName(contact.getName());
+    createContactResponse.setPhone(contact.getPhone());
+    createContactResponse.setEmail(contact.getEmail());
+    createContactResponse.setMessage(contact.getMessage());
+    return createContactResponse;
   }
 
 }
