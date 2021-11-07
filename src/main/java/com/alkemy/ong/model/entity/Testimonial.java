@@ -44,4 +44,5 @@ public class Testimonial {
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;
 
+
 }

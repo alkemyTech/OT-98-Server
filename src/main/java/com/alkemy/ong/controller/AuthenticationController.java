@@ -26,7 +26,9 @@ public class AuthenticationController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody UserAuthenticationRequest userRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
+
     UserDetailsResponse user = authenticationService.login(userRequest);
+
     return ResponseEntity.ok(user);
   }
 

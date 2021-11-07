@@ -10,7 +10,6 @@ import lombok.Setter;
 public class CreateCategoryResponse {
 
   private long id;
-
   private String name;
 
 }
