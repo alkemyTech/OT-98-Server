@@ -9,16 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContactServiceImpl implements ICreateContactService {
+
   @Autowired
   IContactRepository contactRepository;
 
   @Override
   public Contact create(CreateContactRequest createContactRequest) {
-    Contact contact= new Contact();
+    Contact contact = new Contact();
     contact.setName(createContactRequest.getName());
     contact.setPhone(createContactRequest.getPhone());
     contact.setEmail(createContactRequest.getEmail());
     contact.setMessage(createContactRequest.getMessage());
-    return this.contactRepository.save(contact);
+    return contactRepository.save(contact);
   }
+
 }

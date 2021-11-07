@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreateContactResponse {
+
   private long id;
   private String name;
   private String phone;

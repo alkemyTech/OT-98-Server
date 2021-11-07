@@ -23,19 +23,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String[] SWAGGER = {
-    "/swagger-resources/**",
-    "/swagger-ui/**",
-    "/v2/api-docs",
-    "/api/docs",
-    "/api/docs/**",
-    "/v3/api-docs/**",
-    "/api/docs/swagger-ui",
-    "/swagger-ui.html"
-  };
+      "/swagger-resources/**",
+      "/swagger-ui/**", "/v2/api-docs",
+      "/api/docs",
+      "/api/docs/**",
+      "/v3/api-docs/**",
+      "/api/docs/swagger-ui",
+      "/swagger-ui.html"};
 
-  @Autowired private UserDetailsService userDetailsService;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-  @Autowired private JwtRequestFilter jwtRequestFilter;
+  @Autowired
+  private JwtRequestFilter jwtRequestFilter;
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
-    managerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    managerBuilder.userDetailsService(userDetailsService)
+        .passwordEncoder(passwordEncoder());
   }
 
   @Bean

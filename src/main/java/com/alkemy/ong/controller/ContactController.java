@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/contacts")
 public class ContactController {
 
-  @Autowired ICreateContactService createContactService;
-  @Autowired ConvertUtils convertUtils;
+  @Autowired
+  ICreateContactService createContactService;
+
+  @Autowired
+  ConvertUtils convertUtils;
 
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
