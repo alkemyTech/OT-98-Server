@@ -4,3 +4,4 @@ amazonProperties:
   secretAccessKey: foo
   region: sa-east-1
   bucketName: alkemy-ong
+

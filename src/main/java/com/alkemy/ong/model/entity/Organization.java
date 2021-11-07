@@ -20,7 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ORGANIZATIONS")
-public class Organization {
+public class Organization extends SocialMedia {
 
   @Id
   @Column(name = "ORGANIZATIONS_ID")

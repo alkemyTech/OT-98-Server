@@ -1,6 +1,7 @@
 package com.alkemy.ong.integration;
 
 import com.alkemy.ong.repository.IUserRepository;
+import com.alkemy.ong.service.abstraction.IRoleService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -17,6 +18,9 @@ public class AbstractBaseIntegrationTest {
 
   @MockBean
   protected AuthenticationManager authenticationManager;
+
+  @MockBean
+  protected IRoleService roleService;
 
   @LocalServerPort
   private int port;

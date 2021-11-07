@@ -114,7 +114,21 @@
       <groupId>com.amazonaws</groupId>
       <version>1.12.99</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-data-rest</artifactId>
+      <version>1.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-security</artifactId>
+      <version>1.5.12</version>
+    </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>
@@ -124,7 +138,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <relativePath/>
-    <version>2.5.1</version> <!-- lookup parent from repository -->
+    <version>2.5.4</version> <!-- lookup parent from repository -->
   </parent>
   <properties>
     <java.version>11</java.version>
