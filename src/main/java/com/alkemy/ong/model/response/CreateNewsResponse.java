@@ -6,21 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@JsonRootName("user")
+@JsonRootName("news")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterResponse {
+public class CreateNewsResponse {
 
-  private long id;
-
-  private String firstsName;
-
-  private String lastName;
-
-  private String email;
-
-  private String jwt;
+  private String name;
+  private String content;
+  private String image;
+  private String category;
 
 }

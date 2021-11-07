@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.config.ApplicationRole;
@@ -10,11 +11,15 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.ListActiveUsersResponse;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
+import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
+import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import java.text.MessageFormat;
@@ -34,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails {
+    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IDeleteUserService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -53,6 +58,12 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  @Autowired
+  private ConvertUtils convertUtils;
+
+  @Autowired
+  private IDeleteUserService deleteUserService;
 
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
@@ -93,7 +104,8 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   @Transactional
-  public User register(UserRegisterRequest registerRequest) throws EmailAlreadyExistException {
+  public UserRegisterResponse register(UserRegisterRequest registerRequest)
+      throws EmailAlreadyExistException {
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
@@ -106,8 +118,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
-    userRepository.save(user);
-    return user;
+    return convertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
   }
 
   @Override
@@ -122,4 +133,32 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
         user.getPhoto());
   }
 
+
+  @Override
+  @Transactional
+  public ListActiveUsersResponse listActiveUsers() {
+    List<User> users = userRepository.findBySoftDeletedFalse();
+    List<UserDetailsResponse> usersResponse = new ArrayList<>();
+
+    for (User user : users) {
+      usersResponse.add(UserDetailsResponse.builder()
+          .id(user.getId())
+          .firstName(user.getFirstName())
+          .lastName(user.getLastName())
+          .email(user.getEmail())
+          .photo(user.getPhoto())
+          .build());
+    }
+    return new ListActiveUsersResponse(usersResponse);
+  }
+
+  @Override
+  public void delete(long id) throws EntityNotFoundException {
+    User user = userRepository.getById(id);
+    if (user == null) {
+      throw new EntityNotFoundException("There's no User registered with that ID number!!!");
+    }
+    user.setSoftDeleted(true);
+    userRepository.save(user);
+  }
 }

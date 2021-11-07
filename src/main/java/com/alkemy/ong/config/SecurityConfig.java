@@ -22,11 +22,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+  private static final String[] SWAGGER = {
+    "/swagger-resources/**",
+    "/swagger-ui/**",
+    "/v2/api-docs",
+    "/api/docs",
+    "/api/docs/**",
+    "/v3/api-docs/**",
+    "/api/docs/swagger-ui",
+    "/swagger-ui.html"
+  };
 
-  @Autowired
-  private JwtRequestFilter jwtRequestFilter;
+  @Autowired private UserDetailsService userDetailsService;
+
+  @Autowired private JwtRequestFilter jwtRequestFilter;
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
@@ -35,8 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
-    managerBuilder.userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder());
+    managerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
   }
 
   @Bean
@@ -54,15 +62,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+        .antMatchers(SWAGGER)
+        .permitAll()
         .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register")
         .permitAll()
         .antMatchers(HttpMethod.GET, "/organization/public")
         .hasAnyRole(ApplicationRole.USER.getName(), ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.GET, "/auth/me")
         .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.POST, "/news")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.POST, "/categories")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
-        .antMatchers(HttpMethod.POST,"/contacts")
+        .antMatchers(HttpMethod.POST, "/activities")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.GET, "/users")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.DELETE, "/users/**")
+        .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.POST, "/contacts")
         .hasAnyRole(ApplicationRole.USER.getName())
         .anyRequest()
         .authenticated()
