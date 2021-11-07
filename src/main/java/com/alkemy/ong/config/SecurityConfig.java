@@ -81,12 +81,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.DELETE, "/users/**")
         .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.POST, "/contacts")
+        .hasAnyRole(ApplicationRole.USER.getName())
         .anyRequest()
         .authenticated()
         .and()
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling()
         .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-
   }
 }
