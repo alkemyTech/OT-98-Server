@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.common.OrganizationUtil;
 import com.alkemy.ong.model.entity.Organization;
+import com.alkemy.ong.model.request.OrganizationRequest;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.repository.IOrganizationRepository;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
@@ -37,12 +37,22 @@ public class OrganizationServiceImpl implements IOrganizationService {
   }
 
   @Override
-  public void update(Organization organization) throws EntityNotFoundException {
-    try {
-      Organization o = organizationRepository.getById(1L);
-      organizationRepository.save(OrganizationUtil.organizationFields(o, organization));
-    } catch (Exception e) {
-      throw new EntityNotFoundException();
+  @Transactional
+  public void update(OrganizationRequest organization) throws EntityNotFoundException {
+    Organization org = organizationRepository.findAll().get(0);
+    if (organization == null) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
     }
+    org.setName(organization.getName());
+    org.setImage(organization.getImage());
+    org.setAddress(organization.getAddress());
+    org.setPhone(organization.getPhone());
+    org.setEmail(organization.getEmail());
+    org.setWelcomeText(organization.getWelcomeText());
+    org.setAboutUsText(organization.getAboutUsText());
+    org.setFacebookUrl(organization.getFacebookUrl());
+    org.setLinkedinUrl(organization.getLinkedinUrl());
+    org.setInstagramUrl(organization.getInstagramUrl());
+    organizationRepository.save(org);
   }
 }
