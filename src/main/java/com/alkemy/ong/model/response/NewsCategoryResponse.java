@@ -1,21 +1,21 @@
 package com.alkemy.ong.model.response;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@JsonRootName("news")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateNewsResponse {
+public class NewsCategoryResponse {
 
   private String name;
-  private String content;
+  @JsonInclude(Include.NON_NULL)
+  private String description;
+  @JsonInclude(Include.NON_NULL)
   private String image;
-  private String category;
-
 }
