@@ -41,9 +41,9 @@ public class NewsController {
   public ResponseEntity<NewsDetailsResponse> create(
       @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
       throws EntityNotFoundException {
-    return new ResponseEntity<>(
-        convertUtils.createToResponse(createNewsService.create(createNewsRequest)),
-        HttpStatus.CREATED);
+    NewsDetailsResponse newsDetailsResponse = convertUtils.createToResponse(
+        createNewsService.create(createNewsRequest));
+    return new ResponseEntity<>(newsDetailsResponse, HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
@@ -54,9 +54,9 @@ public class NewsController {
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<NewsDetailsResponse> getById(@PathVariable("id") long id)
+  public ResponseEntity<NewsDetailsResponse> getBy(@PathVariable("id") long id)
       throws EntityNotFoundException {
-    return new ResponseEntity<>(convertUtils.getToResponse(getNewsService.getBy(id)),
-        HttpStatus.OK);
+    NewsDetailsResponse newsDetailsResponse = convertUtils.getToResponse(getNewsService.getBy(id));
+    return new ResponseEntity<>(newsDetailsResponse, HttpStatus.OK);
   }
 }
