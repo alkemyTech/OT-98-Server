@@ -1,5 +1,6 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.common.OrganizationUtil;
 import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.repository.IOrganizationRepository;
@@ -33,5 +34,15 @@ public class OrganizationServiceImpl implements IOrganizationService {
         .linkedinUrl(organization.getLinkedinUrl())
         .build();
 
+  }
+
+  @Override
+  public void update(Organization organization) throws EntityNotFoundException {
+    try {
+      Organization o = organizationRepository.getById(1L);
+      organizationRepository.save(OrganizationUtil.organizationFields(o, organization));
+    } catch (Exception e) {
+      throw new EntityNotFoundException();
+    }
   }
 }
