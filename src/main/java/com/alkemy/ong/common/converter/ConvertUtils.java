@@ -9,6 +9,8 @@ import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateContactResponse;
 import com.alkemy.ong.model.response.CreateNewsResponse;
+import com.alkemy.ong.model.response.GetNewsByIdResponse;
+import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import org.springframework.stereotype.Component;
 
@@ -58,5 +60,23 @@ public class ConvertUtils {
     createContactResponse.setEmail(contact.getEmail());
     createContactResponse.setMessage(contact.getMessage());
     return createContactResponse;
+  }
+
+  public GetNewsByIdResponse getToResponse(News news) {
+    GetNewsByIdResponse getNewsByIdResponse = new GetNewsByIdResponse();
+    getNewsByIdResponse.setId(news.getId());
+    getNewsByIdResponse.setName(news.getName());
+    getNewsByIdResponse.setContent(news.getContent());
+    getNewsByIdResponse.setImage(news.getImage());
+    getNewsByIdResponse.setNewsCategory(this.newsCategorytoResponse(news));
+    return getNewsByIdResponse;
+  }
+
+  private NewsCategoryResponse newsCategorytoResponse(News news) {
+    NewsCategoryResponse newsCategoryResponse = new NewsCategoryResponse();
+    newsCategoryResponse.setName(news.getCategory().getName());
+    newsCategoryResponse.setDescription(news.getCategory().getDescription());
+    newsCategoryResponse.setImage(news.getCategory().getImage());
+    return newsCategoryResponse;
   }
 }
