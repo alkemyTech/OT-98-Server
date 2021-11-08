@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @JsonRootName("contact")
-public class CreateContactResponse {
+public class DetailsContactResponse {
 
   private long id;
   private String name;
