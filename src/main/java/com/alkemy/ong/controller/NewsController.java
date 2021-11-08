@@ -56,7 +56,7 @@ public class NewsController {
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<NewsDetailsResponse> getById(@PathVariable("id") long id)
       throws EntityNotFoundException {
-    return new ResponseEntity<>(convertUtils.getToResponse(getNewsService.getById(id)),
+    return new ResponseEntity<>(convertUtils.getToResponse(getNewsService.getBy(id)),
         HttpStatus.OK);
   }
 }

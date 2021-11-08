@@ -5,5 +5,5 @@ import com.alkemy.ong.model.entity.News;
 
 public interface IGetNewsService {
 
-  News getById(Long id) throws EntityNotFoundException;
+  News getBy(Long id) throws EntityNotFoundException;
 }

@@ -54,7 +54,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
 
   @Override
   @Transactional(readOnly = true)
-  public News getById(Long id) throws EntityNotFoundException {
+  public News getBy(Long id) throws EntityNotFoundException {
     Optional<News> news = newsRepository.findById(id);
 
     if (news.isEmpty()) {
