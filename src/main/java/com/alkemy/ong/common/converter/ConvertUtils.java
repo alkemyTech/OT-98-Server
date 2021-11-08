@@ -7,9 +7,8 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
-import com.alkemy.ong.model.response.CreateNewsResponse;
+import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
-import com.alkemy.ong.model.response.GetNewsByIdResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
@@ -45,8 +44,8 @@ public class ConvertUtils {
     return createActivityResponse;
   }
 
-  public CreateNewsResponse createToResponse(News news) {
-    CreateNewsResponse createNewsResponse = new CreateNewsResponse();
+  public NewsDetailsResponse createToResponse(News news) {
+    NewsDetailsResponse createNewsResponse = new NewsDetailsResponse();
     createNewsResponse.setName(news.getName());
     createNewsResponse.setContent(news.getContent());
     createNewsResponse.setImage(news.getImage());
@@ -72,14 +71,14 @@ public class ConvertUtils {
     return detailsContactResponses;
   }
 
-  public GetNewsByIdResponse getToResponse(News news) {
-    GetNewsByIdResponse getNewsByIdResponse = new GetNewsByIdResponse();
-    getNewsByIdResponse.setId(news.getId());
-    getNewsByIdResponse.setName(news.getName());
-    getNewsByIdResponse.setContent(news.getContent());
-    getNewsByIdResponse.setImage(news.getImage());
-    getNewsByIdResponse.setNewsCategory(this.newsCategorytoResponse(news));
-    return getNewsByIdResponse;
+  public NewsDetailsResponse getToResponse(News news) {
+    NewsDetailsResponse getNewsResponse = new NewsDetailsResponse();
+    getNewsResponse.setId(news.getId());
+    getNewsResponse.setName(news.getName());
+    getNewsResponse.setContent(news.getContent());
+    getNewsResponse.setImage(news.getImage());
+    getNewsResponse.setNewsCategory(this.newsCategorytoResponse(news));
+    return getNewsResponse;
   }
 
   private NewsCategoryResponse newsCategorytoResponse(News news) {
