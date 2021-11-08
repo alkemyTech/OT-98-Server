@@ -47,7 +47,8 @@ public class NewsController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") long id) throws EntityNotFoundException {
+  public ResponseEntity<?> delete(@PathVariable("id") long id)
+      throws EntityNotFoundException {
     deleteNewsService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
