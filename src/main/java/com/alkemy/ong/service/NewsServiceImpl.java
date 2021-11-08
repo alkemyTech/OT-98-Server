@@ -6,6 +6,7 @@ import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
+import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,11 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService {
   @Override
   @Transactional
   public void delete(long id) {
-    News news = newsRepository.findById(id).get();
-    if (news == null) {
+    Optional<News> newsOptional = newsRepository.findById(id);
+    if (newsOptional.isEmpty()) {
       throw new EntityNotFoundException("News not found!");
     }
+    News news = newsOptional.get();
     news.setSoftDelete(true);
     newsRepository.save(news);
   }
