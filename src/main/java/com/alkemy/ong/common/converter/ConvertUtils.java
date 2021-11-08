@@ -43,7 +43,7 @@ public class ConvertUtils {
     return createActivityResponse;
   }
 
-  public CreateNewsResponse toResponse(News news) {
+  public CreateNewsResponse createToResponse(News news) {
     CreateNewsResponse createNewsResponse = new CreateNewsResponse();
     createNewsResponse.setName(news.getName());
     createNewsResponse.setContent(news.getContent());

@@ -1,7 +1,6 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
-import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.model.response.CreateNewsResponse;
 import com.alkemy.ong.model.response.GetNewsByIdResponse;
@@ -44,7 +43,8 @@ public class NewsController {
       @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
       throws EntityNotFoundException {
     return new ResponseEntity<>(
-        convertUtils.toResponse(createNewsService.create(createNewsRequest)), HttpStatus.CREATED);
+        convertUtils.createToResponse(createNewsService.create(createNewsRequest)),
+        HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
@@ -56,7 +56,7 @@ public class NewsController {
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<GetNewsByIdResponse> getById(@PathVariable("id") long id)
       throws EntityNotFoundException {
-    News news = getNewsService.getById(id);
-    return new ResponseEntity<>(convertUtils.getToResponse(news), HttpStatus.OK);
+    return new ResponseEntity<>(convertUtils.getToResponse(getNewsService.getById(id)),
+        HttpStatus.OK);
   }
 }
