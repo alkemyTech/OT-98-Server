@@ -71,7 +71,6 @@ public class NewsServiceImpl
   @Override
   public Page<News> list(int page, int size) {
     Pageable pageable = PageRequest.of(page, size);
-
-    return newsRepository.findAll(pageable);
+    return newsRepository.findBySoftDeleteIsFalse(pageable);
   }
 }
