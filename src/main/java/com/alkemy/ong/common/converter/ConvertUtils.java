@@ -53,20 +53,19 @@ public class ConvertUtils {
   }
 
   public DetailsContactResponse toResponse(Contact contact) {
-    DetailsContactResponse createContactResponse = new DetailsContactResponse();
-    createContactResponse.setId(contact.getId());
-    createContactResponse.setName(contact.getName());
-    createContactResponse.setPhone(contact.getPhone());
-    createContactResponse.setEmail(contact.getEmail());
-    createContactResponse.setMessage(contact.getMessage());
-    return createContactResponse;
+    DetailsContactResponse detailsContactResponse = new DetailsContactResponse();
+    detailsContactResponse.setId(contact.getId());
+    detailsContactResponse.setName(contact.getName());
+    detailsContactResponse.setPhone(contact.getPhone());
+    detailsContactResponse.setEmail(contact.getEmail());
+    detailsContactResponse.setMessage(contact.getMessage());
+    return detailsContactResponse;
   }
 
   public List<DetailsContactResponse> toResponse(List<Contact> contacts) {
     List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
     contacts.forEach(contact -> {
-      detailsContactResponses.add(
-          toResponse(contact)
+      detailsContactResponses.add(toResponse(contact)
       );
     });
     return detailsContactResponses;
