@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.Organization;
+import com.alkemy.ong.model.request.OrganizationRequest;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class OrganizationController {
   }
 
   @PostMapping(value = "/public", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> update(@RequestBody Organization organization) throws EntityNotFoundException {
-    organizationService.update(organization);
+  public ResponseEntity<?> update(@RequestBody OrganizationRequest organizationRequest) throws EntityNotFoundException {
+    organizationService.update(organizationRequest);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
