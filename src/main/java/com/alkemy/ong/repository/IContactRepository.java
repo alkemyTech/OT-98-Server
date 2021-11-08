@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IContactRepository extends JpaRepository<Contact, Long> {
 
-  List<Contact> findAll();
+  List<Contact> findByDeletedAtIsNull();
 
 }

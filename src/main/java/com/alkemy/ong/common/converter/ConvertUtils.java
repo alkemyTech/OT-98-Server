@@ -59,7 +59,6 @@ public class ConvertUtils {
     createContactResponse.setPhone(contact.getPhone());
     createContactResponse.setEmail(contact.getEmail());
     createContactResponse.setMessage(contact.getMessage());
-    createContactResponse.setDelete_at(contact.getDeletedAt());
     return createContactResponse;
   }
 

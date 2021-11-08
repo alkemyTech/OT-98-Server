@@ -8,7 +8,6 @@ import com.alkemy.ong.model.response.ListContactResponse;
 import com.alkemy.ong.repository.IContactRepository;
 import com.alkemy.ong.service.abstraction.ICreateContactService;
 import com.alkemy.ong.service.abstraction.IListContactsService;
-import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +27,12 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
     contact.setPhone(createContactRequest.getPhone());
     contact.setEmail(createContactRequest.getEmail());
     contact.setMessage(createContactRequest.getMessage());
-    contact.setDeletedAt(new Date(266241));
     return contactRepository.save(contact);
   }
 
   @Override
   public ListContactResponse list() {
-    List<Contact> contacts = contactRepository.findAll();
+    List<Contact> contacts = contactRepository.findByDeletedAtIsNull();
     List<DetailsContactResponse> detailsContactResponses = convertUtils.toResponse(contacts);
     return new ListContactResponse(detailsContactResponses);
   }
