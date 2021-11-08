@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetByIdNewsResponse {
+public class GetNewsByIdResponse {
 
   private Long id;
   private String name;
