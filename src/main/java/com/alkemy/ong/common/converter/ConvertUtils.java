@@ -7,9 +7,9 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
-import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
+import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +44,6 @@ public class ConvertUtils {
     return createActivityResponse;
   }
 
-  public NewsDetailsResponse createToResponse(News news) {
-    NewsDetailsResponse createNewsResponse = new NewsDetailsResponse();
-    createNewsResponse.setName(news.getName());
-    createNewsResponse.setContent(news.getContent());
-    createNewsResponse.setImage(news.getImage());
-    createNewsResponse.setCategory(news.getCategory().getName());
-    return createNewsResponse;
-  }
-
   public DetailsContactResponse toResponse(Contact contact) {
     DetailsContactResponse detailsContactResponse = new DetailsContactResponse();
     detailsContactResponse.setId(contact.getId());
@@ -72,21 +63,32 @@ public class ConvertUtils {
     return detailsContactResponses;
   }
 
-  public NewsDetailsResponse getToResponse(News news) {
-    NewsDetailsResponse getNewsResponse = new NewsDetailsResponse();
-    getNewsResponse.setId(news.getId());
-    getNewsResponse.setName(news.getName());
-    getNewsResponse.setContent(news.getContent());
-    getNewsResponse.setImage(news.getImage());
-    getNewsResponse.setNewsCategory(this.newsCategorytoResponse(news));
-    return getNewsResponse;
+  public NewsDetailsResponse createToResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = buildBaseNewsDetailsResponse(news);
+    newsDetailsResponse.setCategory(news.getCategory().getName());
+    return newsDetailsResponse;
   }
 
-  private NewsCategoryResponse newsCategorytoResponse(News news) {
+  public NewsDetailsResponse getToResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = buildBaseNewsDetailsResponse(news);
+    newsDetailsResponse.setId(news.getId());
+    newsDetailsResponse.setNewsCategory(newsCategoryToResponse(news.getCategory()));
+    return newsDetailsResponse;
+  }
+
+  private NewsCategoryResponse newsCategoryToResponse(Category category) {
     NewsCategoryResponse newsCategoryResponse = new NewsCategoryResponse();
-    newsCategoryResponse.setName(news.getCategory().getName());
-    newsCategoryResponse.setDescription(news.getCategory().getDescription());
-    newsCategoryResponse.setImage(news.getCategory().getImage());
+    newsCategoryResponse.setName(category.getName());
+    newsCategoryResponse.setDescription(category.getDescription());
+    newsCategoryResponse.setImage(category.getImage());
     return newsCategoryResponse;
+  }
+
+  private NewsDetailsResponse buildBaseNewsDetailsResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = new NewsDetailsResponse();
+    newsDetailsResponse.setName(news.getName());
+    newsDetailsResponse.setContent(news.getContent());
+    newsDetailsResponse.setImage(news.getImage());
+    return newsDetailsResponse;
   }
 }
