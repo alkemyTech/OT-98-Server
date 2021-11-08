@@ -3,11 +3,12 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.request.CreateContactRequest;
-import com.alkemy.ong.model.response.CreateContactResponse;
+import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.ListContactResponse;
 import com.alkemy.ong.repository.IContactRepository;
 import com.alkemy.ong.service.abstraction.ICreateContactService;
 import com.alkemy.ong.service.abstraction.IListContactsService;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
 
   @Autowired
   IContactRepository contactRepository;
-
   @Autowired
   ConvertUtils convertUtils;
 
@@ -28,18 +28,14 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
     contact.setPhone(createContactRequest.getPhone());
     contact.setEmail(createContactRequest.getEmail());
     contact.setMessage(createContactRequest.getMessage());
+    contact.setDeletedAt(new Date(266241));
     return contactRepository.save(contact);
   }
 
   @Override
-  public List<CreateContactResponse> contacts() {
+  public ListContactResponse list() {
     List<Contact> contacts = contactRepository.findAll();
-    List<CreateContactResponse> createContactResponses = new ArrayList<>();
-    contacts.forEach(contact -> {
-      createContactResponses.add(
-          convertUtils.toResponse(contact)
-      );
-    });
-    return createContactResponses;
+    List<DetailsContactResponse> detailsContactResponses = convertUtils.toResponse(contacts);
+    return new ListContactResponse(detailsContactResponses);
   }
 }

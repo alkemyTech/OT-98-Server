@@ -7,9 +7,11 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
-import com.alkemy.ong.model.response.CreateContactResponse;
 import com.alkemy.ong.model.response.CreateNewsResponse;
+import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
@@ -50,13 +52,24 @@ public class ConvertUtils {
     return createNewsResponse;
   }
 
-  public CreateContactResponse toResponse(Contact contact) {
-    CreateContactResponse createContactResponse = new CreateContactResponse();
+  public DetailsContactResponse toResponse(Contact contact) {
+    DetailsContactResponse createContactResponse = new DetailsContactResponse();
     createContactResponse.setId(contact.getId());
     createContactResponse.setName(contact.getName());
     createContactResponse.setPhone(contact.getPhone());
     createContactResponse.setEmail(contact.getEmail());
     createContactResponse.setMessage(contact.getMessage());
+    createContactResponse.setDelete_at(contact.getDeletedAt());
     return createContactResponse;
+  }
+
+  public List<DetailsContactResponse> toResponse(List<Contact> contacts) {
+    List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
+    contacts.forEach(contact -> {
+      detailsContactResponses.add(
+          toResponse(contact)
+      );
+    });
+    return detailsContactResponses;
   }
 }

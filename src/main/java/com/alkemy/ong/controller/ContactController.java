@@ -3,10 +3,10 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.request.CreateContactRequest;
-import com.alkemy.ong.model.response.CreateContactResponse;
+import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.ListContactResponse;
 import com.alkemy.ong.service.abstraction.ICreateContactService;
 import com.alkemy.ong.service.abstraction.IListContactsService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,16 +33,16 @@ public class ContactController {
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CreateContactResponse> create(
+  public ResponseEntity<DetailsContactResponse> create(
       @RequestBody CreateContactRequest createContactRequest) {
     Contact contact = createContactService.create(createContactRequest);
-    CreateContactResponse createContactResponse = this.convertUtils.toResponse(contact);
+    DetailsContactResponse createContactResponse = this.convertUtils.toResponse(contact);
     return new ResponseEntity<>(createContactResponse, HttpStatus.CREATED);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CreateContactResponse>> contacts() {
-    return new ResponseEntity<>(listContactsService.contacts(), HttpStatus.OK);
+  public ResponseEntity<ListContactResponse> list() {
+    return new ResponseEntity<>(listContactsService.list(), HttpStatus.OK);
   }
-  
+
 }
