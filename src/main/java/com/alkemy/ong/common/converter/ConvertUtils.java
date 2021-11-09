@@ -10,6 +10,7 @@ import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
@@ -63,6 +64,16 @@ public class ConvertUtils {
       );
     });
     return detailsContactResponses;
+  }
+
+  public ListNewsResponse listToResponse(List<News> news) {
+    List<NewsDetailsResponse> newsResponse = new ArrayList<>();
+
+    for (News newsItem : news) {
+      newsResponse.add(getToResponse(newsItem));
+    }
+
+    return new ListNewsResponse(newsResponse);
   }
 
   public NewsDetailsResponse createToResponse(News news) {
