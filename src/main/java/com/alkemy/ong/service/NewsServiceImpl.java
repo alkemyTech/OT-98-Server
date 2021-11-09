@@ -7,14 +7,19 @@ import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import com.alkemy.ong.service.abstraction.IGetNewsService;
+import com.alkemy.ong.service.abstraction.IListNewsService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, IGetNewsService {
+public class NewsServiceImpl
+    implements ICreateNewsService, IDeleteNewsService, IGetNewsService, IListNewsService {
 
   private static final String NEWS_CATEGORY = "news";
 
@@ -61,5 +66,11 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
       throw new EntityNotFoundException("News not found!");
     }
     return news.get();
+  }
+
+  @Override
+  public Page<News> list(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return newsRepository.findBySoftDeleteIsFalse(pageable);
   }
 }

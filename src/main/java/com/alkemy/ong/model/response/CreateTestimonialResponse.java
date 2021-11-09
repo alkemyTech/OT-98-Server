@@ -2,22 +2,21 @@ package com.alkemy.ong.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import java.io.Serializable;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class TestimonialResponse implements Serializable {
+@JsonRootName("testimonial")
+public class CreateTestimonialResponse {
 
   private long id;
-  private String content;
   private String name;
   @JsonInclude(Include.NON_NULL)
   private String image;
+  private String content;
 
 }
