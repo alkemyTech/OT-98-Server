@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.entity.Organization;
+import com.alkemy.ong.model.request.OrganizationDetailsRequest;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.repository.IOrganizationRepository;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
@@ -19,9 +20,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
   @Transactional
   public OrganizationResponse getOrganizationDetails() {
     Organization organization = organizationRepository.findAll().get(0);
-    if (organization == null) {
-      throw new EntityNotFoundException("The requested resource could not be found.");
-    }
+    validate(organization);
 
     return OrganizationResponse.builder()
         .name(organization.getName())
@@ -33,5 +32,30 @@ public class OrganizationServiceImpl implements IOrganizationService {
         .linkedinUrl(organization.getLinkedinUrl())
         .build();
 
+  }
+
+  @Override
+  @Transactional
+  public void update(OrganizationDetailsRequest organizationDetailsRequest) throws EntityNotFoundException {
+    Organization organization = organizationRepository.findAll().get(0);
+    validate(organization);
+
+    organization.setName(organizationDetailsRequest.getName());
+    organization.setImage(organizationDetailsRequest.getImage());
+    organization.setAddress(organizationDetailsRequest.getAddress());
+    organization.setPhone(organizationDetailsRequest.getPhone());
+    organization.setEmail(organizationDetailsRequest.getEmail());
+    organization.setWelcomeText(organizationDetailsRequest.getWelcomeText());
+    organization.setAboutUsText(organizationDetailsRequest.getAboutUsText());
+    organization.setFacebookUrl(organizationDetailsRequest.getFacebookUrl());
+    organization.setLinkedinUrl(organizationDetailsRequest.getLinkedinUrl());
+    organization.setInstagramUrl(organizationDetailsRequest.getInstagramUrl());
+    organizationRepository.save(organization);
+  }
+
+  private void validate(Organization organization) {
+    if (organization == null) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
+    }
   }
 }
