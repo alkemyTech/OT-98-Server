@@ -4,10 +4,13 @@ import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
@@ -63,6 +66,16 @@ public class ConvertUtils {
     return detailsContactResponses;
   }
 
+  public ListNewsResponse listToResponse(List<News> news) {
+    List<NewsDetailsResponse> newsResponse = new ArrayList<>();
+
+    for (News newsItem : news) {
+      newsResponse.add(getToResponse(newsItem));
+    }
+
+    return new ListNewsResponse(newsResponse);
+  }
+
   public NewsDetailsResponse createToResponse(News news) {
     NewsDetailsResponse newsDetailsResponse = buildBaseNewsDetailsResponse(news);
     newsDetailsResponse.setCategory(news.getCategory().getName());
@@ -90,5 +103,14 @@ public class ConvertUtils {
     newsDetailsResponse.setContent(news.getContent());
     newsDetailsResponse.setImage(news.getImage());
     return newsDetailsResponse;
+  }
+
+  public CreateTestimonialResponse toResponse(Testimonial testimonial) {
+    CreateTestimonialResponse createTestimonialResponse = new CreateTestimonialResponse();
+    createTestimonialResponse.setId(testimonial.getId());
+    createTestimonialResponse.setName(testimonial.getName());
+    createTestimonialResponse.setImage(testimonial.getImage());
+    createTestimonialResponse.setContent(testimonial.getContent());
+    return createTestimonialResponse;
   }
 }
