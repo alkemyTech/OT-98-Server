@@ -48,7 +48,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   private IUserRepository userRepository;
 
   @Autowired
-  public IAuthenticatedUserDetails authenticatedUserDetails;
+  private IAuthenticatedUserDetails authenticatedUserDetails;
 
   @Autowired
   private AuthenticationManager authenticationManager;

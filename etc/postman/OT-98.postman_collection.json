@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0b01dd28-4bf6-400d-bfd6-7af66ded3084",
+		"_postman_id": "7460c212-bc2c-490c-9932-d371c048fc38",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -19,6 +19,45 @@
 						"body": {
 							"mode": "raw",
 							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/organization/public",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"organization",
+								"public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organization",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6Im5wYWV6QGFsa2VteS5jb20iLCJpYXQiOjE2MzYzOTY5NjYsImV4cCI6MTYzNjQzMjk2Nn0.04K9DRa3P2vBIpPwA2z1SR7DTNgwMufTytGNbfY8_Mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Toyota\",\r\n    \"image\":\"toyota.jpg\",\r\n    \"address\":\"don juan toyota 1234\",\r\n    \"phone\":\"123456789\",\r\n    \"email\":\"toyota@gmail.com\",\r\n    \"welcomeText\":\"Hi everybody!!!\",\r\n    \"aboutUsText\":\"We are Toyota\",\r\n    \"facebookUrl\":\"toyota\",\r\n    \"linkedinUrl\":\"toyota\",\r\n    \"instagramUrl\":\"toyota\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -317,6 +356,100 @@
 							"path": [
 								"users",
 								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/news/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/news/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/contacts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contacts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/contacts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contacts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/news/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/news/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
 							]
 						}
 					},

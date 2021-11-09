@@ -32,4 +32,5 @@ public class ActivityController {
     CreateActivityResponse createActivityResponse = convertUtils.toResponse(activity);
     return new ResponseEntity<>(createActivityResponse, HttpStatus.CREATED);
   }
+
 }
