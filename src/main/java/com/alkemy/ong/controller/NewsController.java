@@ -50,20 +50,21 @@ public class NewsController {
   @Autowired
   private PaginatedResultsHeaderUtils paginaedResultsHeaderUtils;
 
-  private static final int PAGE_SIZE = 5;
+  private static final int PAGE_SIZE = 10;
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<NewsDetailsResponse> create(
       @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
       throws EntityNotFoundException {
-    NewsDetailsResponse newsDetailsResponse =
-        convertUtils.createToResponse(createNewsService.create(createNewsRequest));
+    NewsDetailsResponse newsDetailsResponse = convertUtils.createToResponse(
+        createNewsService.create(createNewsRequest));
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") long id) throws EntityNotFoundException {
+  public ResponseEntity<?> delete(@PathVariable("id") long id)
+      throws EntityNotFoundException {
     deleteNewsService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
