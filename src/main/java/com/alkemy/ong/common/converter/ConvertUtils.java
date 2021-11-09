@@ -8,10 +8,13 @@ import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
-import com.alkemy.ong.model.response.CreateContactResponse;
-import com.alkemy.ong.model.response.CreateNewsResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
+import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.NewsCategoryResponse;
+import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
@@ -43,23 +46,52 @@ public class ConvertUtils {
     return createActivityResponse;
   }
 
-  public CreateNewsResponse toResponse(News news) {
-    CreateNewsResponse createNewsResponse = new CreateNewsResponse();
-    createNewsResponse.setName(news.getName());
-    createNewsResponse.setContent(news.getContent());
-    createNewsResponse.setImage(news.getImage());
-    createNewsResponse.setCategory(news.getCategory().getName());
-    return createNewsResponse;
+  public DetailsContactResponse toResponse(Contact contact) {
+    DetailsContactResponse detailsContactResponse = new DetailsContactResponse();
+    detailsContactResponse.setId(contact.getId());
+    detailsContactResponse.setName(contact.getName());
+    detailsContactResponse.setPhone(contact.getPhone());
+    detailsContactResponse.setEmail(contact.getEmail());
+    detailsContactResponse.setMessage(contact.getMessage());
+    return detailsContactResponse;
   }
 
-  public CreateContactResponse toResponse(Contact contact) {
-    CreateContactResponse createContactResponse = new CreateContactResponse();
-    createContactResponse.setId(contact.getId());
-    createContactResponse.setName(contact.getName());
-    createContactResponse.setPhone(contact.getPhone());
-    createContactResponse.setEmail(contact.getEmail());
-    createContactResponse.setMessage(contact.getMessage());
-    return createContactResponse;
+  public List<DetailsContactResponse> toResponse(List<Contact> contacts) {
+    List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
+    contacts.forEach(contact -> {
+      detailsContactResponses.add(toResponse(contact)
+      );
+    });
+    return detailsContactResponses;
+  }
+
+  public NewsDetailsResponse createToResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = buildBaseNewsDetailsResponse(news);
+    newsDetailsResponse.setCategory(news.getCategory().getName());
+    return newsDetailsResponse;
+  }
+
+  public NewsDetailsResponse getToResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = buildBaseNewsDetailsResponse(news);
+    newsDetailsResponse.setId(news.getId());
+    newsDetailsResponse.setNewsCategory(newsCategoryToResponse(news.getCategory()));
+    return newsDetailsResponse;
+  }
+
+  private NewsCategoryResponse newsCategoryToResponse(Category category) {
+    NewsCategoryResponse newsCategoryResponse = new NewsCategoryResponse();
+    newsCategoryResponse.setName(category.getName());
+    newsCategoryResponse.setDescription(category.getDescription());
+    newsCategoryResponse.setImage(category.getImage());
+    return newsCategoryResponse;
+  }
+
+  private NewsDetailsResponse buildBaseNewsDetailsResponse(News news) {
+    NewsDetailsResponse newsDetailsResponse = new NewsDetailsResponse();
+    newsDetailsResponse.setName(news.getName());
+    newsDetailsResponse.setContent(news.getContent());
+    newsDetailsResponse.setImage(news.getImage());
+    return newsDetailsResponse;
   }
 
   public CreateTestimonialResponse toResponse(Testimonial testimonial) {
