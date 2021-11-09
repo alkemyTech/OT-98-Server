@@ -3,6 +3,7 @@ package com.alkemy.ong.common;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.alkemy.ong.exception.PageOutOfRangeException;
 
 @Component("paginatedResultsHeaderUtils")
 public class PaginatedResultsHeaderUtils {
@@ -16,7 +17,12 @@ public class PaginatedResultsHeaderUtils {
 
   public void addLinkHeaderOnPagedResult(final UriComponentsBuilder uriBuilder,
       final HttpServletResponse response, final int page, final int totalPages,
-      final String pagePath) {
+      final String pagePath) throws PageOutOfRangeException {
+
+    if (page > totalPages) {
+      throw new PageOutOfRangeException("Page " + page + " out of range");
+    }
+
     uriBuilder.path("/" + pagePath);
 
     final StringBuilder linkHeader = new StringBuilder();

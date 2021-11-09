@@ -79,10 +79,6 @@ public class NewsController {
       HttpServletResponse response) throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
-    if (page > pageResponse.getTotalPages()) {
-      throw new PageOutOfRangeException("Page " + page + " out of range");
-    }
-
     paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
         pageResponse.getTotalPages(), "/news");
 
