@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "42333ca0-ee11-4586-bf81-c739a870c438",
+    "_postman_id": "20765bd3-3469-4ea9-93d8-3ca5f32cabf6",
     "name": "SomosMas",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -354,6 +354,44 @@
               "port": "8080",
               "path": [
                 "contacts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8080/testimonials",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImpzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzY0MjIzOTksImV4cCI6MTYzNjQ1ODM5OX0.z2FtuGcgPdpNNUukEHHY05nJ4mYSRvKDdLnMu5gne4w",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"lucio\",\r\n    \"image\":\"imagen123.jpg\",\r\n    \"content\":\"prueba\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/testimonials",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "testimonials"
               ]
             }
           },
