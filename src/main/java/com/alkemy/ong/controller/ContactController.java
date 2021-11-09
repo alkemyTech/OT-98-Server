@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
+import com.alkemy.ong.exception.SendEmailException;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.request.CreateContactRequest;
 import com.alkemy.ong.model.response.DetailsContactResponse;
@@ -34,7 +35,7 @@ public class ContactController {
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<DetailsContactResponse> create(
-      @RequestBody CreateContactRequest createContactRequest) {
+      @RequestBody CreateContactRequest createContactRequest) throws SendEmailException {
     Contact contact = createContactService.create(createContactRequest);
     DetailsContactResponse createContactResponse = this.convertUtils.toResponse(contact);
     return new ResponseEntity<>(createContactResponse, HttpStatus.CREATED);

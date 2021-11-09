@@ -1,6 +1,8 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
+import com.alkemy.ong.common.mail.EmailHelper;
+import com.alkemy.ong.exception.SendEmailException;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.request.CreateContactRequest;
 import com.alkemy.ong.model.response.DetailsContactResponse;
@@ -20,17 +22,22 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
 
   @Autowired
   IContactRepository contactRepository;
+
   @Autowired
   ConvertUtils convertUtils;
 
+  @Autowired
+  EmailHelper emailHelper;
+
   @Override
-  public Contact create(CreateContactRequest createContactRequest) {
+  public Contact create(CreateContactRequest createContactRequest) throws SendEmailException {
     Contact contact = new Contact();
     contact.setName(createContactRequest.getName());
     contact.setPhone(createContactRequest.getPhone());
     contact.setEmail(createContactRequest.getEmail());
     contact.setMessage(createContactRequest.getMessage());
     contact.setDeletedAt(ACTIVE_CONTACT);
+    emailHelper.send(createContactRequest);
     return contactRepository.save(contact);
   }
 
@@ -40,4 +47,5 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
     List<DetailsContactResponse> detailsContactResponses = convertUtils.toResponse(contacts);
     return new ListContactResponse(detailsContactResponses);
   }
+
 }
