@@ -2,9 +2,9 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.common.mail.EmailHelper;
+import com.alkemy.ong.common.mail.template.ContactTemplateEmail;
 import com.alkemy.ong.exception.SendEmailException;
 import com.alkemy.ong.model.entity.Contact;
-import com.alkemy.ong.model.request.ContactTemplateEmail;
 import com.alkemy.ong.model.request.CreateContactRequest;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.ListContactResponse;
@@ -41,11 +41,9 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
     contact.setMessage(createContactRequest.getMessage());
     contact.setDeletedAt(ACTIVE_CONTACT);
     try {
-      ContactTemplateEmail contactTemplateEmail = new ContactTemplateEmail();
-      contactTemplateEmail.setEmail(createContactRequest.getEmail());
-      emailHelper.send(contactTemplateEmail);
-    } catch (SendEmailException s) {
-      log.info(s.getMessage());
+      emailHelper.send(new ContactTemplateEmail(createContactRequest.getEmail()));
+    } catch (SendEmailException e) {
+      log.info(e.getMessage());
     }
     return contactRepository.save(contact);
   }
