@@ -4,9 +4,11 @@ import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
@@ -101,5 +103,14 @@ public class ConvertUtils {
     newsDetailsResponse.setContent(news.getContent());
     newsDetailsResponse.setImage(news.getImage());
     return newsDetailsResponse;
+  }
+
+  public CreateTestimonialResponse toResponse(Testimonial testimonial) {
+    CreateTestimonialResponse createTestimonialResponse = new CreateTestimonialResponse();
+    createTestimonialResponse.setId(testimonial.getId());
+    createTestimonialResponse.setName(testimonial.getName());
+    createTestimonialResponse.setImage(testimonial.getImage());
+    createTestimonialResponse.setContent(testimonial.getContent());
+    return createTestimonialResponse;
   }
 }
