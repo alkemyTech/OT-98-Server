@@ -48,7 +48,7 @@ public class NewsController {
   private ConvertUtils convertUtils;
 
   @Autowired
-  private PaginatedResultsHeaderUtils paginaedResultsHeaderUtils;
+  private PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
 
   private static final int PAGE_SIZE = 10;
 
@@ -85,7 +85,7 @@ public class NewsController {
       throw new PageOutOfRangeException("Page " + page + " out of range");
     }
 
-    paginaedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
         pageResponse.getTotalPages(), "/news");
 
     return new ResponseEntity<>(convertUtils.listToResponse(pageResponse.getContent()),
