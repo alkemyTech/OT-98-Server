@@ -50,8 +50,6 @@ public class NewsController {
   @Autowired
   private PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
 
-  private static final int PAGE_SIZE = 10;
-
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<NewsDetailsResponse> create(
@@ -79,7 +77,7 @@ public class NewsController {
   @GetMapping(params = "page")
   public ResponseEntity<?> getPage(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws PageOutOfRangeException {
-    Page<News> pageResponse = listNewsService.list(page, PAGE_SIZE);
+    Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
     if (page > pageResponse.getTotalPages()) {
       throw new PageOutOfRangeException("Page " + page + " out of range");
