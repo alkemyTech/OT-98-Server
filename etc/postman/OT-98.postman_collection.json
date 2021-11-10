@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6426c6b6-98f4-40e0-bf07-3db8584b3cc0",
+		"_postman_id": "2b4def63-c1d4-4a31-be81-43324453fd03",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -521,6 +521,30 @@
 								{
 									"key": "page",
 									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/testimonials?page=0",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/testimonials?page=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"testimonials"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
 								}
 							]
 						}
