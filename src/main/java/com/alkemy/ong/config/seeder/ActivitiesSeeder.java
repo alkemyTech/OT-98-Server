@@ -28,16 +28,14 @@ public class ActivitiesSeeder implements CommandLineRunner {
   }
 
   private void loadActivitiesSeed() {
-    activityRepository.save(buildActivity(1L, "actividadUno", "contenidoUno"));
-    activityRepository.save(buildActivity(2L, "actividadDos", "contenidoDos"));
-    activityRepository.save(buildActivity(3L, "actividadTres", "contenidoTres"));
-    activityRepository.save(buildActivity(4L, "actividadCuatro", "contenidoCuatro"));
-    activityRepository.save(buildActivity(5L, "actividadCinco", "contenidoCinco"));
-    activityRepository.save(buildActivity(6L, "actividadSeis", "contenidoSeis"));
-    activityRepository.save(buildActivity(7L, "actividadSiete", "contenidoSiete"));
-    activityRepository.save(buildActivity(8L, "actividadOcho", "contenidoOcho"));
-    activityRepository.save(buildActivity(9L, "actividadNueve", "contenidoNueve"));
-    activityRepository.save(buildActivity(10L, "actividadDiez", "contenidoDiez"));
+    activityRepository.save(buildActivity(1L, "School and family support", "Family support"));
+    activityRepository.save(buildActivity(2L, "Elementary school support", "Elementary school"));
+    activityRepository.save(buildActivity(3L, "Middle school support", "Middle school"));
+    activityRepository.save(buildActivity(4L, "Hight school support", "Hight school"));
+    activityRepository.save(buildActivity(5L, "Tutorials", "Tutorials"));
+    activityRepository.save(buildActivity(6L, "School support", "School support"));
+    activityRepository.save(buildActivity(7L, "Story's workshop", "Workshop"));
+   
   }
 
   private Activity buildActivity(long id, String name, String content) {
