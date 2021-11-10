@@ -22,18 +22,6 @@ public class ErrorHandler {
     return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.NOT_FOUND));
   }
 
-  @ExceptionHandler(UserNotFoundException.class)
-  public ResponseEntity<?> handleUserNotFoundException(HttpServletRequest request,
-      UserNotFoundException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.NOT_FOUND));
-  }
-
-  @ExceptionHandler(NewsNotFoundException.class)
-  public ResponseEntity<?> handleNewsNotFoundException(HttpServletRequest request,
-      NewsNotFoundException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.NOT_FOUND));
-  }
-
   @ExceptionHandler(AuthenticationException.class)
   public ResponseEntity<?> handleAuthenticationException(HttpServletRequest request,
       AuthenticationException e) {
