@@ -1,8 +1,6 @@
 package com.alkemy.ong.common.converter;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Component;
+
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.Comment;
@@ -19,6 +17,9 @@ import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
 public class ConvertUtils {
