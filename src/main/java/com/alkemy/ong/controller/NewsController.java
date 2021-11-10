@@ -61,13 +61,14 @@ public class NewsController {
   public ResponseEntity<NewsDetailsResponse> create(
       @RequestBody(required = true) @Valid NewsDetailsRequest createNewsRequest)
       throws EntityNotFoundException {
-    NewsDetailsResponse newsDetailsResponse =
-        convertUtils.createToResponse(createNewsService.create(createNewsRequest));
+    NewsDetailsResponse newsDetailsResponse = convertUtils.createToResponse(
+        createNewsService.create(createNewsRequest));
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") long id) throws EntityNotFoundException {
+  public ResponseEntity<?> delete(@PathVariable("id") long id)
+      throws EntityNotFoundException {
     deleteNewsService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
@@ -84,8 +85,11 @@ public class NewsController {
       HttpServletResponse response) throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        pageResponse.getTotalPages(), "/news");
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder,
+        response,
+        page,
+        pageResponse.getTotalPages(),
+        "/news");
 
     ListNewsResponse toResponse = convertUtils.listNewsToResponse(pageResponse.getContent());
     return new ResponseEntity<>(toResponse, HttpStatus.OK);
