@@ -7,16 +7,13 @@ import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.request.CreateTestimonialRequest;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
-import com.alkemy.ong.model.response.TestimonialResponse;
+import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.service.abstraction.ICreateTestimonialService;
 import com.alkemy.ong.service.abstraction.IListTestimonialsService;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,16 +53,17 @@ public class TestimonialController {
   }
 
   @GetMapping(params = "page", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> getList(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
+  public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws PageOutOfRangeException {
-
-    Page<Testimonial> getList = testimonialsService.getList(page);
-
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        getList.getTotalPages(), "/testimonials");
-
-    return new ResponseEntity<>(convertUtils.listToTestimonialResponse(getList.getContent()),
-        HttpStatus.OK);
+    Page<Testimonial> pageResponse = testimonialsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder,
+        response,
+        page,
+        pageResponse.getTotalPages(),
+        "/testimonials");
+    ListTestimonialResponse toResponse = convertUtils.listTestimonialToResponse(
+        pageResponse.getContent());
+    return new ResponseEntity<>(toResponse, HttpStatus.OK);
   }
 
 }

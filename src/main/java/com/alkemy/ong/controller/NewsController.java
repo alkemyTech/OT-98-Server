@@ -5,11 +5,13 @@ import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.CreateNewsRequest;
+import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import com.alkemy.ong.service.abstraction.IGetNewsService;
 import com.alkemy.ong.service.abstraction.IListNewsService;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -75,14 +77,19 @@ public class NewsController {
   }
 
   @GetMapping(params = "page")
-  public ResponseEntity<?> getPage(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
-      HttpServletResponse response) throws PageOutOfRangeException {
+  public ResponseEntity<ListNewsResponse> list(@RequestParam("page") int page,
+      UriComponentsBuilder uriBuilder, HttpServletResponse response)
+      throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        pageResponse.getTotalPages(), "/news");
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(
+        uriBuilder,
+        response,
+        page,
+        pageResponse.getTotalPages(),
+        "/news");
 
-    return new ResponseEntity<>(convertUtils.listToResponse(pageResponse.getContent()),
-        HttpStatus.OK);
+    ListNewsResponse toResponse = convertUtils.listNewsToResponse(pageResponse.getContent());
+    return new ResponseEntity<>(toResponse, HttpStatus.OK);
   }
 }

@@ -68,13 +68,11 @@ public class ConvertUtils {
     return detailsContactResponses;
   }
 
-  public ListNewsResponse listToResponse(List<News> news) {
+  public ListNewsResponse listNewsToResponse(List<News> news) {
     List<NewsDetailsResponse> newsResponse = new ArrayList<>();
-
     for (News newsItem : news) {
       newsResponse.add(getToResponse(newsItem));
     }
-
     return new ListNewsResponse(newsResponse);
   }
 
@@ -116,10 +114,8 @@ public class ConvertUtils {
     return createTestimonialResponse;
   }
 
-  public ListTestimonialResponse listToTestimonialResponse(List<Testimonial> testimonials) {
-
+  public ListTestimonialResponse listTestimonialToResponse(List<Testimonial> testimonials) {
     List<TestimonialResponse> testimonialResponse = new ArrayList<>();
-    
     for (Testimonial testimonial : testimonials) {
       testimonialResponse.add(getToResponse(testimonial));
     }
