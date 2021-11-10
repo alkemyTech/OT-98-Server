@@ -16,8 +16,5 @@ public class CreateCommentRequest {
   private String body;
 
   @NotNull(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
-  private Long userId;
-
-  @NotNull(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   private Long newsId;
 }
