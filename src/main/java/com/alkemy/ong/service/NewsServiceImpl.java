@@ -50,7 +50,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
   @Override
   @Transactional
   public void delete(long id) {
-    News news = this.findById(id);
+    News news = findByIdIfSoftDeleteIsFalse(id);
     news.setSoftDelete(true);
     newsRepository.save(news);
   }
@@ -58,7 +58,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
   @Override
   @Transactional(readOnly = true)
   public News getBy(Long id) throws EntityNotFoundException {
-    return this.findById(id);
+    return findByIdIfSoftDeleteIsFalse(id);
   }
 
   @Override
@@ -70,7 +70,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
   @Override
   @Transactional
   public News update(NewsDetailsRequest newsDetailsRequest, Long id) {
-    News news = this.findById(id);
+    News news = findByIdIfSoftDeleteIsFalse(id);
 
     news.setName(newsDetailsRequest.getName());
     news.setContent(newsDetailsRequest.getContent());
@@ -80,7 +80,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
   }
 
   @Transactional(readOnly = true)
-  private News findById(Long id) throws EntityNotFoundException {
+  private News findByIdIfSoftDeleteIsFalse(Long id) throws EntityNotFoundException {
     Optional<News> news = newsRepository.findById(id);
 
     if (news.isEmpty() || news.get().isSoftDelete()) {
