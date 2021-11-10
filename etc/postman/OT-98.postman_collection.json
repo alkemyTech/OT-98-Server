@@ -571,6 +571,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "http://localhost:8080/news/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"news Example\",\r\n  \"content\": \"news example\",\r\n  \"image\":\"image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
