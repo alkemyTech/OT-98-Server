@@ -73,7 +73,7 @@ public class ConvertUtils {
     List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
     contacts.forEach(contact -> {
       detailsContactResponses.add(toResponse(contact));
-    });
+      });
     return detailsContactResponses;
   }
 
