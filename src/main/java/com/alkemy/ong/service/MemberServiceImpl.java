@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements IListMembersService {
 
   @Autowired
-  IMemberRepository iMemberRepository;
+  IMemberRepository memberRepository;
 
   @Autowired
   ConvertUtils convertUtils;
 
   @Override
   public ListMemberResponse list() {
-    List<Member> members = iMemberRepository.findBySoftDeleteFalse();
+    List<Member> members = memberRepository.findBySoftDeleteFalse();
     List<DetailsMemberResponse> detailsMemberResponses = convertUtils.toResponseList(members);
     return new ListMemberResponse(detailsMemberResponses);
   }

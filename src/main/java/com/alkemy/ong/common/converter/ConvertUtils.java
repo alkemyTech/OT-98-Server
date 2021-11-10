@@ -147,7 +147,7 @@ public class ConvertUtils {
   }
 
   public List<DetailsMemberResponse> toResponseList(List<Member> members) {
-    List<DetailsMemberResponse> detailsMemberResponses = new ArrayList<>();
+    List<DetailsMemberResponse> detailsMemberResponses = new ArrayList<>(members.size());
     members.forEach(member -> {
       detailsMemberResponses.add(toResponse(member));
     });

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
   @Autowired
-  IListMembersService iListMembersService;
+  IListMembersService listMembersService;
 
   @GetMapping(value = "/members", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListMemberResponse> list() {
-    return new ResponseEntity<>(iListMembersService.list(), HttpStatus.OK);
+    return new ResponseEntity<>(listMembersService.list(), HttpStatus.OK);
   }
 
 }
