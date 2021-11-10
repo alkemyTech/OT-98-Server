@@ -1,13 +1,16 @@
 package com.alkemy.ong.common.converter;
 
+
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
@@ -47,6 +50,15 @@ public class ConvertUtils {
     createActivityResponse.setContent(activity.getContent());
     createActivityResponse.setImage(activity.getImage());
     return createActivityResponse;
+  }
+
+  public CreateCommentResponse toResponse(Comment comment) {
+    CreateCommentResponse createCommentResponse = new CreateCommentResponse();
+    createCommentResponse.setId(comment.getId());
+    createCommentResponse.setBody(comment.getBody());
+    createCommentResponse.setUserId(comment.getUserId().getId());
+    createCommentResponse.setNewsId(comment.getNewsId().getId());
+    return createCommentResponse;
   }
 
   public DetailsContactResponse toResponse(Contact contact) {
