@@ -1,22 +1,24 @@
 package com.alkemy.ong.common.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Component;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Component;
 
 @Component("convertUtils")
 public class ConvertUtils {
@@ -47,6 +49,15 @@ public class ConvertUtils {
     return createActivityResponse;
   }
 
+  public CreateCommentResponse toResponse(Comment comment) {
+    CreateCommentResponse createCommentResponse = new CreateCommentResponse();
+    createCommentResponse.setId(comment.getId());
+    createCommentResponse.setBody(comment.getBody());
+    createCommentResponse.setUserId(comment.getUserId().getId());
+    createCommentResponse.setNewsId(comment.getNewsId().getId());
+    return createCommentResponse;
+  }
+
   public DetailsContactResponse toResponse(Contact contact) {
     DetailsContactResponse detailsContactResponse = new DetailsContactResponse();
     detailsContactResponse.setId(contact.getId());
@@ -60,8 +71,7 @@ public class ConvertUtils {
   public List<DetailsContactResponse> toResponse(List<Contact> contacts) {
     List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
     contacts.forEach(contact -> {
-      detailsContactResponses.add(toResponse(contact)
-      );
+      detailsContactResponses.add(toResponse(contact));
     });
     return detailsContactResponses;
   }
