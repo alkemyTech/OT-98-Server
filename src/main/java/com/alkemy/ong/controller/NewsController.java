@@ -11,7 +11,6 @@ import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import com.alkemy.ong.service.abstraction.IGetNewsService;
 import com.alkemy.ong.service.abstraction.IListNewsService;
-import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -77,13 +76,11 @@ public class NewsController {
   }
 
   @GetMapping(params = "page")
-  public ResponseEntity<ListNewsResponse> list(@RequestParam("page") int page,
-      UriComponentsBuilder uriBuilder, HttpServletResponse response)
-      throws PageOutOfRangeException {
+  public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
+      HttpServletResponse response) throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(
-        uriBuilder,
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder,
         response,
         page,
         pageResponse.getTotalPages(),
