@@ -1,10 +1,10 @@
 package com.alkemy.ong.service;
 
 import java.text.MessageFormat;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.alkemy.ong.exception.NewsNotFoundException;
-import com.alkemy.ong.exception.UserNotFoundException;
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.repository.ICommentRepository;
@@ -24,24 +24,36 @@ public class CommentServiceImpl implements ICreateCommentService {
   @Autowired
   INewsRepository newsRepository;
 
+  @Autowired
+  private JwtUtil jwtUtil;
 
+  private void validateUserId(Long userId) {
+    if (userId == null) {
+      throw new EntityNotFoundException(MessageFormat.format("News {0} not found.", userId));
+    }
+  }
+
+  private void validateNewsId(Long newsId) {
+    if (newsId == null) {
+      throw new EntityNotFoundException(MessageFormat.format("News {0} not found.", newsId));
+    }
+  }
 
   @Override
-  public Comment create(CreateCommentRequest createCommentRequest)
-      throws UserNotFoundException, NewsNotFoundException {
+  public Comment create(CreateCommentRequest createCommentRequest, String authorizationHeader) {
+    String username = jwtUtil.extractUsername(authorizationHeader);
+
+    Long userId = userRepository.findByEmail(username).getId();
+
     Comment comment = new Comment();
-    Long userId = createCommentRequest.getUserId();
+
     Long newsId = createCommentRequest.getNewsId();
 
-    if (userRepository.findById(userId) == null) {
-      throw new UserNotFoundException(MessageFormat.format("User {0} not found.", userId));
-    }
-    if (newsRepository.findById(userId) == null) {
-      throw new NewsNotFoundException(MessageFormat.format("News {0} not found.", newsId));
-    }
+    validateUserId(userId);
+    validateNewsId(newsId);
 
     comment.setBody(createCommentRequest.getBody());
-    comment.setUserId(userRepository.findById(userId).get());
+    comment.setUserId(userRepository.findByEmail(username));
     comment.setNewsId(newsRepository.findById(newsId).get());
     commentRepository.save(comment);
     return comment;
