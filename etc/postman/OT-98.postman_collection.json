@@ -1,10 +1,6 @@
 {
 	"info": {
-<<<<<<< HEAD
-		"_postman_id": "a8cd94d8-847f-4de2-8494-d69b1c2e2348",
-=======
-		"_postman_id": "0aa897ba-9d20-46ca-a421-fc84d3fad3cc",
->>>>>>> main
+		"_postman_id": "273533ae-7461-42a8-b877-bb91a459338d",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -556,7 +552,27 @@
 					"response": []
 				},
 				{
-<<<<<<< HEAD
+					"name": "localhost:8080/members",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/members",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Comments",
 					"request": {
 						"method": "POST",
@@ -584,27 +600,12 @@
 						},
 						"url": {
 							"raw": "localhost:8080/comments",
-=======
-					"name": "localhost:8080/members",
-					"request": {
-						"auth": {
-							"type": "bearer"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/members",
->>>>>>> main
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-<<<<<<< HEAD
 								"comments"
-=======
-								"members"
->>>>>>> main
 							]
 						}
 					},
