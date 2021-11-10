@@ -75,7 +75,7 @@ public class NewsController {
   }
 
   @GetMapping(params = "page")
-  public ResponseEntity<?> getPage(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
+  public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
