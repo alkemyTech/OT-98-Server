@@ -5,6 +5,7 @@ import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Contact;
+import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
@@ -13,6 +14,7 @@ import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
@@ -141,6 +143,27 @@ public class ConvertUtils {
     testimonialResponse.setContent(testimonial.getContent());
     testimonialResponse.setImage(testimonial.getImage());
     return testimonialResponse;
+  }
+
+  public DetailsMemberResponse toResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
+  }
+
+  public List<DetailsMemberResponse> toResponseList(List<Member> members) {
+    List<DetailsMemberResponse> detailsMemberResponses = new ArrayList<>(members.size());
+    members.forEach(member -> {
+      detailsMemberResponses.add(toResponse(member));
+    });
+    return detailsMemberResponses;
   }
 
 }

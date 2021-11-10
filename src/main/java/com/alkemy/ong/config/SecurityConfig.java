@@ -96,6 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/comments")
 >>>>>>> OT98-76
         .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.GET, "/members")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .anyRequest()
         .authenticated()
         .and()

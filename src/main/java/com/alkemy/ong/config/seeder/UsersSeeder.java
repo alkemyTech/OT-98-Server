@@ -62,7 +62,7 @@ public class UsersSeeder implements CommandLineRunner {
   }
 
   private void loadUsersWithRoleUser() {
-    userRepository.save(buildUser(1L, "Ignacio", "Montovio", "User-imontovio@alkemy.com"));
+    userRepository.save(buildUser(1L, "Ignacio", "Montovio", "imontovio@alkemy.com"));
     userRepository.save(buildUser(2L, "Alexis", "Bahi", "abahi@alkemy.com"));
     userRepository.save(buildUser(3L, "Joaquin", "Aman", "jaman@alkemy.com"));
     userRepository.save(buildUser(4L, "Kevin", "Lugo", "klugo@alkemy.com"));
