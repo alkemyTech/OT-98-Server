@@ -2,7 +2,6 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.model.request.NewsDetailsRequest;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
@@ -30,7 +29,7 @@ public class NewsServiceImpl implements ICreateNewsService, IDeleteNewsService, 
 
   @Override
   @Transactional
-  public News create(CreateNewsRequest createNewsRequest) throws EntityNotFoundException {
+  public News create(NewsDetailsRequest createNewsRequest) throws EntityNotFoundException {
     Category newsCategory = newsRepository.findCategoryByName(NEWS_CATEGORY);
 
     if (newsCategory == null) {

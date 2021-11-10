@@ -4,7 +4,6 @@ import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.CreateNewsRequest;
 import com.alkemy.ong.model.request.NewsDetailsRequest;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
@@ -60,7 +59,7 @@ public class NewsController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<NewsDetailsResponse> create(
-      @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
+      @RequestBody(required = true) @Valid NewsDetailsRequest createNewsRequest)
       throws EntityNotFoundException {
     NewsDetailsResponse newsDetailsResponse =
         convertUtils.createToResponse(createNewsService.create(createNewsRequest));
