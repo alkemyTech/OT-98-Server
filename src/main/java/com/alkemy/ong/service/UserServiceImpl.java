@@ -10,7 +10,10 @@ import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
+import com.alkemy.ong.model.request.UserFirtstNameRequest;
+import com.alkemy.ong.model.request.UserLastNameRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.request.UserUpdateRequest;
 import com.alkemy.ong.model.response.ListActiveUsersResponse;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
@@ -23,11 +26,9 @@ import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import com.alkemy.ong.service.abstraction.IUserUpdateService;
-import java.lang.reflect.Field;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,7 +40,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ReflectionUtils;
+
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
@@ -168,20 +169,38 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   }
 
   @Override
-  public User update(Map<Object, Object> fields, long id) {
+  public UserDetailsResponse update(long id, UserUpdateRequest userUpdateRequest) {
     User user = userRepository.findById(id).get();
     if (user == null) {
       throw new EntityNotFoundException("User not found");
     }
 
-    fields.forEach((key, value) -> {
-      Field field = ReflectionUtils.findField(User.class, (String) key);
-      field.setAccessible(true);
-      ReflectionUtils.setField(field, user, value);
-    });
+    if (userUpdateRequest.getFirstName() != null) {
+      user.setFirstName(userUpdateRequest.getFirstName());
+    }
+    if (userUpdateRequest.getLastName() != null) {
+      user.setLastName(userUpdateRequest.getLastName());
+    }
+    if (userUpdateRequest.getEmail() != null) {
+      user.setEmail(userUpdateRequest.getEmail());
+    }
+    if (userUpdateRequest.getPhoto() != null) {
+      user.setPhoto(userUpdateRequest.getPhoto());
+    }
+
     userRepository.save(user);
 
-    return user;
+    return UserDetailsResponse.builder()
+        .id(user.getId())
+        .firstName(user.getFirstName())
+        .lastName(user.getLastName())
+        .email(user.getEmail())
+        .photo(user.getPhoto())
+        .password(user.getPassword())
+        .build();
+
 
   }
+
+
 }

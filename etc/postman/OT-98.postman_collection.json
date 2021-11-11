@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a9211762-19de-4eff-9de6-378b1b4d56b7",
+		"_postman_id": "526d5605-1287-4a51-adb6-0dee6b4a85f5",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"oruina@alkemy.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\":\"esantoro@alkemy.com\",\r\n    \"password\":\"foo12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,29 +573,88 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/users/1",
+					"name": "Comments",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJVU0VSIl0sInN1YiI6InJvcXVlZm9ydDAyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjYxMTc1MywiZXhwIjoxNjM2NjQ3NzUzfQ.R6_oo6xKt9H3NhI2N2-ZlikBEDvVxZlrXp0nuJO1MZI",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNjQ5MTU4NiwiZXhwIjoxNjM2NTI3NTg2fQ.Vu0iye9zQh5Tm0DYTWaCUo-ACCnABTMd9fbIAJHeZ6k",
+								"type": "text"
+							},
+							{
+								"key": "a",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"photo\": \"image.jpg\"}",
+							"raw": "{\r\n    \"body\": \"cuerpoEjemplo\",\r\n    \"newsId\":1,\r\n    \"userId\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
+						"url": {
+							"raw": "localhost:8080/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/news/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"news Example\",\r\n  \"content\": \"news example\",\r\n  \"image\":\"image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/users/2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
 						"url": {
 							"raw": "localhost:8080/users/2",
 							"host": [
