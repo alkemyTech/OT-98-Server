@@ -97,7 +97,7 @@ public class ErrorHandler {
     return ResponseEntity.badRequest()
         .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
-  
+
   @ExceptionHandler(PageOutOfRangeException.class)
   public ResponseEntity<?> handlePageOutOfRangeException(HttpServletRequest request,
       PageOutOfRangeException e) {
