@@ -1,5 +1,6 @@
 package com.alkemy.ong.exception;
 
+import com.alkemy.ong.model.response.ErrorResponse;
 import java.io.IOException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.alkemy.ong.model.response.ErrorResponse;
 
 @ControllerAdvice
 public class ErrorHandler {
@@ -19,7 +19,8 @@ public class ErrorHandler {
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<?> handleEntityNotFoundException(HttpServletRequest request,
       EntityNotFoundException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.NOT_FOUND));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.NOT_FOUND));
   }
 
   @ExceptionHandler(AuthenticationException.class)
@@ -32,25 +33,29 @@ public class ErrorHandler {
   @ExceptionHandler(InvalidCredentialsException.class)
   public ResponseEntity<?> handleInvalidCredentialsException(HttpServletRequest request,
       InvalidCredentialsException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(EmailAlreadyExistException.class)
   public ResponseEntity<?> handleEmailAlreadyExist(HttpServletRequest request,
       EmailAlreadyExistException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(EntityAlreadyExistException.class)
   public ResponseEntity<?> handleEntityAlreadyExist(HttpServletRequest request,
       EntityAlreadyExistException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(UsernameNotFoundException.class)
   public ResponseEntity<?> handleUsernameNotFoundException(HttpServletRequest request,
       UsernameNotFoundException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(BadCredentialsException.class)
@@ -68,31 +73,36 @@ public class ErrorHandler {
 
   @ExceptionHandler(IOException.class)
   public ResponseEntity<?> handleIOException(HttpServletRequest request, IOException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<?> handleConstraintViolationException(HttpServletRequest request,
       ConstraintViolationException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(SendEmailException.class)
   public ResponseEntity<?> handleSendEmailException(HttpServletRequest request,
       SendEmailException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(ExternalServiceException.class)
   public ResponseEntity<?> handleExternalServiceException(HttpServletRequest request,
       ExternalServiceException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler(PageOutOfRangeException.class)
   public ResponseEntity<?> handlePageOutOfRangeException(HttpServletRequest request,
       PageOutOfRangeException e) {
-    return ResponseEntity.badRequest().body(buildResponse(e, HttpStatus.BAD_REQUEST));
+    return ResponseEntity.badRequest()
+        .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {

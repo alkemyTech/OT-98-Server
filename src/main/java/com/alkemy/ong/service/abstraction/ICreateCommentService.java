@@ -6,4 +6,5 @@ import com.alkemy.ong.model.request.CreateCommentRequest;
 public interface ICreateCommentService {
 
   Comment create(CreateCommentRequest createCommentRequest, String authorizationHeader);
+
 }
