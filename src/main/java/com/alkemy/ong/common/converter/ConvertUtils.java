@@ -3,6 +3,7 @@ package com.alkemy.ong.common.converter;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.Contact;
+import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
@@ -10,9 +11,12 @@ import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
+import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
+import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
+import com.alkemy.ong.model.response.TestimonialResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,13 +70,11 @@ public class ConvertUtils {
     return detailsContactResponses;
   }
 
-  public ListNewsResponse listToResponse(List<News> news) {
+  public ListNewsResponse listNewsToResponse(List<News> news) {
     List<NewsDetailsResponse> newsResponse = new ArrayList<>();
-
     for (News newsItem : news) {
       newsResponse.add(getToResponse(newsItem));
     }
-
     return new ListNewsResponse(newsResponse);
   }
 
@@ -113,4 +115,43 @@ public class ConvertUtils {
     createTestimonialResponse.setContent(testimonial.getContent());
     return createTestimonialResponse;
   }
+
+  public ListTestimonialResponse listTestimonialToResponse(List<Testimonial> testimonials) {
+    List<TestimonialResponse> testimonialResponse = new ArrayList<>();
+    for (Testimonial testimonial : testimonials) {
+      testimonialResponse.add(getToResponse(testimonial));
+    }
+    return new ListTestimonialResponse(testimonialResponse);
+  }
+
+  private TestimonialResponse getToResponse(Testimonial testimonial) {
+    TestimonialResponse testimonialResponse = new TestimonialResponse();
+    testimonialResponse.setId(testimonial.getId());
+    testimonialResponse.setName(testimonial.getName());
+    testimonialResponse.setContent(testimonial.getContent());
+    testimonialResponse.setImage(testimonial.getImage());
+    return testimonialResponse;
+  }
+
+  public DetailsMemberResponse toResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
+  }
+
+  public List<DetailsMemberResponse> toResponseList(List<Member> members) {
+    List<DetailsMemberResponse> detailsMemberResponses = new ArrayList<>(members.size());
+    members.forEach(member -> {
+      detailsMemberResponses.add(toResponse(member));
+    });
+    return detailsMemberResponses;
+  }
+
 }

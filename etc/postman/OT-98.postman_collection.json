@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6426c6b6-98f4-40e0-bf07-3db8584b3cc0",
+		"_postman_id": "0aa897ba-9d20-46ca-a421-fc84d3fad3cc",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"oscarruina@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"raw": "{\r\n    \"email\":\"esantoro@alkemy.com\",\r\n    \"password\":\"foo12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,6 +522,51 @@
 									"key": "page",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/testimonials?page=0",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/testimonials?page=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"testimonials"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/members",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/members",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members"
 							]
 						}
 					},
