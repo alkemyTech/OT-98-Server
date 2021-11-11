@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0aa897ba-9d20-46ca-a421-fc84d3fad3cc",
+		"_postman_id": "a9211762-19de-4eff-9de6-378b1b4d56b7",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"esantoro@alkemy.com\",\r\n    \"password\":\"foo12345\"\r\n}",
+							"raw": "{\r\n    \"email\":\"oruina@alkemy.com\",\r\n    \"password\":\"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -567,6 +567,44 @@
 							"port": "8080",
 							"path": [
 								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/users/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJVU0VSIl0sInN1YiI6InJvcXVlZm9ydDAyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjYxMTc1MywiZXhwIjoxNjM2NjQ3NzUzfQ.R6_oo6xKt9H3NhI2N2-ZlikBEDvVxZlrXp0nuJO1MZI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"photo\": \"image.jpg\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2"
 							]
 						}
 					},

@@ -18,6 +18,7 @@ import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.TestimonialResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import com.alkemy.ong.model.response.UserUpdateResponse;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -152,6 +153,15 @@ public class ConvertUtils {
       detailsMemberResponses.add(toResponse(member));
     });
     return detailsMemberResponses;
+  }
+
+  public UserUpdateResponse getUserResponse(User user) {
+    UserUpdateResponse userUpdateResponse = new UserUpdateResponse();
+    userUpdateResponse.setFirstName(user.getFirstName());
+    userUpdateResponse.setLastName(user.getLastName());
+    userUpdateResponse.setPhoto(user.getPhoto());
+    userUpdateResponse.setEmail(user.getEmail());
+    return userUpdateResponse;
   }
 
 }
