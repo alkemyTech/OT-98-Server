@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "273533ae-7461-42a8-b877-bb91a459338d",
+		"_postman_id": "526d5605-1287-4a51-adb6-0dee6b4a85f5",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -645,6 +645,25 @@
 							"path": [
 								"news",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/users/2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2"
 							]
 						}
 					},
