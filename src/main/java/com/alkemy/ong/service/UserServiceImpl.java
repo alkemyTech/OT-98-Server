@@ -11,6 +11,7 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.request.UserUpdateRequest;
 import com.alkemy.ong.model.response.ListActiveUsersResponse;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
@@ -22,9 +23,11 @@ import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
+import com.alkemy.ong.service.abstraction.IUserUpdateService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,9 +40,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IDeleteUserService {
+    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IDeleteUserService,
+    IUserUpdateService {
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -161,4 +166,44 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     user.setSoftDeleted(true);
     userRepository.save(user);
   }
+
+  @Override
+  public UserDetailsResponse update(long id, UserUpdateRequest userUpdateRequest) {
+    Optional<User> optionalUser = userRepository.findById(id);
+    if (optionalUser.isEmpty()) {
+      throw new EntityNotFoundException("User not found");
+    }
+
+    User user = mapFields(userUpdateRequest, optionalUser.get());
+    userRepository.save(user);
+
+    return UserDetailsResponse.builder()
+        .id(user.getId())
+        .firstName(user.getFirstName())
+        .lastName(user.getLastName())
+        .email(user.getEmail())
+        .photo(user.getPhoto())
+        .password(user.getPassword())
+        .build();
+
+
+  }
+
+  private User mapFields(UserUpdateRequest userUpdateRequest, User user) {
+    if (userUpdateRequest.getFirstName() != null) {
+      user.setFirstName(userUpdateRequest.getFirstName());
+    }
+    if (userUpdateRequest.getLastName() != null) {
+      user.setLastName(userUpdateRequest.getLastName());
+    }
+    if (userUpdateRequest.getEmail() != null) {
+      user.setEmail(userUpdateRequest.getEmail());
+    }
+    if (userUpdateRequest.getPhoto() != null) {
+      user.setPhoto(userUpdateRequest.getPhoto());
+    }
+    return user;
+  }
+
+
 }
