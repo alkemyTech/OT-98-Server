@@ -4,13 +4,14 @@ import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.CreateNewsRequest;
+import com.alkemy.ong.model.request.NewsDetailsRequest;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import com.alkemy.ong.service.abstraction.IGetNewsService;
 import com.alkemy.ong.service.abstraction.IListNewsService;
+import com.alkemy.ong.service.abstraction.IUpdateNewsService;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +48,9 @@ public class NewsController {
   private IListNewsService listNewsService;
 
   @Autowired
+  private IUpdateNewsService updateNewsService;
+
+  @Autowired
   private ConvertUtils convertUtils;
 
   @Autowired
@@ -54,7 +59,7 @@ public class NewsController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<NewsDetailsResponse> create(
-      @RequestBody(required = true) @Valid CreateNewsRequest createNewsRequest)
+      @RequestBody(required = true) @Valid NewsDetailsRequest createNewsRequest)
       throws EntityNotFoundException {
     NewsDetailsResponse newsDetailsResponse = convertUtils.createToResponse(
         createNewsService.create(createNewsRequest));
@@ -88,5 +93,14 @@ public class NewsController {
 
     ListNewsResponse toResponse = convertUtils.listNewsToResponse(pageResponse.getContent());
     return new ResponseEntity<>(toResponse, HttpStatus.OK);
+  }
+
+  @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<NewsDetailsResponse> update(@PathVariable("id") long id,
+      @RequestBody(required = true) @Valid NewsDetailsRequest newsDetailsRequest) {
+    NewsDetailsResponse newsDetailsResponse =
+        convertUtils.createToResponse(updateNewsService.update(newsDetailsRequest, id));
+    return new ResponseEntity<>(newsDetailsResponse, HttpStatus.OK);
   }
 }

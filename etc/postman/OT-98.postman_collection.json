@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0aa897ba-9d20-46ca-a421-fc84d3fad3cc",
+		"_postman_id": "526d5605-1287-4a51-adb6-0dee6b4a85f5",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -567,6 +567,103 @@
 							"port": "8080",
 							"path": [
 								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNjQ5MTU4NiwiZXhwIjoxNjM2NTI3NTg2fQ.Vu0iye9zQh5Tm0DYTWaCUo-ACCnABTMd9fbIAJHeZ6k",
+								"type": "text"
+							},
+							{
+								"key": "a",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"body\": \"cuerpoEjemplo\",\r\n    \"newsId\":1,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/news/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"news Example\",\r\n  \"content\": \"news example\",\r\n  \"image\":\"image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/users/2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2"
 							]
 						}
 					},
