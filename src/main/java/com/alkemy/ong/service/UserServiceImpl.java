@@ -10,8 +10,6 @@ import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
-import com.alkemy.ong.model.request.UserFirtstNameRequest;
-import com.alkemy.ong.model.request.UserLastNameRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.request.UserUpdateRequest;
 import com.alkemy.ong.model.response.ListActiveUsersResponse;
@@ -29,6 +27,7 @@ import com.alkemy.ong.service.abstraction.IUserUpdateService;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -170,24 +169,12 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Override
   public UserDetailsResponse update(long id, UserUpdateRequest userUpdateRequest) {
-    User user = userRepository.findById(id).get();
-    if (user == null) {
+    Optional<User> optionalUser = userRepository.findById(id);
+    if (optionalUser.isEmpty()) {
       throw new EntityNotFoundException("User not found");
     }
 
-    if (userUpdateRequest.getFirstName() != null) {
-      user.setFirstName(userUpdateRequest.getFirstName());
-    }
-    if (userUpdateRequest.getLastName() != null) {
-      user.setLastName(userUpdateRequest.getLastName());
-    }
-    if (userUpdateRequest.getEmail() != null) {
-      user.setEmail(userUpdateRequest.getEmail());
-    }
-    if (userUpdateRequest.getPhoto() != null) {
-      user.setPhoto(userUpdateRequest.getPhoto());
-    }
-
+    User user = mapFields(userUpdateRequest, optionalUser.get());
     userRepository.save(user);
 
     return UserDetailsResponse.builder()
@@ -200,6 +187,22 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
         .build();
 
 
+  }
+
+  private User mapFields(UserUpdateRequest userUpdateRequest, User user) {
+    if (userUpdateRequest.getFirstName() != null) {
+      user.setFirstName(userUpdateRequest.getFirstName());
+    }
+    if (userUpdateRequest.getLastName() != null) {
+      user.setLastName(userUpdateRequest.getLastName());
+    }
+    if (userUpdateRequest.getEmail() != null) {
+      user.setEmail(userUpdateRequest.getEmail());
+    }
+    if (userUpdateRequest.getPhoto() != null) {
+      user.setPhoto(userUpdateRequest.getPhoto());
+    }
+    return user;
   }
 
 

@@ -166,6 +166,4 @@ public class ConvertUtils {
     return detailsMemberResponses;
   }
 
-
-
 }
