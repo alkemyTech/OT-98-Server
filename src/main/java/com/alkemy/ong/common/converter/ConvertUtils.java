@@ -9,6 +9,7 @@ import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
@@ -165,5 +166,20 @@ public class ConvertUtils {
     });
     return detailsMemberResponses;
   }
+
+  public CategoriesResponse categoryToResponse(Category category) {
+    CategoriesResponse categoriesResponse = new CategoriesResponse();
+    categoriesResponse.setName(category.getName());
+    return categoriesResponse;
+  }
+
+  public List<CategoriesResponse> toCategoriesResponse(List<Category> categories) {
+    List<CategoriesResponse> categoriesResponses = new ArrayList<>(categories.size());
+    categories.forEach(category -> {
+      categoriesResponses.add(categoryToResponse(category));
+    });
+    return categoriesResponses;
+  }
+
 
 }
