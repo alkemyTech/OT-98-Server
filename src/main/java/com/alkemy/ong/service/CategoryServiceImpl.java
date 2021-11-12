@@ -1,16 +1,16 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.EntityAlreadyExistException;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CreateCategoryRequest;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +20,9 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
 
   @Autowired
   private ICategoryRepository categoryRepository;
+
+  @Autowired
+  ConvertUtils convertUtils;
 
   @Override
   @Transactional
@@ -37,15 +40,11 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
 
   @Override
   @Transactional
-  public List<ListCategoryResponse> findAll() {
-    List<Category> categories = categoryRepository.findAll();
+  public ListCategoryResponse findAll() {
+    List<Category> categories = categoryRepository.findBySoftDeleteFalse();
     validateCategories(categories);
-    ModelMapper modelMapper = new ModelMapper();
-    List<ListCategoryResponse> listCategoryResponses = new ArrayList<>();
-    for (Category category : categories) {
-      listCategoryResponses.add(modelMapper.map(category, ListCategoryResponse.class));
-    }
-    return listCategoryResponses;
+    List<CategoriesResponse> categoriesResponses = convertUtils.toCategoriesResponse(categories);
+    return new ListCategoryResponse(categoriesResponses);
   }
 
   private void validateCategories(List<Category> categories) {

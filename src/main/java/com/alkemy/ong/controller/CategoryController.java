@@ -5,6 +5,7 @@ import com.alkemy.ong.exception.EntityAlreadyExistException;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CreateCategoryRequest;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
@@ -43,7 +44,7 @@ public class CategoryController {
   }
 
   @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<ListCategoryResponse>> findAllCategories() {
+  public ResponseEntity<ListCategoryResponse> findAllCategories() {
     return new ResponseEntity<>(listCategoryService.findAll(), HttpStatus.OK);
   }
 
