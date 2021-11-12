@@ -182,7 +182,6 @@ public class ConvertUtils {
     return categoriesResponses;
   }
 
-
   public DetailsCategoryResponse toDetailsCategoryResponseResponse(Category category) {
     DetailsCategoryResponse detailsCategoryResponse = new DetailsCategoryResponse();
     detailsCategoryResponse.setId(category.getId());

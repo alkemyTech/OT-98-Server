@@ -54,8 +54,7 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
   public DetailsCategoryResponse getBy(Long id) throws EntityNotFoundException {
     Category category = categoryRepository.getById(id);
     validateCategory(category);
-    DetailsCategoryResponse detailsCategoryResponse = convertUtils.toDetailsCategoryResponseResponse(category);
-    return detailsCategoryResponse;
+    return convertUtils.toDetailsCategoryResponseResponse(category);
   }
 
   private void validateCategory(Category category) {

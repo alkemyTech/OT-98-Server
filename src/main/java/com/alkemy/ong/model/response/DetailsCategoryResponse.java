@@ -24,6 +24,4 @@ public class DetailsCategoryResponse {
 
   private Timestamp timestamp;
 
-  private boolean softDelete;
-
 }
