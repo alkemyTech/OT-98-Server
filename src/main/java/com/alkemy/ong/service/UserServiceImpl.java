@@ -17,7 +17,7 @@ import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetailsService;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
-    IUserRegisterService, IAuthenticatedUserDetails, IListUsersService, IDeleteUserService,
+    IUserRegisterService, IAuthenticatedUserDetailsService, IListUsersService, IDeleteUserService,
     IUserUpdateService {
 
   @Autowired
@@ -53,7 +53,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
   private IUserRepository userRepository;
 
   @Autowired
-  private IAuthenticatedUserDetails authenticatedUserDetails;
+  private IAuthenticatedUserDetailsService authenticatedUserDetails;
 
   @Autowired
   private AuthenticationManager authenticationManager;

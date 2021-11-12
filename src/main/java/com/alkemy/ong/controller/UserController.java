@@ -6,7 +6,7 @@ import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.request.UserUpdateRequest;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
-import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetails;
+import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetailsService;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
@@ -33,7 +33,7 @@ public class UserController {
   public IUserRegisterService registerService;
 
   @Autowired
-  public IAuthenticatedUserDetails authenticatedUserDetails;
+  public IAuthenticatedUserDetailsService authenticatedUserDetails;
 
   @Autowired
   public IListUsersService userService;
