@@ -10,7 +10,6 @@ import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
 import java.util.List;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,15 +41,8 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
   @Transactional
   public ListCategoryResponse findAll() {
     List<Category> categories = categoryRepository.findBySoftDeleteFalse();
-    validateCategories(categories);
     List<CategoriesResponse> categoriesResponses = convertUtils.toCategoriesResponse(categories);
     return new ListCategoryResponse(categoriesResponses);
   }
 
-  private void validateCategories(List<Category> categories) {
-    if (categories.isEmpty()) {
-      throw new EntityNotFoundException("The requested resource could not be found.");
-    }
-
-  }
 }

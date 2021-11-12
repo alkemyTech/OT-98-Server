@@ -9,14 +9,13 @@ import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
-import com.alkemy.ong.model.response.CategoriesResponse;
-import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
@@ -174,7 +173,7 @@ public class ConvertUtils {
     return categoriesResponse;
   }
 
-  public List<CategoriesResponse> toCategoriesResponse( List<Category> categories) {
+  public List<CategoriesResponse> toCategoriesResponse(List<Category> categories) {
     List<CategoriesResponse> categoriesResponses = new ArrayList<>(categories.size());
     categories.forEach(category -> {
       categoriesResponses.add(categoryToResponse(category));
