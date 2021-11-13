@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,7 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   }
 
   @Test
-  public void shouldReturnJwtToken() {
+  public void shouldRegisterSuccessfully() {
     when(roleService.findBy(eq(ApplicationRole.USER.getFullRoleName())))
         .thenReturn(stubRole("USER"));
     when(userRepository.save(isA(User.class))).thenReturn(stubUser("USER"));
@@ -67,6 +68,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
         createURLWithPort("/auth/register"), HttpMethod.POST, entity, UserRegisterResponse.class);
 
     Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    Assert.assertEquals(response.getBody().getFirstsName(), registerRequest.getFirstName());
+    Assert.assertEquals(response.getBody().getLastName(), registerRequest.getLastName());
+    Assert.assertEquals(response.getBody().getEmail(), registerRequest.getEmail());
     Assert.assertTrue(jwtUtil.validateToken(response.getBody().getJwt(), stubUser("USER")));
   }
 
