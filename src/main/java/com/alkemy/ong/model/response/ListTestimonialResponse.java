@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListTestimonialResponse {
 
-  List<TestimonialResponse> testimonials;
+  private List<TestimonialResponse> testimonials;
 
 }
