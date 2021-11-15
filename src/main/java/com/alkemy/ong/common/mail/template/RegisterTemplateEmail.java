@@ -2,12 +2,13 @@ package com.alkemy.ong.common.mail.template;
 
 import com.alkemy.ong.common.mail.IContent;
 import com.alkemy.ong.common.mail.IEmail;
+import java.text.MessageFormat;
 
 public class RegisterTemplateEmail implements IEmail, IContent {
 
   private static final String TYPE = "text/plain";
   private static final String SUBJECT = "Register Successfully";
-  private static final String WELCOME_TEXT = "Welcome to Somos Mas!";
+  private static final String WELCOME_TEXT = "Welcome to {0}!";
 
   private String emailTo;
   private String image;
@@ -35,7 +36,7 @@ public class RegisterTemplateEmail implements IEmail, IContent {
   public String getValue() {
     return image
         + "\n" + organizationName
-        + "\n" + WELCOME_TEXT
+        + "\n" + MessageFormat.format(WELCOME_TEXT, organizationName)
         + "\n" + "Address: " + address
         + "\n" + "Telephone: " + phone;
   }

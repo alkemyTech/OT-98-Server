@@ -127,7 +127,6 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
-
     User user = new User();
     user.setFirstName(registerRequest.getFirstName());
     user.setLastName(registerRequest.getLastName());
@@ -136,6 +135,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
+    User save = userRepository.save(user);
     try {
       OrganizationResponse organizationDetails = organizationService.getOrganizationDetails();
       emailHelper.send(new RegisterTemplateEmail(
@@ -148,7 +148,7 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     } catch (SendEmailException e) {
       log.info(e.getMessage());
     }
-    return convertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
+    return convertUtils.toResponse(save, jwtUtil.generateToken(user));
   }
 
   @Override
