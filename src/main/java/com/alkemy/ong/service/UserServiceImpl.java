@@ -127,28 +127,36 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     if (userRepository.findByEmail(registerRequest.getEmail()) != null) {
       throw new EmailAlreadyExistException();
     }
+    User user = userRepository.save(buildUser(registerRequest));
+    sendEmail(registerRequest.getEmail());
+    return convertUtils.toResponse(user, jwtUtil.generateToken(user));
+  }
+
+  private User buildUser(UserRegisterRequest userRegisterRequest) {
     User user = new User();
-    user.setFirstName(registerRequest.getFirstName());
-    user.setLastName(registerRequest.getLastName());
-    user.setEmail(registerRequest.getEmail());
-    user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
+    user.setFirstName(userRegisterRequest.getFirstName());
+    user.setLastName(userRegisterRequest.getLastName());
+    user.setEmail(userRegisterRequest.getEmail());
+    user.setPassword(bCryptPasswordEncoder.encode(userRegisterRequest.getPassword()));
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
-    User save = userRepository.save(user);
+    return user;
+  }
+
+  private void sendEmail(String email) {
     try {
       OrganizationResponse organizationDetails = organizationService.getOrganizationDetails();
       emailHelper.send(new RegisterTemplateEmail(
-          registerRequest.getEmail(),
+          email,
           organizationDetails.getImage(),
           organizationDetails.getName(),
           organizationDetails.getAddress(),
           organizationDetails.getPhone()
       ));
     } catch (SendEmailException e) {
-      log.info(e.getMessage());
+      log.warn(e.getMessage());
     }
-    return convertUtils.toResponse(save, jwtUtil.generateToken(user));
   }
 
   @Override

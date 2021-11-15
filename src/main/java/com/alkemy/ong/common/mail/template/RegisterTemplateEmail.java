@@ -35,7 +35,6 @@ public class RegisterTemplateEmail implements IEmail, IContent {
   @Override
   public String getValue() {
     return image
-        + "\n" + organizationName
         + "\n" + MessageFormat.format(WELCOME_TEXT, organizationName)
         + "\n" + "Address: " + address
         + "\n" + "Telephone: " + phone;
