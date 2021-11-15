@@ -44,7 +44,7 @@ public class RegisterTemplateEmail implements IEmail, IContent {
 
   @Override
   public String getEmailTo() {
-    return email;
+    return emailTo;
   }
 
   @Override
