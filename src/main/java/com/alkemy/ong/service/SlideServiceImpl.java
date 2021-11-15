@@ -18,8 +18,8 @@ public class SlideServiceImpl implements IDeleteSlide {
   @Transactional
   @Override
   public void delete(long id) throws EntityNotFoundException {
-    Optional<Slide> optionalSlide = slideRepository.findById(id);
-    if (!optionalSlide.isPresent()) {
+
+    if (!slideRepository.existsById(id)) {
       throw new EntityNotFoundException("Slide not found!");
     }
     slideRepository.deleteById(id);
