@@ -2,17 +2,21 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.common.converter.ConvertUtils;
+import com.alkemy.ong.common.mail.EmailHelper;
+import com.alkemy.ong.common.mail.template.RegisterTemplateEmail;
 import com.alkemy.ong.common.validation.EmailValidation;
 import com.alkemy.ong.common.validation.PasswordValidation;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.exception.EmailAlreadyExistException;
 import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.exception.SendEmailException;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.request.UserUpdateRequest;
 import com.alkemy.ong.model.response.ListActiveUsersResponse;
+import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.model.response.UserAuthenticatedMeResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
@@ -21,6 +25,7 @@ import com.alkemy.ong.service.abstraction.IAuthenticatedUserDetailsService;
 import com.alkemy.ong.service.abstraction.IAuthenticationService;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IListUsersService;
+import com.alkemy.ong.service.abstraction.IOrganizationService;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import com.alkemy.ong.service.abstraction.IUserRegisterService;
 import com.alkemy.ong.service.abstraction.IUserUpdateService;
@@ -29,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,6 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Slf4j
 public class UserServiceImpl implements IAuthenticationService, UserDetailsService,
     IUserRegisterService, IAuthenticatedUserDetailsService, IListUsersService, IDeleteUserService,
     IUserUpdateService {
@@ -69,6 +76,12 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
 
   @Autowired
   private IDeleteUserService deleteUserService;
+
+  @Autowired
+  private EmailHelper emailHelper;
+
+  @Autowired
+  private IOrganizationService organizationService;
 
   @Override
   public UserDetailsResponse login(UserAuthenticationRequest authenticationRequest)
@@ -123,6 +136,18 @@ public class UserServiceImpl implements IAuthenticationService, UserDetailsServi
     List<Role> roles = new ArrayList<>();
     roles.add(roleService.findBy(ApplicationRole.USER.getFullRoleName()));
     user.setRoles(roles);
+    try {
+      OrganizationResponse organizationDetails = organizationService.getOrganizationDetails();
+      emailHelper.send(new RegisterTemplateEmail(
+          registerRequest.getEmail(),
+          organizationDetails.getImage(),
+          organizationDetails.getName(),
+          organizationDetails.getAddress(),
+          organizationDetails.getPhone()
+      ));
+    } catch (SendEmailException e) {
+      log.info(e.getMessage());
+    }
     return convertUtils.toResponse(userRepository.save(user), jwtUtil.generateToken(user));
   }
 

@@ -7,24 +7,23 @@ public class RegisterTemplateEmail implements IEmail, IContent {
 
   private static final String TYPE = "text/plain";
   private static final String SUBJECT = "Register Successfully";
+  private static final String WELCOME_TEXT = "Welcome to Somos Mas!";
 
   private String emailTo;
   private String image;
-  private String name;
-  private String welcomeText;
+  private String organizationName;
   private String address;
   private Integer phone;
-  private String email;
 
-  public RegisterTemplateEmail(String emailTo, String image, String name,
-      String welcomeText, String address, Integer phone, String email) {
+  public RegisterTemplateEmail(String emailTo, String image, String organizationName,
+      String address,
+      Integer phone) {
     this.emailTo = emailTo;
     this.image = image;
-    this.name = name;
-    this.welcomeText = welcomeText;
+    this.organizationName = organizationName;
     this.address = address;
     this.phone = phone;
-    this.email = email;
+
   }
 
   @Override
@@ -35,11 +34,10 @@ public class RegisterTemplateEmail implements IEmail, IContent {
   @Override
   public String getValue() {
     return image
-        + "\n" + name
-        + "\n" + welcomeText
-        + "\n" + address
-        + "\n" + phone
-        + "\n" + email;
+        + "\n" + organizationName
+        + "\n" + WELCOME_TEXT
+        + "\n" + "Address: " + address
+        + "\n" + "Telephone: " + phone;
   }
 
   @Override
