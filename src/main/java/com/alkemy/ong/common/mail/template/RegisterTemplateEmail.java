@@ -35,11 +35,11 @@ public class RegisterTemplateEmail implements IEmail, IContent {
   @Override
   public String getValue() {
     return image
-        + " " + name
-        + " " + welcomeText
-        + " " + address
-        + " " + phone
-        + " " + email;
+        + "\n" + name
+        + "\n" + welcomeText
+        + "\n" + address
+        + "\n" + phone
+        + "\n" + email;
   }
 
   @Override
