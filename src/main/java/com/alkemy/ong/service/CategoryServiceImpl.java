@@ -23,9 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryServiceImpl implements ICreateCategoryService, IListCategoryService,
     IGetCategoryService, IUpdateCategoryService {
 
-
   @Autowired
-  ConvertUtils convertUtils;
+  private ConvertUtils convertUtils;
+
   @Autowired
   private ICategoryRepository categoryRepository;
 
