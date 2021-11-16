@@ -13,6 +13,7 @@ import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
+import com.alkemy.ong.model.response.CreateMemberResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
@@ -45,6 +46,13 @@ public class ConvertUtils {
     createCategoryResponse.setId(category.getId());
     createCategoryResponse.setName(category.getName());
     return createCategoryResponse;
+  }
+
+  public CreateMemberResponse MemberToResponse(Member member) {
+    CreateMemberResponse createMemberResponse = new CreateMemberResponse();
+    createMemberResponse.setName(member.getName());
+    createMemberResponse.setImage(member.getImage());
+    return createMemberResponse;
   }
 
   public CreateActivityResponse toResponse(Activity activity) {
