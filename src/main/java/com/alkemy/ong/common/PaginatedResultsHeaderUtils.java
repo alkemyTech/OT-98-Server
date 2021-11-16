@@ -31,6 +31,7 @@ public class PaginatedResultsHeaderUtils {
       final String uriForNextPage =
           createLinkHeader(constructNextPageUri(uriBuilder, page), NEXT_REL);
 
+      appendCommaIfNecessary(linkHeader);
       linkHeader.append(uriForNextPage);
     }
 
@@ -38,6 +39,7 @@ public class PaginatedResultsHeaderUtils {
       final String uriForPrevPage =
           createLinkHeader(constructPrevPageUri(uriBuilder, page), PREV_REL);
 
+      appendCommaIfNecessary(linkHeader);
       linkHeader.append(uriForPrevPage);
     }
 
@@ -58,6 +60,12 @@ public class PaginatedResultsHeaderUtils {
 
   private boolean hasPreviousPage(final int page) {
     return page > 0;
+  }
+
+  private void appendCommaIfNecessary(StringBuilder linkHeader) {
+    if (linkHeader.length() > 0) {
+      linkHeader.append(", ");
+    }
   }
 
   private static String createLinkHeader(final String uri, final String rel) {
