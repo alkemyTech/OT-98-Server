@@ -2,6 +2,7 @@ package com.alkemy.ong.exception;
 
 import com.alkemy.ong.model.response.ErrorResponse;
 import java.io.IOException;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -104,9 +107,31 @@ public class ErrorHandler {
     return ResponseEntity.badRequest()
         .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
+  
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<?> handleMethodArgumenNotValidException(HttpServletRequest request,
+      MethodArgumentNotValidException e){
+    
+    List<FieldError> errorFields = e.getFieldErrors();
+    String errorMessage = "";
+    for (FieldError fieldError : errorFields) {
+      String field = fieldError.getField();
+      errorMessage += fieldError.getDefaultMessage().replaceAll("%s", field) + ".";
+      
+      if(errorFields.indexOf(fieldError) != e.getErrorCount() - 1) {
+        errorMessage += " ";
+      }
+    }
+    
+    return ResponseEntity.badRequest()
+        .body(buildResponse(errorMessage, HttpStatus.BAD_REQUEST));
+  }
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
-
+  
+  private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
+    return new ErrorResponse(message, httpStatus.value());
+  }
 }
