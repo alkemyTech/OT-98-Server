@@ -5,6 +5,7 @@ import com.alkemy.ong.model.request.OrganizationDetailsRequest;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.repository.IOrganizationRepository;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
   @Override
   @Transactional
   public OrganizationResponse getOrganizationDetails() {
-    Organization organization = organizationRepository.findAll().get(0);
-    validate(organization);
+    Organization organization = getOrganization();
 
     return OrganizationResponse.builder()
         .name(organization.getName())
@@ -36,10 +36,9 @@ public class OrganizationServiceImpl implements IOrganizationService {
 
   @Override
   @Transactional
-  public void update(OrganizationDetailsRequest organizationDetailsRequest) throws EntityNotFoundException {
-    Organization organization = organizationRepository.findAll().get(0);
-    validate(organization);
-
+  public void update(OrganizationDetailsRequest organizationDetailsRequest)
+      throws EntityNotFoundException {
+    Organization organization = getOrganization();
     organization.setName(organizationDetailsRequest.getName());
     organization.setImage(organizationDetailsRequest.getImage());
     organization.setAddress(organizationDetailsRequest.getAddress());
@@ -53,9 +52,12 @@ public class OrganizationServiceImpl implements IOrganizationService {
     organizationRepository.save(organization);
   }
 
-  private void validate(Organization organization) {
-    if (organization == null) {
+  private Organization getOrganization() {
+    List<Organization> organizations = organizationRepository.findAll();
+    if (organizations.isEmpty()) {
       throw new EntityNotFoundException("The requested resource could not be found.");
     }
+    return organizations.get(0);
   }
+
 }

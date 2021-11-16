@@ -9,10 +9,12 @@ import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
+import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
@@ -164,6 +166,30 @@ public class ConvertUtils {
       detailsMemberResponses.add(toResponse(member));
     });
     return detailsMemberResponses;
+  }
+
+  public CategoriesResponse categoryToResponse(Category category) {
+    CategoriesResponse categoriesResponse = new CategoriesResponse();
+    categoriesResponse.setName(category.getName());
+    return categoriesResponse;
+  }
+
+  public List<CategoriesResponse> toCategoriesResponse(List<Category> categories) {
+    List<CategoriesResponse> categoriesResponses = new ArrayList<>(categories.size());
+    categories.forEach(category -> {
+      categoriesResponses.add(categoryToResponse(category));
+    });
+    return categoriesResponses;
+  }
+
+  public DetailsCategoryResponse toDetailsCategoryResponseResponse(Category category) {
+    DetailsCategoryResponse detailsCategoryResponse = new DetailsCategoryResponse();
+    detailsCategoryResponse.setId(category.getId());
+    detailsCategoryResponse.setName(category.getName());
+    detailsCategoryResponse.setImage(category.getImage());
+    detailsCategoryResponse.setDescription(category.getDescription());
+    detailsCategoryResponse.setTimestamp(category.getTimestamp());
+    return detailsCategoryResponse;
   }
 
 }
