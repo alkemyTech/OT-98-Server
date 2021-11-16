@@ -28,9 +28,9 @@ public class MemberController {
   }
 
   @DeleteMapping(value = "/members/{id}")
-  public ResponseEntity<?> deleteBy(@PathVariable Long id) throws EntityNotFoundException {
+  public ResponseEntity<?> deleteBy(@PathVariable long id) throws EntityNotFoundException {
     deleteMembersService.deleteBy(id);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
   }
 
 }
