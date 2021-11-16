@@ -100,7 +100,7 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
 
   private OrganizationResponse stubOrganization() {
     return new OrganizationResponse(
-        "Fit",
+        "Fiat",
         "toyota.jpg",
         1112222,
         "don juan toyota 1234",
