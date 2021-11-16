@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"info": {
 		"_postman_id": "d232949b-4186-47cb-822c-cbdebf112bff",
 		"name": "SomosMas",
@@ -839,8 +838,7 @@
 			"key": "jwt",
 			"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzY3NTAzOTIsImV4cCI6MTYzNjc4NjM5Mn0.v3kgUxPPlyGkB_PaGX6IbXtgZEKNRN4i570W8DeP7Yk"
 		}
-	]
-=======
+	],
   "info": {
     "_postman_id": "e5dd400a-7b02-4552-8f02-4b0b6a780fbe",
     "name": "SomosMas",
@@ -1696,5 +1694,4 @@
       "value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzY3NTAzOTIsImV4cCI6MTYzNjc4NjM5Mn0.v3kgUxPPlyGkB_PaGX6IbXtgZEKNRN4i570W8DeP7Yk"
     }
   ]
->>>>>>> upstream/main
 }
