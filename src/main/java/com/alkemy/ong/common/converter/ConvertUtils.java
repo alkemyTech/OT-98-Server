@@ -13,7 +13,6 @@ import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
-import com.alkemy.ong.model.response.CreateMemberResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
@@ -48,11 +47,17 @@ public class ConvertUtils {
     return createCategoryResponse;
   }
 
-  public CreateMemberResponse MemberToResponse(Member member) {
-    CreateMemberResponse createMemberResponse = new CreateMemberResponse();
-    createMemberResponse.setName(member.getName());
-    createMemberResponse.setImage(member.getImage());
-    return createMemberResponse;
+  public DetailsMemberResponse memberToResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
   }
 
   public CreateActivityResponse toResponse(Activity activity) {

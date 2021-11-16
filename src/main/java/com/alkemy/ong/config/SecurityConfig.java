@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .passwordEncoder(passwordEncoder());
   }
 
+  @Override
   @Bean
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
@@ -73,13 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.GET, "/auth/me")
         .hasAnyRole(ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.GET, "/news")
-        .hasAnyRole(ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.POST, "/news")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.DELETE, "/news/**")
-        .hasAnyRole(ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.GET, "/news/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.GET, "/news?{.+}")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.GET, "/news/{\\d+}")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.PUT, "/news/**")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
@@ -105,12 +106,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.GET, "/members")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.DELETE, "/members/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.DELETE, "/slides/**")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.PATCH, "/users/**")
         .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.POST, "/members")
         .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.PUT, "/categories/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
         .anyRequest()
         .authenticated()
         .and()

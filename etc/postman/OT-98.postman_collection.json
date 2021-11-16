@@ -1,6 +1,10 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "1c90f51d-3661-4986-938c-4a7909537544",
+=======
+		"_postman_id": "0f6035d5-c82a-459c-b585-e19aa1fcb4ce",
+>>>>>>> main
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -262,6 +266,47 @@
 						}
 					},
 					"response": []
+<<<<<<< HEAD
+=======
+				},
+				{
+					"name": "localhost:8080/categories/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"studies\",\r\n    \"description\":\"all the news here\",\r\n    \"image\":\"image.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/categories/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+>>>>>>> main
 				}
 			]
 		},
@@ -385,6 +430,7 @@
 					"response": []
 				},
 				{
+<<<<<<< HEAD
 					"name": "localhost:8080/members",
 					"request": {
 						"auth": {
@@ -394,12 +440,35 @@
 						"header": [],
 						"url": {
 							"raw": "localhost:8080/members",
+=======
+					"name": "deleteBy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/members/1",
+>>>>>>> main
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+<<<<<<< HEAD
 								"members"
+=======
+								"members",
+								"1"
+>>>>>>> main
 							]
 						}
 					},
@@ -872,7 +941,11 @@
 	"variable": [
 		{
 			"key": "jwt",
+<<<<<<< HEAD
 			"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzY3NTAzOTIsImV4cCI6MTYzNjc4NjM5Mn0.v3kgUxPPlyGkB_PaGX6IbXtgZEKNRN4i570W8DeP7Yk"
+=======
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcwODQ3OTcsImV4cCI6MTYzNzEyMDc5N30.K2XHyZlfeE6ncSLcZ5CDGrBz-DT-0YkUpjAjrBA3tkY"
+>>>>>>> main
 		}
 	]
 }
