@@ -8,9 +8,7 @@ import com.alkemy.ong.repository.IMemberRepository;
 import com.alkemy.ong.service.abstraction.IDeleteMembersService;
 import com.alkemy.ong.service.abstraction.IListMembersService;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +29,17 @@ public class MemberServiceImpl implements IListMembersService, IDeleteMembersSer
   }
 
   @Override
-  @Transactional
   public void deleteBy(long id) throws EntityNotFoundException {
     Member member = memberRepository.getById(id);
-    if (member == null) throw new EntityNotFoundException("The requested resource could not be found.");
+    validateMember(member);
     member.setSoftDelete(true);
     memberRepository.save(member);
   }
+
+  private void validateMember(Member member) {
+    if (member == null) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
+    }
+  }
+
 }
