@@ -10,7 +10,9 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
 import com.alkemy.ong.model.response.ErrorResponse;
+import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
+import com.alkemy.ong.service.abstraction.IOrganizationService;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +32,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
 
   @Autowired
   private JwtUtil jwtUtil;
+
+  @MockBean
+  private IOrganizationService organizationService;
 
   @Test
   public void shouldReturnBadRequestWhenTheEmailAlreadyExist() {
@@ -55,6 +60,7 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
     when(roleService.findBy(eq(ApplicationRole.USER.getFullRoleName())))
         .thenReturn(stubRole("USER"));
     when(userRepository.save(isA(User.class))).thenReturn(stubUser("USER"));
+    when(organizationService.getOrganizationDetails()).thenReturn(stubOrganization());
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
     registerRequest.setFirstName("Example");
@@ -91,4 +97,17 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
         null,
         false);
   }
+
+  private OrganizationResponse stubOrganization() {
+    return new OrganizationResponse(
+        "Fit",
+        "toyota.jpg",
+        1112222,
+        "don juan toyota 1234",
+        "toyota",
+        "toyota",
+        "toyota"
+    );
+  }
+
 }
