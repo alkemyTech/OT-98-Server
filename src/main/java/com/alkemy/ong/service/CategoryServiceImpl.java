@@ -33,9 +33,7 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
   @Transactional
   public Category create(CreateCategoryRequest createCategoryRequest)
       throws EntityAlreadyExistException {
-    if (categoryRepository.findByName(createCategoryRequest.getName()) != null) {
-      throw new EntityAlreadyExistException("category");
-    }
+    throwErrorIfDoesNotExist(createCategoryRequest.getName());
     Category category = new Category();
     category.setName(createCategoryRequest.getName());
     category.setSoftDelete(false);
@@ -67,9 +65,7 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
   @Override
   public DetailsCategoryResponse update(CategoryUpdateRequest categoryUpdateRequest, long id)
       throws EntityAlreadyExistException {
-    if (categoryRepository.findByName(categoryUpdateRequest.getName()) != null) {
-      throw new EntityAlreadyExistException("category");
-    }
+    throwErrorIfDoesNotExist(categoryUpdateRequest.getName());
     Category category = categoryRepository.getById(id);
     validateCategory(category);
     category.setName(categoryUpdateRequest.getName());
@@ -77,5 +73,11 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     category.setImage(categoryUpdateRequest.getImage());
     categoryRepository.save(category);
     return convertUtils.toDetailsCategoryResponseResponse(category);
+  }
+
+  private void throwErrorIfDoesNotExist(String name) throws EntityAlreadyExistException {
+    if (categoryRepository.findByName(name) != null) {
+      throw new EntityAlreadyExistException("category");
+    }
   }
 }
