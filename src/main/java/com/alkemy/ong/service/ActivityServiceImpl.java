@@ -1,9 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.entity.Activity;
-import com.alkemy.ong.model.request.ActivityUpdateRequest;
-import com.alkemy.ong.model.request.CreateActivityRequest;
-import com.alkemy.ong.model.response.UpdateActivityResponse;
+import com.alkemy.ong.model.request.ActivityDetailsRequest;
 import com.alkemy.ong.repository.IActivityRepository;
 import com.alkemy.ong.service.abstraction.ICreateActivityService;
 import com.alkemy.ong.service.abstraction.IUpdateActivityService;
@@ -19,7 +17,7 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
   IActivityRepository activityRepository;
 
   @Override
-  public Activity create(CreateActivityRequest createActivityRequest) {
+  public Activity create(ActivityDetailsRequest createActivityRequest) {
     Activity activity = new Activity();
     activity.setName(createActivityRequest.getName());
     activity.setContent(createActivityRequest.getContent());
@@ -31,7 +29,7 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
 
 
   @Override
-  public Activity update(long id, ActivityUpdateRequest activityUpdateRequest) {
+  public Activity update(long id, ActivityDetailsRequest activityDetailsRequest) {
     Optional<Activity> activityOptional = activityRepository.findById(id);
 
     if (activityOptional.isEmpty()) {
@@ -39,9 +37,9 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
     }
 
     Activity activity = activityOptional.get();
-    activity.setName(activityUpdateRequest.getName());
-    activity.setContent(activityUpdateRequest.getContent());
-    activity.setImage(activityUpdateRequest.getImage());
+    activity.setName(activityDetailsRequest.getName());
+    activity.setContent(activityDetailsRequest.getContent());
+    activity.setImage(activityDetailsRequest.getImage());
     activityRepository.save(activity);
 
     return activity;

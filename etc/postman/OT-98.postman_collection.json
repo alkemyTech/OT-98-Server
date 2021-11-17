@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "94a4eafa-8f25-4d53-a85c-fc31d43f11a6",
+		"_postman_id": "5bfbec79-9a31-4531-9c3f-da52fb15c6fe",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -447,6 +447,27 @@
 							"type": "bearer"
 						},
 						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/members",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/members",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "localhost:8080/members",

@@ -1,11 +1,10 @@
 package com.alkemy.ong.service.abstraction;
 
 import com.alkemy.ong.model.entity.Activity;
-import com.alkemy.ong.model.request.ActivityUpdateRequest;
-import com.alkemy.ong.model.response.UpdateActivityResponse;
+import com.alkemy.ong.model.request.ActivityDetailsRequest;
 
 public interface IUpdateActivityService {
 
- Activity update(long id, ActivityUpdateRequest activityUpdateRequest);
+ Activity update(long id, ActivityDetailsRequest activityDetailsRequest);
 
 }

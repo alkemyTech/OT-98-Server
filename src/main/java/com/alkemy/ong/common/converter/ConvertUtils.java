@@ -10,7 +10,7 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CategoriesResponse;
-import com.alkemy.ong.model.response.CreateActivityResponse;
+import com.alkemy.ong.model.response.ActivityDetailsResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
@@ -22,7 +22,6 @@ import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.TestimonialResponse;
-import com.alkemy.ong.model.response.UpdateActivityResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +47,26 @@ public class ConvertUtils {
     return createCategoryResponse;
   }
 
-  public CreateActivityResponse toResponse(Activity activity) {
-    CreateActivityResponse createActivityResponse = new CreateActivityResponse();
-    createActivityResponse.setId(activity.getId());
-    createActivityResponse.setName(activity.getName());
-    createActivityResponse.setContent(activity.getContent());
-    createActivityResponse.setImage(activity.getImage());
-    return createActivityResponse;
+  public DetailsMemberResponse memberToResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
+  }
+
+  public ActivityDetailsResponse toResponse(Activity activity) {
+    ActivityDetailsResponse activityDetailsResponse = new ActivityDetailsResponse();
+    activityDetailsResponse.setId(activity.getId());
+    activityDetailsResponse.setName(activity.getName());
+    activityDetailsResponse.setContent(activity.getContent());
+    activityDetailsResponse.setImage(activity.getImage());
+    return activityDetailsResponse;
   }
 
   public CreateCommentResponse toResponse(Comment comment) {
@@ -193,13 +205,6 @@ public class ConvertUtils {
     return detailsCategoryResponse;
   }
 
-  public UpdateActivityResponse toUpdateActivityResponse(Activity activity) {
-    UpdateActivityResponse updateActivityResponse = new UpdateActivityResponse();
-    updateActivityResponse.setId(activity.getId());
-    updateActivityResponse.setName(activity.getName());
-    updateActivityResponse.setContent(activity.getContent());
-    updateActivityResponse.setImage(activity.getImage());
-    return updateActivityResponse;
-  }
+
 
 }

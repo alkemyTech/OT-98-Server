@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .passwordEncoder(passwordEncoder());
   }
 
+  @Override
   @Bean
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
@@ -111,6 +112,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.PATCH, "/users/**")
         .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.POST, "/members")
+        .hasAnyRole(ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.PUT, "/categories/**")
         .hasAnyRole(ApplicationRole.ADMIN.getName())
         .antMatchers(HttpMethod.PUT, "/activities/**")
