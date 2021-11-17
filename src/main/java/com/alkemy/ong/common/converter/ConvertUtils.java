@@ -47,6 +47,19 @@ public class ConvertUtils {
     return createCategoryResponse;
   }
 
+  public DetailsMemberResponse memberToResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
+  }
+
   public CreateActivityResponse toResponse(Activity activity) {
     CreateActivityResponse createActivityResponse = new CreateActivityResponse();
     createActivityResponse.setId(activity.getId());
