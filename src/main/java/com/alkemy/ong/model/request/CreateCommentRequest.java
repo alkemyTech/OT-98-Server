@@ -1,8 +1,8 @@
 package com.alkemy.ong.model.request;
 
+import com.alkemy.ong.common.validation.ValidationMessages;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import com.alkemy.ong.common.validation.ValidationMessages;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

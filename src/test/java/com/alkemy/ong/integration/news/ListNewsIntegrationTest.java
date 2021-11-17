@@ -3,9 +3,16 @@ package com.alkemy.ong.integration.news;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-import java.util.List;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+
+import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.request.NewsDetailsRequest;
+import com.alkemy.ong.model.response.ErrorResponse;
+import com.alkemy.ong.model.response.ListNewsResponse;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +25,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.NewsDetailsRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
-import com.alkemy.ong.model.response.ListNewsResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

@@ -22,10 +22,10 @@ public class UsersSeeder implements CommandLineRunner {
   private static final String PASSWORD_GENERIC = "foo12345";
 
   @Autowired
-  IUserRepository userRepository;
+  private IUserRepository userRepository;
 
   @Autowired
-  IRoleRepository roleRepository;
+  private IRoleRepository roleRepository;
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;

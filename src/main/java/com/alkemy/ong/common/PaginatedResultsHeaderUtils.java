@@ -1,9 +1,9 @@
 package com.alkemy.ong.common;
 
+import com.alkemy.ong.exception.PageOutOfRangeException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.alkemy.ong.exception.PageOutOfRangeException;
 
 @Component("paginatedResultsHeaderUtils")
 public class PaginatedResultsHeaderUtils {
@@ -14,6 +14,9 @@ public class PaginatedResultsHeaderUtils {
   private static final String NEXT_REL = "next";
   private static final String PREV_REL = "prev";
 
+  private static String createLinkHeader(final String uri, final String rel) {
+    return "<" + uri + ">; rel=\"" + rel + "\"";
+  }
 
   public void addLinkHeaderOnPagedResult(final UriComponentsBuilder uriBuilder,
       final HttpServletResponse response, final int page, final int totalPages,
@@ -66,9 +69,5 @@ public class PaginatedResultsHeaderUtils {
     if (linkHeader.length() > 0) {
       linkHeader.append(", ");
     }
-  }
-
-  private static String createLinkHeader(final String uri, final String rel) {
-    return "<" + uri + ">; rel=\"" + rel + "\"";
   }
 }

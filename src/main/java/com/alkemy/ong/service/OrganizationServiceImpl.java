@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class OrganizationServiceImpl implements IOrganizationService {
 
   @Autowired
-  IOrganizationRepository organizationRepository;
+  private IOrganizationRepository organizationRepository;
 
   @Override
   @Transactional

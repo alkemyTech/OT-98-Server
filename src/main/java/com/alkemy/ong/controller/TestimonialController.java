@@ -55,7 +55,8 @@ public class TestimonialController {
   @GetMapping(params = "page", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws PageOutOfRangeException {
-    Page<Testimonial> pageResponse = testimonialsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
+    Page<Testimonial> pageResponse = testimonialsService.list(page,
+        PaginatedResultsHeaderUtils.PAGE_SIZE);
     paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder,
         response,
         page,

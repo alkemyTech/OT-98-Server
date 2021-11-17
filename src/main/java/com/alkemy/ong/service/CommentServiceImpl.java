@@ -18,13 +18,13 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements ICreateCommentService {
 
   @Autowired
-  ICommentRepository commentRepository;
+  private ICommentRepository commentRepository;
 
   @Autowired
-  IUserRepository userRepository;
+  private IUserRepository userRepository;
 
   @Autowired
-  INewsRepository newsRepository;
+  private INewsRepository newsRepository;
 
   @Autowired
   private JwtUtil jwtUtil;
