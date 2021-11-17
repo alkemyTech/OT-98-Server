@@ -902,6 +902,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "http://localhost:8080/slides",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
