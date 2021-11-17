@@ -22,6 +22,7 @@ import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.model.response.TestimonialResponse;
+import com.alkemy.ong.model.response.UpdateActivityResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -190,6 +191,15 @@ public class ConvertUtils {
     detailsCategoryResponse.setDescription(category.getDescription());
     detailsCategoryResponse.setTimestamp(category.getTimestamp());
     return detailsCategoryResponse;
+  }
+
+  public UpdateActivityResponse toUpdateActivityResponse(Activity activity) {
+    UpdateActivityResponse updateActivityResponse = new UpdateActivityResponse();
+    updateActivityResponse.setId(activity.getId());
+    updateActivityResponse.setName(activity.getName());
+    updateActivityResponse.setContent(activity.getContent());
+    updateActivityResponse.setImage(activity.getImage());
+    return updateActivityResponse;
   }
 
 }

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0f6035d5-c82a-459c-b585-e19aa1fcb4ce",
+		"_postman_id": "94a4eafa-8f25-4d53-a85c-fc31d43f11a6",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -159,6 +159,45 @@
 							"port": "8080",
 							"path": [
 								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/activities/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcxMTcyMzUsImV4cCI6MTYzNzE1MzIzNX0.nfNUx_fL3OZra45Dg1cSAYYmF4cNdNyvcHgtTRJveQk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Learning in school\",\r\n    \"content\": \"Learning\",\r\n    \"image\": \"imagenLearning.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/activities/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"activities",
+								"1"
 							]
 						}
 					},
