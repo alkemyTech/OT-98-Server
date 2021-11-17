@@ -10,6 +10,7 @@ import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
+import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.alkemy.ong.service.abstraction.IGetCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
 import com.alkemy.ong.service.abstraction.IUpdateCategoryService;
@@ -21,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoryServiceImpl implements ICreateCategoryService, IListCategoryService,
-    IGetCategoryService, IUpdateCategoryService {
+    IGetCategoryService, IUpdateCategoryService, IDeleteCategoryService {
 
   @Autowired
   private ConvertUtils convertUtils;
@@ -79,5 +80,14 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     if (categoryRepository.findByName(name) != null) {
       throw new EntityAlreadyExistException("category");
     }
+  }
+
+  @Override
+  public void deleteBy(long id) throws EntityNotFoundException {
+    Category category = categoryRepository.getById(id);
+    validateCategory(category);
+    category.setSoftDelete(true);
+    categoryRepository.save(category);
+
   }
 }
