@@ -2,7 +2,6 @@ package com.alkemy.ong.model.request;
 
 import com.alkemy.ong.common.validation.ValidationMessages;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;

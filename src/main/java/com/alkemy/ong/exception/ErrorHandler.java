@@ -107,22 +107,22 @@ public class ErrorHandler {
     return ResponseEntity.badRequest()
         .body(buildResponse(e, HttpStatus.BAD_REQUEST));
   }
-  
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<?> handleMethodArgumenNotValidException(HttpServletRequest request,
-      MethodArgumentNotValidException e){
-    
+      MethodArgumentNotValidException e) {
+
     List<FieldError> errorFields = e.getFieldErrors();
     String errorMessage = "";
     for (FieldError fieldError : errorFields) {
       String field = fieldError.getField();
       errorMessage += fieldError.getDefaultMessage().replaceAll("%s", field) + ".";
-      
-      if(errorFields.indexOf(fieldError) != e.getErrorCount() - 1) {
+
+      if (errorFields.indexOf(fieldError) != e.getErrorCount() - 1) {
         errorMessage += " ";
       }
     }
-    
+
     return ResponseEntity.badRequest()
         .body(buildResponse(errorMessage, HttpStatus.BAD_REQUEST));
   }
@@ -130,7 +130,7 @@ public class ErrorHandler {
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
-  
+
   private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
     return new ErrorResponse(message, httpStatus.value());
   }

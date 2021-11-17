@@ -3,6 +3,10 @@ package com.alkemy.ong.integration.news;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.model.request.NewsDetailsRequest;
+import com.alkemy.ong.model.response.ErrorResponse;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +16,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.request.NewsDetailsRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

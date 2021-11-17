@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.abstraction;
 
-import org.springframework.data.domain.Page;
 import com.alkemy.ong.model.entity.News;
+import org.springframework.data.domain.Page;
 
 public interface IListNewsService {
 
