@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class ActivityServiceImpl implements ICreateActivityService {
 
   @Autowired
-  IActivityRepository activityRepository;
+  private IActivityRepository activityRepository;
 
   @Override
   public Activity create(CreateActivityRequest createActivityRequest) {

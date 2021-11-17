@@ -1,12 +1,12 @@
 package com.alkemy.ong.config.seeder;
 
+import com.alkemy.ong.model.entity.Activity;
+import com.alkemy.ong.repository.IActivityRepository;
 import java.sql.Timestamp;
 import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import com.alkemy.ong.model.entity.Activity;
-import com.alkemy.ong.repository.IActivityRepository;
 
 @Component
 public class ActivitiesSeeder implements CommandLineRunner {
@@ -14,7 +14,7 @@ public class ActivitiesSeeder implements CommandLineRunner {
   private static final String IMAGE = "https://foo.jpg";
 
   @Autowired
-  IActivityRepository activityRepository;
+  private IActivityRepository activityRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -35,15 +35,14 @@ public class ActivitiesSeeder implements CommandLineRunner {
     activityRepository.save(buildActivity(5L, "Tutorials", "Tutorials"));
     activityRepository.save(buildActivity(6L, "School support", "School support"));
     activityRepository.save(buildActivity(7L, "Story's workshop", "Workshop"));
-   
   }
 
   private Activity buildActivity(long id, String name, String content) {
-    return new Activity(id, 
-        name, 
-        content, 
-        IMAGE, 
-        Timestamp.from(Instant.now()), 
+    return new Activity(id,
+        name,
+        content,
+        IMAGE,
+        Timestamp.from(Instant.now()),
         false);
   }
 

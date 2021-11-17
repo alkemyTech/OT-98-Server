@@ -28,7 +28,10 @@ public class UpdateOrganizationIntegrationTest extends AbstractBaseOrganizationI
 
     entity = new HttpEntity<>(stubOrganizationDetailsRequest(), headers);
     response = restTemplate.exchange(
-        createURLWithPort("/organization/public"), HttpMethod.POST, entity, OrganizationResponse.class);
+        createURLWithPort("/organization/public"),
+        HttpMethod.POST,
+        entity,
+        OrganizationResponse.class);
 
     Assert.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
   }
@@ -43,7 +46,10 @@ public class UpdateOrganizationIntegrationTest extends AbstractBaseOrganizationI
 
     entity = new HttpEntity<>(stubOrganizationDetailsRequest(), headers);
     response = restTemplate.exchange(
-        createURLWithPort("/organization/public"), HttpMethod.POST, entity, OrganizationResponse.class);
+        createURLWithPort("/organization/public"),
+        HttpMethod.POST,
+        entity,
+        OrganizationResponse.class);
 
     Assert.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
   }

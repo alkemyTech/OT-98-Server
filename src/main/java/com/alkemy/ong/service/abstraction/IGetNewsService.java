@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.abstraction;
 
-import javax.persistence.EntityNotFoundException;
 import com.alkemy.ong.model.entity.News;
+import javax.persistence.EntityNotFoundException;
 
 public interface IGetNewsService {
 
