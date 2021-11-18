@@ -48,19 +48,15 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
 
   @Transactional
   @Override
-  public Slide create(ContentType contentType, String fileName, CreateSlideRequest createSlideRequest)
+  public Slide create(String contentType, String fileName, CreateSlideRequest createSlideRequest)
       throws EntityNotFoundException, ExternalServiceException, NullPointerException {
-
     if (createSlideRequest.getImage() == null) throw new NullPointerException();
-
     byte[] decodedBytes = Base64.getDecoder().decode(createSlideRequest.getImage());
     InputStream inputStream = new ByteArrayInputStream(decodedBytes);
-
+    ContentType contentType1 = ContentType.create(contentType);
     S3ObjectHelper s3ObjectHelper = new S3ObjectHelper();
-
     Slide slide = new Slide();
-
-    String image_Url = s3ObjectHelper.upload(inputStream,fileName, contentType);
+    String image_Url = s3ObjectHelper.upload(inputStream,fileName, contentType1);
     slide.setImage_Url(image_Url);
     slide.setText(createSlideRequest.getText());
     if(createSlideRequest.getOrder() == 0) {

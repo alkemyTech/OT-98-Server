@@ -10,8 +10,8 @@ import com.alkemy.ong.service.abstraction.IDeleteSlideService;
 import com.alkemy.ong.service.abstraction.IListSlidesService;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -54,13 +54,12 @@ public class SlideController {
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> create(
-      @RequestHeader(value = "content-Type", required = true) ContentType contentType,
-      @RequestHeader(value = "fileName", required = false) String fileName,
+  public ResponseEntity<DetailsSlideResponse> create(
+      @RequestHeader HttpHeaders headers,
       @RequestBody(required = true) @Valid CreateSlideRequest createSlideRequest)
       throws EntityNotFoundException, ExternalServiceException, NullPointerException {
     DetailsSlideResponse createSlideResponse = convertUtils.toResponse(
-        createSlideService.create(contentType, fileName, createSlideRequest));
+        createSlideService.create(headers.getFirst("Content-Type-Image"), headers.getFirst("File-Name"), createSlideRequest));
     return new ResponseEntity<>(createSlideResponse, HttpStatus.CREATED);
   }
 }

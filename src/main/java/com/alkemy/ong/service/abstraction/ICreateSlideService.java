@@ -8,7 +8,7 @@ import org.apache.http.entity.ContentType;
 
 public interface ICreateSlideService {
 
-  Slide create(ContentType contentType, String fileName, CreateSlideRequest createSlideRequest)
+  Slide create(String contentType, String fileName, CreateSlideRequest createSlideRequest)
       throws EntityNotFoundException, ExternalServiceException, NullPointerException;
 
 }
