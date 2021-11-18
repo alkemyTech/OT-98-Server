@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "35711390-dd52-4952-b4fe-f5fb823e29d3",
+		"_postman_id": "0284ded9-f83b-49af-9964-e85556382152",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -173,7 +173,7 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
