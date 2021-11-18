@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateActivityRequest {
+public class ActivityDetailsRequest {
 
   @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   @Pattern(regexp = ValidationMessages.REGEX_VALIDATION_STRING,

@@ -3,8 +3,8 @@ package com.alkemy.ong.service.abstraction;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.model.request.ActivityDetailsRequest;
 
-public interface ICreateActivityService {
+public interface IUpdateActivityService {
 
-  Activity create(ActivityDetailsRequest createActivityRequest);
+ Activity update(long id, ActivityDetailsRequest activityDetailsRequest);
 
 }
