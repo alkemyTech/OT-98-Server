@@ -9,6 +9,7 @@ import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
+import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.alkemy.ong.service.abstraction.IGetCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
 import com.alkemy.ong.service.abstraction.IUpdateCategoryService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +41,9 @@ public class CategoryController {
 
   @Autowired
   private IUpdateCategoryService updateCategoryService;
+
+  @Autowired
+  private IDeleteCategoryService deleteCategoryService;
 
   @Autowired
   private ConvertUtils convertUtils;
@@ -72,5 +77,11 @@ public class CategoryController {
     DetailsCategoryResponse detailsCategoryResponse = updateCategoryService.update(
         categoryUpdateRequest, id);
     return new ResponseEntity<>(detailsCategoryResponse, HttpStatus.OK);
+  }
+
+  @DeleteMapping(value = "/categories/{id}")
+  public ResponseEntity<?> deleteBy(@PathVariable long id) throws EntityNotFoundException {
+    deleteCategoryService.deleteBy(id);
+    return new ResponseEntity<>(id, HttpStatus.NO_CONTENT);
   }
 }

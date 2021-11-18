@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d609aba7-20e8-46b5-b0c4-033507799976",
+		"_postman_id": "0284ded9-f83b-49af-9964-e85556382152",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -299,6 +299,25 @@
 							"path": [
 								"categories",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/categories/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"3"
 							]
 						}
 					},
@@ -776,35 +795,6 @@
 									"key": "page",
 									"value": "0"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "localhost:8080/testimonials/id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcxODc5NjAsImV4cCI6MTYzNzIyMzk2MH0.MTRxxR8P0gsDFlkkdNCUNbobWa84S6l0oxQWLRwEQUA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/testimonials/155",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"testimonials",
-								"155"
 							]
 						}
 					},
