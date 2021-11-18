@@ -166,6 +166,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "http://localhost:8080/activities/1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Learning in School\",\r\n    \"content\": \"Learning\",\r\n    \"image\": \"imageLearning.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/activities/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"activities",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
