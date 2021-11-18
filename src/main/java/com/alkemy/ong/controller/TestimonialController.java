@@ -9,7 +9,9 @@ import com.alkemy.ong.model.request.CreateTestimonialRequest;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.service.abstraction.ICreateTestimonialService;
+import com.alkemy.ong.service.abstraction.IDeleteTestimonialService;
 import com.alkemy.ong.service.abstraction.IListTestimonialsService;
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +44,9 @@ public class TestimonialController {
 
   @Autowired
   private ConvertUtils convertUtils;
+
+  @Autowired
+  private IDeleteTestimonialService deleteTestimonialService;
 
   @PostMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
@@ -67,4 +74,9 @@ public class TestimonialController {
     return new ResponseEntity<>(toResponse, HttpStatus.OK);
   }
 
+  @DeleteMapping(value = "/{id}")
+  public ResponseEntity<?> deleteBy(@PathVariable Long id) throws EntityNotFoundException {
+    deleteTestimonialService.deleteBy(id);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
 }

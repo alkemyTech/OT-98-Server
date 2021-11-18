@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e29b071a-58ed-4afb-a687-ab0457d13077",
+		"_postman_id": "35711390-dd52-4952-b4fe-f5fb823e29d3",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -96,6 +96,9 @@
 				{
 					"name": "localhost:8080/auth/login",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -166,18 +169,11 @@
 				},
 				{
 					"name": "http://localhost:8080/activities/1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcxMTcyMzUsImV4cCI6MTYzNzE1MzIzNX0.nfNUx_fL3OZra45Dg1cSAYYmF4cNdNyvcHgtTRJveQk",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -812,6 +808,35 @@
 									"key": "page",
 									"value": "0"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/testimonials/id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcxODc5NjAsImV4cCI6MTYzNzIyMzk2MH0.MTRxxR8P0gsDFlkkdNCUNbobWa84S6l0oxQWLRwEQUA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/testimonials/155",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"testimonials",
+								"155"
 							]
 						}
 					},
