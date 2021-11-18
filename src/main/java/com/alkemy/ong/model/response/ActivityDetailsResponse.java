@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateActivityResponse {
+public class ActivityDetailsResponse {
 
   private long id;
   private String name;
