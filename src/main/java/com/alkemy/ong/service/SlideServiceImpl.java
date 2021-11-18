@@ -29,6 +29,9 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
   @Autowired
   private ConvertUtils convertUtils;
 
+  @Autowired
+  S3ObjectHelper s3ObjectHelper;
+
   @Transactional
   @Override
   public void delete(long id) throws EntityNotFoundException {
@@ -54,7 +57,6 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
     byte[] decodedBytes = Base64.getDecoder().decode(createSlideRequest.getImage());
     InputStream inputStream = new ByteArrayInputStream(decodedBytes);
     ContentType contentType1 = ContentType.create(contentType);
-    S3ObjectHelper s3ObjectHelper = new S3ObjectHelper();
     Slide slide = new Slide();
     String image_Url = s3ObjectHelper.upload(inputStream,fileName, contentType1);
     slide.setImage_Url(image_Url);
