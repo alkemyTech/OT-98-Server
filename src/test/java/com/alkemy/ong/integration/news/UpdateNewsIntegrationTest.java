@@ -28,7 +28,7 @@ public class UpdateNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
   private final String PATH = "/news/" + ID_TO_UPDATE;
 
   @Test
-  public void shouldReturnForbbidenWhenUserIsNotAdmin() {
+  public void shouldReturnForbiddenWhenUserIsNotAdmin() {
     login(ApplicationRole.USER.getFullRoleName());
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH), HttpMethod.PUT,
@@ -58,7 +58,7 @@ public class UpdateNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenIdNotExist() {
+  public void shouldReturnNotFoundWhenIdNotExist() {
     when(newsRepository.findById(eq(ID_TO_UPDATE))).thenReturn(Optional.empty());
 
     login(ApplicationRole.ADMIN.getFullRoleName());
@@ -69,7 +69,7 @@ public class UpdateNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     ResponseEntity<ErrorResponse> response =
         restTemplate.exchange(createURLWithPort(PATH), HttpMethod.PUT, entity, ErrorResponse.class);
 
-    assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
     assertEquals(response.getBody().getMessage(), "News not found!");
   }
 
