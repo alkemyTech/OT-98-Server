@@ -7,12 +7,14 @@ import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
+import com.alkemy.ong.model.response.CreateSlideResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
@@ -190,6 +192,16 @@ public class ConvertUtils {
     detailsCategoryResponse.setDescription(category.getDescription());
     detailsCategoryResponse.setTimestamp(category.getTimestamp());
     return detailsCategoryResponse;
+  }
+
+  public CreateSlideResponse createSlideToResponse(Slide slide) {
+    CreateSlideResponse createSlideResponse = new CreateSlideResponse();
+    createSlideResponse.setId(slide.getId());
+    createSlideResponse.setImage_Url(slide.getImage_Url());
+    createSlideResponse.setText(slide.getText());
+    createSlideResponse.setOrder(slide.getOrder());
+    createSlideResponse.setOrganizationId(slide.getOrganizationId());
+    return createSlideResponse;
   }
 
 }
