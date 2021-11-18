@@ -7,13 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@JsonRootName("news")
+@JsonRootName("slides")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListNewsResponse {
+public class ListSlidesResponse {
 
-  private List<NewsDetailsResponse> news;
+  private List<DetailsSlideResponse> slides;
 
 }

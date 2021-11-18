@@ -1,6 +1,5 @@
 package com.alkemy.ong.repository;
 
-import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Testimonial;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

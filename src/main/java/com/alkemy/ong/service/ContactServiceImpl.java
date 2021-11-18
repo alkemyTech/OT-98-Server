@@ -24,13 +24,13 @@ public class ContactServiceImpl implements ICreateContactService, IListContactsS
   private static final Date ACTIVE_CONTACT = null;
 
   @Autowired
-  IContactRepository contactRepository;
+  private IContactRepository contactRepository;
 
   @Autowired
-  ConvertUtils convertUtils;
+  private ConvertUtils convertUtils;
 
   @Autowired
-  EmailHelper emailHelper;
+  private EmailHelper emailHelper;
 
   @Override
   public Contact create(CreateContactRequest createContactRequest) {

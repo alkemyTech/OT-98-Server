@@ -28,7 +28,10 @@ public class GetOrganizationDetailsIntegrationTest extends AbstractBaseOrganizat
 
     entity = new HttpEntity<>(headers);
     response = restTemplate.exchange(
-        createURLWithPort("/organization/public"), HttpMethod.GET, entity, OrganizationResponse.class);
+        createURLWithPort("/organization/public"),
+        HttpMethod.GET,
+        entity,
+        OrganizationResponse.class);
 
     Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
     Assert.assertEquals("Somos Mas", response.getBody().getName());
@@ -43,7 +46,9 @@ public class GetOrganizationDetailsIntegrationTest extends AbstractBaseOrganizat
 
     entity = new HttpEntity<>(headers);
     response = restTemplate.exchange(
-        createURLWithPort("/organization/public"), HttpMethod.GET, entity, OrganizationResponse.class);
+        createURLWithPort("/organization/public"),
+        HttpMethod.GET, entity,
+        OrganizationResponse.class);
     Assert.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
   }
 

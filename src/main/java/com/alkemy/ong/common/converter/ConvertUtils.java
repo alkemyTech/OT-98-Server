@@ -14,12 +14,13 @@ import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateActivityResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
-import com.alkemy.ong.model.response.CreateSlideResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
+import com.alkemy.ong.model.response.DetailsSlideResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
+import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
@@ -47,6 +48,19 @@ public class ConvertUtils {
     createCategoryResponse.setId(category.getId());
     createCategoryResponse.setName(category.getName());
     return createCategoryResponse;
+  }
+
+  public DetailsMemberResponse memberToResponse(Member member) {
+    DetailsMemberResponse detailsMemberResponse = new DetailsMemberResponse();
+    detailsMemberResponse.setId(member.getId());
+    detailsMemberResponse.setName(member.getName());
+    detailsMemberResponse.setImage(member.getImage());
+    detailsMemberResponse.setDescription(member.getDescription());
+    detailsMemberResponse.setTimestamp(member.getTimestamps());
+    detailsMemberResponse.setFacebookUrl(member.getFacebookUrl());
+    detailsMemberResponse.setLinkedinUrl(member.getLinkedinUrl());
+    detailsMemberResponse.setInstagramUrl(member.getInstagramUrl());
+    return detailsMemberResponse;
   }
 
   public CreateActivityResponse toResponse(Activity activity) {
@@ -194,14 +208,18 @@ public class ConvertUtils {
     return detailsCategoryResponse;
   }
 
-  public CreateSlideResponse createSlideToResponse(Slide slide) {
-    CreateSlideResponse createSlideResponse = new CreateSlideResponse();
-    createSlideResponse.setId(slide.getId());
-    createSlideResponse.setImage_Url(slide.getImage_Url());
-    createSlideResponse.setText(slide.getText());
-    createSlideResponse.setOrder(slide.getOrder());
-    createSlideResponse.setOrganizationId(slide.getOrganizationId());
-    return createSlideResponse;
+  public DetailsSlideResponse toResponse(Slide slide) {
+    DetailsSlideResponse detailsSlideResponse = new DetailsSlideResponse();
+    detailsSlideResponse.setImage(slide.getImage_Url());
+    detailsSlideResponse.setOrder(slide.getOrder());
+    return detailsSlideResponse;
   }
 
+  public ListSlidesResponse listSlidesToResponse(List<Slide> slides) {
+    List<DetailsSlideResponse> slidesResponse = new ArrayList<>();
+    for (Slide slide : slides) {
+      slidesResponse.add(toResponse(slide));
+    }
+    return new ListSlidesResponse(slidesResponse);
+  }
 }

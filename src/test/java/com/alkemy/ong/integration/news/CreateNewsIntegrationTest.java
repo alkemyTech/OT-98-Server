@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
+
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.request.NewsDetailsRequest;
+import com.alkemy.ong.model.response.ErrorResponse;
+import com.alkemy.ong.model.response.NewsDetailsResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +19,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.NewsDetailsRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
-import com.alkemy.ong.model.response.NewsDetailsResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
