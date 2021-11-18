@@ -10,10 +10,12 @@ import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
+import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.alkemy.ong.service.abstraction.IGetCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
 import com.alkemy.ong.service.abstraction.IUpdateCategoryService;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoryServiceImpl implements ICreateCategoryService, IListCategoryService,
-    IGetCategoryService, IUpdateCategoryService {
+    IGetCategoryService, IUpdateCategoryService, IDeleteCategoryService {
 
   @Autowired
   private ConvertUtils convertUtils;
@@ -57,10 +59,17 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
   }
 
   private void validateCategory(Category category) {
-    if (category == null) {
+    if (category == null || category.isSoftDelete()) {
       throw new EntityNotFoundException("The requested resource could not be found.");
     }
   }
+
+  private void validateIfCategoryExists(Optional<Category> optionalCategory) {
+    if (optionalCategory.isPresent()) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
+    }
+  }
+
 
   @Override
   public DetailsCategoryResponse update(CategoryUpdateRequest categoryUpdateRequest, long id)
@@ -79,5 +88,16 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     if (categoryRepository.findByName(name) != null) {
       throw new EntityAlreadyExistException("category");
     }
+  }
+
+  @Override
+  public void deleteBy(long id) throws EntityNotFoundException {
+    Optional<Category> optionalCategory = categoryRepository.findById(id);
+    validateIfCategoryExists(optionalCategory);
+    Category category = optionalCategory.get();
+    validateCategory(category);
+    category.setSoftDelete(true);
+    categoryRepository.save(category);
+
   }
 }
