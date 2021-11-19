@@ -51,7 +51,7 @@ public class ListContactIntegrationTest extends AbstractBaseContactIntegrationTe
 
     when(contactRepository.findByDeletedAtIsNull()).thenReturn(contacts);
 
-    loginADMIN(ApplicationRole.ADMIN.getFullRoleName());
+    loginUSER(ApplicationRole.ADMIN.getFullRoleName());
 
     HttpEntity<CreateContactRequest> entity = new HttpEntity<>(headers);
     ResponseEntity<ListContactResponse> response = restTemplate.exchange(createURLWithPort(PATH),

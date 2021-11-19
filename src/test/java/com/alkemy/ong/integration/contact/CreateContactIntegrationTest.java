@@ -28,7 +28,7 @@ public class CreateContactIntegrationTest extends AbstractBaseContactIntegration
   @Test
   public void shouldReturnForbbidenWhenUserIsNotUser() {
 
-    loginADMIN(ApplicationRole.ADMIN.getFullRoleName());
+    loginUSER(ApplicationRole.ADMIN.getFullRoleName());
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH),
         HttpMethod.POST, new HttpEntity<>(headers), Object.class);

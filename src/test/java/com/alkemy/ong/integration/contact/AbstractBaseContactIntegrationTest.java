@@ -43,27 +43,6 @@ public abstract class AbstractBaseContactIntegrationTest extends AbstractBaseInt
     return user;
   }
 
-  protected User stubAdmin(String role) {
-    User user = new User();
-    user.setEmail("mruiz@alkemy.com");
-    user.setPhoto("https://foo.jpg");
-    user.setFirstName("Marip");
-    user.setLastName("Ruiz");
-    user.setPassword("foo12345");
-    user.setRoles(Lists.list(stubRole(role)));
-    user.setTimestamp(Timestamp.from(Instant.now()));
-    user.setSoftDeleted(false);
-    return user;
-  }
-
-  protected void loginADMIN(String role) {
-    when(authenticationManager.authenticate(any())).thenReturn(null);
-    when(userRepository.findByEmail(eq("mruiz@alkemy.com"))).thenReturn(stubAdmin(role));
-
-    String jwt = SecurityTestConfig.createToken("mruiz@alkemy.com", role);
-    headers.set("Authorization", jwt);
-  }
-
   protected void loginUSER(String role) {
     when(authenticationManager.authenticate(any())).thenReturn(null);
     when(userRepository.findByEmail(eq("jaman@alkemy.com"))).thenReturn(stubUser(role));
