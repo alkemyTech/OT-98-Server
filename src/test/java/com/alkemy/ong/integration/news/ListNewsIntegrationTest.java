@@ -2,6 +2,7 @@ package com.alkemy.ong.integration.news;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -33,7 +34,7 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
   private final String PATH = "/news?page=";
 
   @Test
-  public void shouldReturnForbbidenWhenUserIsNotLogged() {
+  public void shouldReturnForbiddenWhenUserIsNotLogged() {
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH + 0),
         HttpMethod.GET, new HttpEntity<>(headers), Object.class);
 
@@ -101,7 +102,7 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
     String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
-    assertEquals(prevURI, null);
+    assertNull(prevURI);
   }
 
   @Test
@@ -125,7 +126,7 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
 
     String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
     String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
-    assertEquals(nextURI, null);
+    assertNull(nextURI);
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
 
