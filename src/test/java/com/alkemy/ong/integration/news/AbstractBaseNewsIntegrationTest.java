@@ -4,8 +4,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-import com.alkemy.ong.common.SecurityTestConfig;
 import com.alkemy.ong.common.AbstractBaseIntegrationTest;
+import com.alkemy.ong.common.SecurityTestConfig;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
@@ -24,33 +24,6 @@ public abstract class AbstractBaseNewsIntegrationTest extends AbstractBaseIntegr
   @MockBean
   protected INewsRepository newsRepository;
 
-  protected Role stubRole(String name) {
-    Role role = new Role();
-    role.setName(name);
-    return role;
-  }
-
-  protected User stubUser(String role) {
-    User user = new User();
-    user.setEmail("klugo@alkemy.com");
-    user.setPhoto("https://foo.jpg");
-    user.setFirstName("Kevin");
-    user.setLastName("Raimo Lugo");
-    user.setPassword("foo12345");
-    user.setRoles(Lists.list(stubRole(role)));
-    user.setTimestamp(Timestamp.from(Instant.now()));
-    user.setSoftDeleted(false);
-    return user;
-  }
-
-  protected void login(String role) {
-    when(authenticationManager.authenticate(any())).thenReturn(null);
-    when(userRepository.findByEmail(eq("klugo@alkemy.com"))).thenReturn(stubUser(role));
-
-    String jwt = SecurityTestConfig.createToken("klugo@alkemy.com", role);
-    headers.set("Authorization", jwt);
-  }
-
   protected Category stubNewsCategory() {
     return new Category(1L, "news", "Example", "Example", null, false);
   }
@@ -67,10 +40,10 @@ public abstract class AbstractBaseNewsIntegrationTest extends AbstractBaseIntegr
     return newsDetailsRequest;
   }
 
-  protected List<News> stubNews(int n) {
-    List<News> news = new ArrayList<News>();
+  protected List<News> stubNews(int count) {
+    List<News> news = new ArrayList<>();
 
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= count; i++) {
       news.add(new News(i, "Example", "Example", "Example.png", stubNewsCategory(), null, false));
     }
 
