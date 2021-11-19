@@ -9,10 +9,13 @@ import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.DetailsSlideResponse;
 import com.alkemy.ong.model.response.ErrorResponse;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
+import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
@@ -99,6 +102,12 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   }
 
   private OrganizationResponse stubOrganization() {
+    List<DetailsSlideResponse>slides = new ArrayList<>();
+
+    slides.add(new DetailsSlideResponse("image1.jpg",1));
+    slides.add(new DetailsSlideResponse("image2.jpg",3));
+    slides.add(new DetailsSlideResponse("image3.jpg",2));
+
     return new OrganizationResponse(
         "Fiat",
         "toyota.jpg",
@@ -106,8 +115,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
         "don juan toyota 1234",
         "toyota",
         "toyota",
-        "toyota"
-    );
+        "toyota",
+        slides
+        );
   }
 
 }

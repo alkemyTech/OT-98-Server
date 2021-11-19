@@ -223,4 +223,12 @@ public class ConvertUtils {
     return new ListSlidesResponse(slidesResponse);
   }
 
+  public List<DetailsSlideResponse> listSlidesToListDetailsSlideResponse(List<Slide> slides) {
+    List<DetailsSlideResponse> slidesResponse = new ArrayList<>();
+    for (Slide slide : slides) {
+      slidesResponse.add(toResponse(slide));
+    }
+    return slidesResponse;
+  }
+
 }
