@@ -2,6 +2,6 @@ amazonProperties:
   endpointUrl: https://s3.sa-east-1.amazonaws.com
   accessKeyId: foo
   secretAccessKey: foo
-  region: sa-east-1
-  bucketName: alkemy-ong
+  region: us-east-1
+  bucketName: cohorte-octubre-e8bd4748
 
