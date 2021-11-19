@@ -2,7 +2,6 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.service.abstraction.IDeleteSlideService;
-import com.alkemy.ong.service.abstraction.IListSlidesOrderedService;
 import com.alkemy.ong.service.abstraction.IListSlidesService;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class SlideController {
   @Autowired
   private IListSlidesService listSlidesService;
 
-  @Autowired
-  private IListSlidesOrderedService listSlidesOrderedService;
-
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") long id) throws EntityNotFoundException {
     deleteSlideService.delete(id);
@@ -37,12 +33,6 @@ public class SlideController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ListSlidesResponse> list() {
     ListSlidesResponse listSlidesResponse = listSlidesService.list();
-    return new ResponseEntity<>(listSlidesResponse, HttpStatus.OK);
-  }
-
-  @GetMapping(value = "/public", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ListSlidesResponse> listOrdered() {
-    ListSlidesResponse listSlidesResponse = listSlidesOrderedService.findSlidesOrdered();
     return new ResponseEntity<>(listSlidesResponse, HttpStatus.OK);
   }
 
