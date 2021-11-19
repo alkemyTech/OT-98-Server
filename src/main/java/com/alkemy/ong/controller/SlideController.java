@@ -57,9 +57,11 @@ public class SlideController {
   public ResponseEntity<DetailsSlideResponse> create(
       @RequestHeader HttpHeaders headers,
       @RequestBody(required = true) @Valid CreateSlideRequest createSlideRequest)
-      throws EntityNotFoundException, ExternalServiceException, NullPointerException {
+      throws EntityNotFoundException, ExternalServiceException {
+    createSlideRequest.setImageContentType(headers.getFirst("Content-Type-Image"));
+    createSlideRequest.setFileName(headers.getFirst("File-Name"));
     DetailsSlideResponse createSlideResponse = convertUtils.toResponse(
-        createSlideService.create(headers.getFirst("Content-Type-Image"), headers.getFirst("File-Name"), createSlideRequest));
+        createSlideService.create(createSlideRequest));
     return new ResponseEntity<>(createSlideResponse, HttpStatus.CREATED);
   }
 }
