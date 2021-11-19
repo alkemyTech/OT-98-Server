@@ -25,7 +25,7 @@ public class DeleteNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
   private final String PATH = "/news/" + ID_TO_DELETE;
 
   @Test
-  public void shouldReturnForbbidenWhenUserIsNotAdmin() {
+  public void shouldReturnForbiddenWhenUserIsNotAdmin() {
     login(ApplicationRole.USER.getFullRoleName());
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH),

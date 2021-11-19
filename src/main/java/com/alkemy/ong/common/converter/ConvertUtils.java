@@ -11,7 +11,7 @@ import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.CategoriesResponse;
-import com.alkemy.ong.model.response.CreateActivityResponse;
+import com.alkemy.ong.model.response.ActivityDetailsResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
@@ -63,13 +63,13 @@ public class ConvertUtils {
     return detailsMemberResponse;
   }
 
-  public CreateActivityResponse toResponse(Activity activity) {
-    CreateActivityResponse createActivityResponse = new CreateActivityResponse();
-    createActivityResponse.setId(activity.getId());
-    createActivityResponse.setName(activity.getName());
-    createActivityResponse.setContent(activity.getContent());
-    createActivityResponse.setImage(activity.getImage());
-    return createActivityResponse;
+  public ActivityDetailsResponse toResponse(Activity activity) {
+    ActivityDetailsResponse activityDetailsResponse = new ActivityDetailsResponse();
+    activityDetailsResponse.setId(activity.getId());
+    activityDetailsResponse.setName(activity.getName());
+    activityDetailsResponse.setContent(activity.getContent());
+    activityDetailsResponse.setImage(activity.getImage());
+    return activityDetailsResponse;
   }
 
   public CreateCommentResponse toResponse(Comment comment) {
@@ -222,4 +222,13 @@ public class ConvertUtils {
     }
     return new ListSlidesResponse(slidesResponse);
   }
+
+  public List<DetailsSlideResponse> listSlidesToListDetailsSlideResponse(List<Slide> slides) {
+    List<DetailsSlideResponse> slidesResponse = new ArrayList<>();
+    for (Slide slide : slides) {
+      slidesResponse.add(toResponse(slide));
+    }
+    return slidesResponse;
+  }
+
 }
