@@ -15,6 +15,6 @@ public interface ISlideRepository extends JpaRepository<Slide, Long> {
   List<Slide> findByOrganizationIdOrderBySlideOrder(@Param("organizationId") Long id);
 
   @Query(value = "SELECT MAX(SLIDE_ORDER) FROM SLIDES", nativeQuery = true)
-  int getMaxOrder() throws NullPointerException;
+  int getMaxOrder();
 
 }
