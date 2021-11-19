@@ -28,10 +28,14 @@ public class CreateContactIntegrationTest extends AbstractBaseContactIntegration
   @Test
   public void shouldReturnForbbidenWhenUserIsNotUser() {
 
-    loginUSER(ApplicationRole.ADMIN.getFullRoleName());
+    login(ApplicationRole.ADMIN.getFullRoleName());
+
+    CreateContactRequest createContactRequest = new CreateContactRequest();
+
+    HttpEntity<CreateContactRequest> entity = new HttpEntity<>(createContactRequest, headers);
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH),
-        HttpMethod.POST, new HttpEntity<>(headers), Object.class);
+        HttpMethod.POST, entity, Object.class);
 
     assertEquals(response.getStatusCode(), HttpStatus.FORBIDDEN);
   }
@@ -40,7 +44,7 @@ public class CreateContactIntegrationTest extends AbstractBaseContactIntegration
   public void shouldReturnBadRequestWhenAnAttributeIsNull() {
     when(contactRepository.save(isA(Contact.class))).thenReturn(stubContact());
 
-    loginUSER(ApplicationRole.USER.getFullRoleName());
+    login(ApplicationRole.USER.getFullRoleName());
 
     CreateContactRequest createContactRequest = new CreateContactRequest();
 
@@ -60,9 +64,9 @@ public class CreateContactIntegrationTest extends AbstractBaseContactIntegration
   public void shouldCreateAContactSuccessfully() {
     when(contactRepository.save(isA(Contact.class))).thenReturn(stubContact());
 
-    loginUSER(ApplicationRole.USER.getFullRoleName());
+    login(ApplicationRole.USER.getFullRoleName());
 
-    CreateContactRequest createContactRequest = stubContactRequest();
+    CreateContactRequest createContactRequest = exampleContactRequest();
 
     HttpEntity<CreateContactRequest> entity = new HttpEntity<>(createContactRequest, headers);
     ResponseEntity<DetailsContactResponse> response = restTemplate.exchange(createURLWithPort(PATH),
