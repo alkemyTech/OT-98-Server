@@ -210,7 +210,7 @@ public class ConvertUtils {
 
   public DetailsSlideResponse toResponse(Slide slide) {
     DetailsSlideResponse detailsSlideResponse = new DetailsSlideResponse();
-    detailsSlideResponse.setImage(slide.getImage_Url());
+    detailsSlideResponse.setImage(slide.getImageUrl());
     detailsSlideResponse.setOrder(slide.getOrder());
     return detailsSlideResponse;
   }
