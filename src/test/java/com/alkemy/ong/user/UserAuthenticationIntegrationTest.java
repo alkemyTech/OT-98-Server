@@ -1,15 +1,13 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.user;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-import com.alkemy.ong.model.entity.Role;
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.request.UserAuthenticationRequest;
 import com.alkemy.ong.model.response.ErrorResponse;
 import com.alkemy.ong.model.response.UserDetailsResponse;
-import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,10 +40,10 @@ public class UserAuthenticationIntegrationTest extends AbstractBaseIntegrationTe
   @Test
   public void shouldLoginSuccessfully() {
     when(authenticationManager.authenticate(any())).thenReturn(null);
-    when(userRepository.findByEmail(eq("user@alkemy.com"))).thenReturn(stubUser("USER"));
+    when(userRepository.findByEmail(eq("johnny@gmail.com"))).thenReturn(stubUser("USER"));
 
     UserAuthenticationRequest authenticationRequest = new UserAuthenticationRequest();
-    authenticationRequest.setEmail("user@alkemy.com");
+    authenticationRequest.setEmail("johnny@gmail.com");
     authenticationRequest.setPassword("abc1234&");
 
     HttpEntity<UserAuthenticationRequest> entity = new HttpEntity<>(authenticationRequest, headers);
@@ -55,23 +53,7 @@ public class UserAuthenticationIntegrationTest extends AbstractBaseIntegrationTe
 
     Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
     Assert.assertNotNull(response.getBody().getEmail());
-    Assert.assertEquals("user@alkemy.com", response.getBody().getEmail());
+    Assert.assertEquals("johnny@gmail.com", response.getBody().getEmail());
   }
 
-  private Role stubRole(String name) {
-    Role role = new Role();
-    role.setName(name);
-    return role;
-  }
-
-  private User stubUser(String role) {
-    User user = new User();
-    user.setEmail("user@alkemy.com");
-    user.setPhoto("photo");
-    user.setFirstName("Bruce");
-    user.setLastName("Wayne");
-    user.setPassword("abc1234&");
-    user.setRoles(Lists.list(stubRole(role)));
-    return user;
-  }
 }
