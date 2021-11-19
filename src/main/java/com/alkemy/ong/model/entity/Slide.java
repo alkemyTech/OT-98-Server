@@ -31,7 +31,7 @@ public class Slide {
   private long id;
 
   @Column(name = "IMAGE_URL")
-  private String image_Url;
+  private String imageUrl;
 
   @Column(name = "TEXT")
   private String text;
