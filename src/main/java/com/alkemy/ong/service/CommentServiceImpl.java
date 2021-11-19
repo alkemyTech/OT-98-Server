@@ -2,7 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.exception.ForbiddenException;
+import com.alkemy.ong.exception.UnableToDeleteObjectException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
@@ -64,7 +64,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   }
 
   @Override
-  public void delete(long id, String authorizationHeader) throws ForbiddenException {
+  public void delete(long id, String authorizationHeader) throws UnableToDeleteObjectException {
     Optional<Comment> commentOptional = commentRepository.findById(id);
     if (commentOptional.isEmpty()) {
       throw new EntityNotFoundException("Comment not found");
@@ -72,13 +72,13 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
     Comment comment = commentOptional.get();
     User user = getUser(authorizationHeader);
-    boolean roleAdmin = haveRole(ApplicationRole.ADMIN.getName(), user.getRoles());
+    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getName(), user.getRoles());
 
-    if (comment.getUserId().getId() == user.getId() || roleAdmin) {
-      commentRepository.delete(comment);
-    } else {
-      throw new ForbiddenException("Does not have authorization");
+    if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
+      throw new UnableToDeleteObjectException("User is not able to delete comment.");
     }
+
+    commentRepository.delete(comment);
   }
 
   private boolean haveRole(String nameRole, List<Role> roles) {

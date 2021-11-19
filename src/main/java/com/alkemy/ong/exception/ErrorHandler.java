@@ -15,7 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpClientErrorException.Forbidden;
 
 @ControllerAdvice
 public class ErrorHandler {
@@ -128,9 +127,9 @@ public class ErrorHandler {
         .body(buildResponse(errorMessage, HttpStatus.BAD_REQUEST));
   }
 
-  @ExceptionHandler(ForbiddenException.class)
-  public ResponseEntity<?> handleAuthorizationException(HttpServletRequest request,
-      ForbiddenException e) {
+  @ExceptionHandler(UnableToDeleteObjectException.class)
+  public ResponseEntity<?> handleUnableToDeleteObjectException(HttpServletRequest request,
+      UnableToDeleteObjectException e) {
     return ResponseEntity.status(HttpStatus.FORBIDDEN)
         .body(buildResponse(e, HttpStatus.FORBIDDEN));
   }

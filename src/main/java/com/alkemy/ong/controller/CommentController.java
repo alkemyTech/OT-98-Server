@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
-import com.alkemy.ong.exception.ForbiddenException;
+import com.alkemy.ong.exception.UnableToDeleteObjectException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.response.CreateCommentResponse;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 
   @Autowired
-  ICreateCommentService createCommentService;
+  private ICreateCommentService createCommentService;
 
   @Autowired
-  IDeleteCommentsService deleteCommentsService;
+  private IDeleteCommentsService deleteCommentsService;
 
   @Autowired
   private ConvertUtils convertUtils;
@@ -44,10 +44,9 @@ public class CommentController {
   @DeleteMapping("/comments/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") long id,
       @RequestHeader(value = "Authorization") String authorizationHeader)
-      throws ForbiddenException {
+      throws UnableToDeleteObjectException {
     deleteCommentsService.delete(id, authorizationHeader);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
   }
 
 }
