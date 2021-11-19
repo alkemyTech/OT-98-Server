@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
+import com.alkemy.ong.exception.ForbiddenException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.response.CreateCommentResponse;
@@ -42,13 +43,11 @@ public class CommentController {
 
   @DeleteMapping("/comments/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") long id,
-      @RequestHeader(value = "Authorization") String authorizationHeader) {
-    boolean deleteComment = deleteCommentsService.delete(id, authorizationHeader);
-    if (deleteComment) {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    } else {
-      return new ResponseEntity<>("Not authorized", HttpStatus.FORBIDDEN);
-    }
+      @RequestHeader(value = "Authorization") String authorizationHeader)
+      throws ForbiddenException {
+    deleteCommentsService.delete(id, authorizationHeader);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
   }
 
 }
