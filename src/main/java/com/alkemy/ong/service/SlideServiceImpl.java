@@ -51,21 +51,25 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
 
   @Transactional
   @Override
-  public Slide create(String contentType, String fileName, CreateSlideRequest createSlideRequest)
-      throws EntityNotFoundException, ExternalServiceException, NullPointerException {
-    if (createSlideRequest.getImage() == null) throw new NullPointerException();
-    byte[] decodedBytes = Base64.getDecoder().decode(createSlideRequest.getImage());
-    InputStream inputStream = new ByteArrayInputStream(decodedBytes);
-    ContentType contentType1 = ContentType.create(contentType);
+  public Slide create(CreateSlideRequest createSlideRequest)
+      throws EntityNotFoundException, ExternalServiceException {
     Slide slide = new Slide();
-    String image_Url = s3ObjectHelper.upload(inputStream,fileName, contentType1);
-    slide.setImage_Url(image_Url);
+    String imageUrl = uploadImage(createSlideRequest.getImage(), createSlideRequest.getFileName(), createSlideRequest.getImageContentType());
+    slide.setImageUrl(imageUrl);
     slide.setText(createSlideRequest.getText());
     if(createSlideRequest.getOrder() == 0) {
       slide.setOrder(slideRepository.getMaxOrder() + 1);
-    }
-    slide.setOrder(createSlideRequest.getOrder());
+    } else slide.setOrder(createSlideRequest.getOrder());
     return slideRepository.save(slide);
+  }
+
+  private String uploadImage(String image, String fileName, String contentType)
+      throws ExternalServiceException {
+    byte[] decodedBytes = Base64.getDecoder().decode(image);
+    InputStream inputStream = new ByteArrayInputStream(decodedBytes);
+    ContentType imageContentType = ContentType.create(contentType);
+    String imageUrl = s3ObjectHelper.upload(inputStream,fileName, imageContentType);
+    return imageUrl;
   }
 
 }
