@@ -53,13 +53,9 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
   @Override
   public Slide create(CreateSlideRequest createSlideRequest)
       throws EntityNotFoundException, ExternalServiceException {
-    Slide slide = new Slide();
     String imageUrl = uploadImage(createSlideRequest.getImage(), createSlideRequest.getFileName(), createSlideRequest.getImageContentType());
-    slide.setImageUrl(imageUrl);
-    slide.setText(createSlideRequest.getText());
-    if(createSlideRequest.getOrder() == 0) {
-      slide.setOrder(slideRepository.getMaxOrder() + 1);
-    } else slide.setOrder(createSlideRequest.getOrder());
+    int order = getSlideOrder(createSlideRequest.getOrder());
+    Slide slide = buildSlide(createSlideRequest, imageUrl, order);
     return slideRepository.save(slide);
   }
 
@@ -72,4 +68,18 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
     return imageUrl;
   }
 
+  private int getSlideOrder(int order) {
+    if(order == 0) {
+      return slideRepository.getMaxOrder() + 1;
+    } return order;
+  }
+
+  private Slide buildSlide(CreateSlideRequest createSlideRequest, String imageUrl, int order) {
+    Slide slide = new Slide();
+    slide.setImageUrl(imageUrl);
+    slide.setText(createSlideRequest.getText());
+    slide.setOrder(order);
+    return slide;
+  }
 }
+
