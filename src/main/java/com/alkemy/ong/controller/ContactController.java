@@ -7,6 +7,7 @@ import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.ListContactResponse;
 import com.alkemy.ong.service.abstraction.ICreateContactService;
 import com.alkemy.ong.service.abstraction.IListContactsService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +35,7 @@ public class ContactController {
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<DetailsContactResponse> create(
-      @RequestBody CreateContactRequest createContactRequest) {
+      @Valid @RequestBody CreateContactRequest createContactRequest) {
     Contact contact = createContactService.create(createContactRequest);
     DetailsContactResponse createContactResponse = this.convertUtils.toResponse(contact);
     return new ResponseEntity<>(createContactResponse, HttpStatus.CREATED);
