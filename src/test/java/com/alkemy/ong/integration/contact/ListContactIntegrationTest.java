@@ -36,7 +36,7 @@ public class ListContactIntegrationTest extends AbstractBaseContactIntegrationTe
 
   @Test
   public void shouldReturnForbbidenWhenUserIsNotAdmin() {
-    loginUSER(ApplicationRole.USER.getFullRoleName());
+    login(ApplicationRole.USER.getFullRoleName());
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH), HttpMethod.GET,
         new HttpEntity<>(headers), Object.class);
@@ -51,7 +51,7 @@ public class ListContactIntegrationTest extends AbstractBaseContactIntegrationTe
 
     when(contactRepository.findByDeletedAtIsNull()).thenReturn(contacts);
 
-    loginUSER(ApplicationRole.ADMIN.getFullRoleName());
+    login(ApplicationRole.ADMIN.getFullRoleName());
 
     HttpEntity<CreateContactRequest> entity = new HttpEntity<>(headers);
     ResponseEntity<ListContactResponse> response = restTemplate.exchange(createURLWithPort(PATH),
