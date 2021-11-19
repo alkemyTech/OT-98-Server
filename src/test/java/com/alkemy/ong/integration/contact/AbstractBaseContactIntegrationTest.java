@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.util.Lists;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.common.SecurityTestConfig;
-import com.alkemy.ong.integration.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
@@ -23,39 +23,11 @@ public abstract class AbstractBaseContactIntegrationTest extends AbstractBaseInt
   @MockBean
   protected IContactRepository contactRepository;
 
-
-  protected Role stubRole(String name) {
-    Role role = new Role();
-    role.setName(name);
-    return role;
-  }
-
-  protected User stubUser(String role) {
-    User user = new User();
-    user.setEmail("jaman@alkemy.com");
-    user.setPhoto("https://foo.jpg");
-    user.setFirstName("Joaquin");
-    user.setLastName("Aman");
-    user.setPassword("foo12345");
-    user.setRoles(Lists.list(stubRole(role)));
-    user.setTimestamp(Timestamp.from(Instant.now()));
-    user.setSoftDeleted(false);
-    return user;
-  }
-
-  protected void loginUSER(String role) {
-    when(authenticationManager.authenticate(any())).thenReturn(null);
-    when(userRepository.findByEmail(eq("jaman@alkemy.com"))).thenReturn(stubUser(role));
-
-    String jwt = SecurityTestConfig.createToken("jaman@alkemy.com", role);
-    headers.set("Authorization", jwt);
-  }
-
   protected Contact stubContact() {
     return new Contact(1l, "nameExample", "12346789", "example@alkemy.com", "messageExample", null);
   }
 
-  protected CreateContactRequest stubContactRequest() {
+  protected CreateContactRequest exampleContactRequest() {
     CreateContactRequest createContactRequest = new CreateContactRequest();
     createContactRequest.setName("nameExample");
     createContactRequest.setPhone("12346789");
@@ -64,10 +36,10 @@ public abstract class AbstractBaseContactIntegrationTest extends AbstractBaseInt
     return createContactRequest;
   }
 
-  protected List<Contact> stubContact(int n) {
-    List<Contact> contacts = new ArrayList<Contact>();
+  protected List<Contact> stubContact(int count) {
+    List<Contact> contacts = new ArrayList<>();
 
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= count; i++) {
       contacts.add(
           new Contact(i, "nameExample", "12346789", "example@alkemy.com", "messageExample", null));
     }
