@@ -1,4 +1,4 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.common;
 
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IRoleService;

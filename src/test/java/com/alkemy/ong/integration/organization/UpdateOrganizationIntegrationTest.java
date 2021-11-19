@@ -1,9 +1,10 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.integration.organization;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+import com.alkemy.ong.integration.organization.AbstractBaseOrganizationIntegrationTest;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import org.junit.Assert;
 import org.junit.Test;

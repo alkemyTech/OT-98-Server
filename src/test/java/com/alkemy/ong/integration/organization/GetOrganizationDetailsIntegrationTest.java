@@ -1,4 +1,4 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.integration.organization;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;

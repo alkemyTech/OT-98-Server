@@ -1,6 +1,7 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.integration.organization;
 
 import com.alkemy.ong.common.SecurityTestConfig;
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;

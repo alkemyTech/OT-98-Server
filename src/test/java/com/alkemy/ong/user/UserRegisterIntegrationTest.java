@@ -1,4 +1,4 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.user;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;

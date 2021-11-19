@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.common.SecurityTestConfig;
-import com.alkemy.ong.integration.AbstractBaseIntegrationTest;
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
