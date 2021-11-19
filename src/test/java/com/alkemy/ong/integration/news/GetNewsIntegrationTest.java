@@ -36,7 +36,7 @@ public class GetNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
   }
 
   @Test
-  public void shouldReturnBadRequestWhenIdNotExist() {
+  public void shouldReturnNotFoundWhenIdNotExist() {
     when(newsRepository.findById(eq(ID_TO_GET))).thenReturn(Optional.empty());
 
     login(ApplicationRole.ADMIN.getFullRoleName());
@@ -45,7 +45,7 @@ public class GetNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     ResponseEntity<ErrorResponse> response =
         restTemplate.exchange(createURLWithPort(PATH), HttpMethod.GET, entity, ErrorResponse.class);
 
-    assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
     assertEquals(response.getBody().getMessage(), "News not found!");
   }
 

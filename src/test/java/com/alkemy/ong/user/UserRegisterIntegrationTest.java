@@ -1,19 +1,21 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.user;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
+import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserRegisterRequest;
+import com.alkemy.ong.model.response.DetailsSlideResponse;
 import com.alkemy.ong.model.response.ErrorResponse;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
-import org.assertj.core.util.Lists;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,12 +40,12 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
 
   @Test
   public void shouldReturnBadRequestWhenTheEmailAlreadyExist() {
-    when(userRepository.findByEmail(eq("example@gmail.com"))).thenReturn(new User());
+    when(userRepository.findByEmail(eq("johnny@gmail.com"))).thenReturn(new User());
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
-    registerRequest.setFirstName("Example");
-    registerRequest.setLastName("Example");
-    registerRequest.setEmail("example@gmail.com");
+    registerRequest.setFirstName("John");
+    registerRequest.setLastName("Doe");
+    registerRequest.setEmail("johnny@gmail.com");
     registerRequest.setPassword("12346789");
 
     HttpEntity<UserRegisterRequest> entity = new HttpEntity<>(registerRequest, this.headers);
@@ -63,9 +65,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
     when(organizationService.getOrganizationDetails()).thenReturn(stubOrganization());
 
     UserRegisterRequest registerRequest = new UserRegisterRequest();
-    registerRequest.setFirstName("Example");
-    registerRequest.setLastName("Example");
-    registerRequest.setEmail("example@gmail.com");
+    registerRequest.setFirstName("John");
+    registerRequest.setLastName("Doe");
+    registerRequest.setEmail("johnny@gmail.com");
     registerRequest.setPassword("12346789");
 
     HttpEntity<UserRegisterRequest> entity = new HttpEntity<>(registerRequest, this.headers);
@@ -80,25 +82,13 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
     Assert.assertTrue(jwtUtil.validateToken(response.getBody().getJwt(), stubUser("USER")));
   }
 
-  private Role stubRole(String name) {
-    Role role = new Role();
-    role.setName(name);
-    return role;
-  }
-
-  private User stubUser(String role) {
-    return new User(12L,
-        "Example",
-        "Example",
-        "example@gmail.com",
-        "123456789",
-        "photo",
-        Lists.list(stubRole(role)),
-        null,
-        false);
-  }
-
   private OrganizationResponse stubOrganization() {
+    List<DetailsSlideResponse> slides = new ArrayList<>();
+
+    slides.add(new DetailsSlideResponse("image1.jpg", 1));
+    slides.add(new DetailsSlideResponse("image2.jpg", 3));
+    slides.add(new DetailsSlideResponse("image3.jpg", 2));
+
     return new OrganizationResponse(
         "Fiat",
         "toyota.jpg",
@@ -106,7 +96,8 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
         "don juan toyota 1234",
         "toyota",
         "toyota",
-        "toyota"
+        "toyota",
+        slides
     );
   }
 

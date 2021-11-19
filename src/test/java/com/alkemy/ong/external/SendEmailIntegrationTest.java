@@ -1,4 +1,4 @@
-package com.alkemy.ong.integration;
+package com.alkemy.ong.external;
 
 import com.alkemy.ong.common.mail.EmailHelper;
 import com.alkemy.ong.common.mail.IContent;

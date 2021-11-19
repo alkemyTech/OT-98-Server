@@ -22,7 +22,7 @@ public class ErrorHandler {
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<?> handleEntityNotFoundException(HttpServletRequest request,
       EntityNotFoundException e) {
-    return ResponseEntity.badRequest()
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
         .body(buildResponse(e, HttpStatus.NOT_FOUND));
   }
 

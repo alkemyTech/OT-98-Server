@@ -35,4 +35,5 @@ public class SlideController {
     ListSlidesResponse listSlidesResponse = listSlidesService.list();
     return new ResponseEntity<>(listSlidesResponse, HttpStatus.OK);
   }
+
 }

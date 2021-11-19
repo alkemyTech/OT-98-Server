@@ -1,9 +1,12 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.model.entity.Organization;
+import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.request.OrganizationDetailsRequest;
 import com.alkemy.ong.model.response.OrganizationResponse;
 import com.alkemy.ong.repository.IOrganizationRepository;
+import com.alkemy.ong.repository.ISlideRepository;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
@@ -17,10 +20,17 @@ public class OrganizationServiceImpl implements IOrganizationService {
   @Autowired
   private IOrganizationRepository organizationRepository;
 
+  @Autowired
+  private ISlideRepository slideRepository;
+
+  @Autowired
+  private ConvertUtils convertUtils;
+
   @Override
   @Transactional
   public OrganizationResponse getOrganizationDetails() {
     Organization organization = getOrganization();
+    List<Slide> slides = slideRepository.findByOrganizationIdOrderBySlideOrder(organization.getId());
 
     return OrganizationResponse.builder()
         .name(organization.getName())
@@ -30,6 +40,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
         .facebookUrl(organization.getFacebookUrl())
         .instagramUrl(organization.getInstagramUrl())
         .linkedinUrl(organization.getLinkedinUrl())
+        .slides(convertUtils.listSlidesToListDetailsSlideResponse(slides))
         .build();
 
   }

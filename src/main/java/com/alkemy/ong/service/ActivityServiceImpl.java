@@ -27,12 +27,11 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
     return activity;
   }
 
-
   @Override
   public Activity update(long id, ActivityDetailsRequest activityDetailsRequest) {
     Optional<Activity> activityOptional = activityRepository.findById(id);
 
-    if (activityOptional.isEmpty()) {
+    if (activityOptional.isEmpty() || activityOptional.get().isSoftDelete()) {
       throw new EntityNotFoundException("Activity not found");
     }
 
@@ -40,8 +39,8 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
     activity.setName(activityDetailsRequest.getName());
     activity.setContent(activityDetailsRequest.getContent());
     activity.setImage(activityDetailsRequest.getImage());
+    activity.setSoftDelete(true);
     activityRepository.save(activity);
-
     return activity;
 
   }
