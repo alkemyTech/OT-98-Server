@@ -15,5 +15,5 @@ public class DetailsNewsCommentsResponse {
 
   private long id;
   private String body;
-  private News newsId;
+  private Long newsId;
 }

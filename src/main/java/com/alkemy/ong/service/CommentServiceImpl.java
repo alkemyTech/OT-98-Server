@@ -100,10 +100,12 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   @Override
   public ListNewsCommentsResponse findByNews(Long id) throws EntityNotFoundException {
 
-    List<Comment>comments = commentRepository.findAll().stream().filter(comment -> comment.getNewsId().getId()==id).collect(
-        Collectors.toList());
+    List<Comment> comments = commentRepository.findAll().stream()
+        .filter(comment -> comment.getNewsId().getId() == id).collect(
+            Collectors.toList());
 
-    List<DetailsNewsCommentsResponse> detailsNewsCommentsResponseList = convertUtils.toDetailsNewsCommentsResponse(comments);
+    List<DetailsNewsCommentsResponse> detailsNewsCommentsResponseList = convertUtils.toDetailsNewsCommentsResponse(
+        comments);
 
     return new ListNewsCommentsResponse(detailsNewsCommentsResponseList);
   }

@@ -199,14 +199,18 @@ public class ConvertUtils {
     });
     return categoriesResponses;
   }
-  public DetailsNewsCommentsResponse detailsNewsCommentsToResponse(Comment comment){
+
+  public DetailsNewsCommentsResponse detailsNewsCommentsToResponse(Comment comment) {
     DetailsNewsCommentsResponse detailsNewsCommentsResponse = new DetailsNewsCommentsResponse();
+    detailsNewsCommentsResponse.setId(comment.getId());
     detailsNewsCommentsResponse.setBody(comment.getBody());
-    detailsNewsCommentsResponse.setNewsId(comment.getNewsId());
-    return  detailsNewsCommentsResponse;
+    detailsNewsCommentsResponse.setNewsId(comment.getNewsId().getId());
+    return detailsNewsCommentsResponse;
   }
-  public List<DetailsNewsCommentsResponse> toDetailsNewsCommentsResponse(List<Comment> comments){
-    List<DetailsNewsCommentsResponse> detailsNewsCommentsResponseList = new ArrayList<>(comments.size());
+
+  public List<DetailsNewsCommentsResponse> toDetailsNewsCommentsResponse(List<Comment> comments) {
+    List<DetailsNewsCommentsResponse> detailsNewsCommentsResponseList = new ArrayList<>(
+        comments.size());
     comments.forEach(comment -> {
       detailsNewsCommentsResponseList.add(detailsNewsCommentsToResponse(comment));
     });
