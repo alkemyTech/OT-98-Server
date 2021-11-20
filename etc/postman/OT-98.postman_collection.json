@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b886258c-aa39-4ec4-bba8-76cbe7523e2d",
+		"_postman_id": "5a6e769a-b8fb-440b-a34c-fa35eb4f9784",
 		"name": "SomosMasA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -459,6 +459,36 @@
 							"path": [
 								"comments",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/posts/1/comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoia2x1Z29AYWxrZW15LmNvbSIsImlhdCI6MTYzNzQ0NTk5NiwiZXhwIjoxNjM3NDgxOTk2fQ.mxHm3zUnsrnvpKMY9URmw--b4auSYllZRi8nwTfsCWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/posts/1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"1",
+								"comments"
 							]
 						}
 					},
