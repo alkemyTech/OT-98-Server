@@ -96,6 +96,5 @@ public class SlideServiceImpl
     slide.setOrder(order);
     return slide;
   }
-
 }
 

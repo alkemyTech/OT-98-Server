@@ -96,7 +96,8 @@ public class ConvertUtils {
   public List<DetailsContactResponse> toResponse(List<Contact> contacts) {
     List<DetailsContactResponse> detailsContactResponses = new ArrayList<>();
     contacts.forEach(contact -> {
-      detailsContactResponses.add(toResponse(contact));
+      detailsContactResponses.add(toResponse(contact)
+      );
     });
     return detailsContactResponses;
   }
