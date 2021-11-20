@@ -3,15 +3,15 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.request.DetailsMemberRequest;
-import com.alkemy.ong.model.response.DetailsMemberResponse;
-import com.alkemy.ong.model.response.ListMemberResponse;
 import com.alkemy.ong.repository.IMemberRepository;
 import com.alkemy.ong.service.abstraction.ICreateMemberService;
 import com.alkemy.ong.service.abstraction.IDeleteMembersService;
 import com.alkemy.ong.service.abstraction.IListMembersService;
-import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,10 +26,9 @@ public class MemberServiceImpl
   ConvertUtils convertUtils;
 
   @Override
-  public ListMemberResponse list() {
-    List<Member> members = memberRepository.findBySoftDeleteFalse();
-    List<DetailsMemberResponse> detailsMemberResponses = convertUtils.toResponseList(members);
-    return new ListMemberResponse(detailsMemberResponses);
+  public Page<Member> list(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return memberRepository.findBySoftDeleteFalse(pageable);
   }
 
   @Override
