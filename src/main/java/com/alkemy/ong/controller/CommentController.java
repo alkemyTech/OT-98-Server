@@ -5,14 +5,19 @@ import com.alkemy.ong.exception.UnableToDeleteObjectException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.response.CreateCommentResponse;
+import com.alkemy.ong.model.response.DetailsNewsCommentsResponse;
+import com.alkemy.ong.model.response.ListNewsCommentsResponse;
 import com.alkemy.ong.service.abstraction.ICreateCommentService;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
+import com.alkemy.ong.service.abstraction.IListNewsCommentService;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +32,9 @@ public class CommentController {
 
   @Autowired
   private IDeleteCommentsService deleteCommentsService;
+
+  @Autowired
+  private IListNewsCommentService listNewsCommentService;
 
   @Autowired
   private ConvertUtils convertUtils;
@@ -47,6 +55,13 @@ public class CommentController {
       throws UnableToDeleteObjectException {
     deleteCommentsService.delete(id, authorizationHeader);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  }
+
+  @GetMapping(value = "/posts/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListNewsCommentsResponse> list(@PathVariable("id") long id)
+      throws EntityNotFoundException {
+
+    return new ResponseEntity<>(listNewsCommentService.findByNews(id), HttpStatus.OK);
   }
 
 }
