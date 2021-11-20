@@ -44,9 +44,9 @@ public class CreateActivityIntegrationTest extends AbstractBaseActivityIntegrati
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(createURLWithPort(PATH),
         HttpMethod.POST, entity, ErrorResponse.class);
     assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
-    assertTrue(response.getBody().getMessage().contains(emptyName));
-    assertTrue(response.getBody().getMessage().contains(emptyContent));
-    assertTrue(response.getBody().getMessage().contains(emptyImage));
+    assertTrue(response.getBody().getMessage().contains(EMPTY_NAME));
+    assertTrue(response.getBody().getMessage().contains(EMPTY_CONTENT));
+    assertTrue(response.getBody().getMessage().contains(EMPTY_IMAGE));
   }
 
   @Test
