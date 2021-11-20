@@ -8,6 +8,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 public abstract class AbstractBaseActivityIntegrationTest extends AbstractBaseIntegrationTest {
 
+  public final String emptyName = "The name attribute must not be empty.";
+  public final String emptyContent = "The content attribute must not be empty.";
+  public final String emptyImage = "The image attribute must not be empty.";
+
   @MockBean
   protected IActivityRepository activityRepository;
 
