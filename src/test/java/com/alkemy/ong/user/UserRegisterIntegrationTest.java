@@ -85,9 +85,9 @@ public class UserRegisterIntegrationTest extends AbstractBaseIntegrationTest {
   private OrganizationResponse stubOrganization() {
     List<DetailsSlideResponse> slides = new ArrayList<>();
 
-    slides.add(new DetailsSlideResponse("image1.jpg", 1));
-    slides.add(new DetailsSlideResponse("image2.jpg", 3));
-    slides.add(new DetailsSlideResponse("image3.jpg", 2));
+    slides.add(new DetailsSlideResponse("image1.jpg", null, 1, null));
+    slides.add(new DetailsSlideResponse("image2.jpg",null, 3, null));
+    slides.add(new DetailsSlideResponse("image3.jpg", null, 2, null));
 
     return new OrganizationResponse(
         "Fiat",
