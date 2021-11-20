@@ -23,7 +23,6 @@ public class CreateSlideRequest {
   private int order;
 
   @JsonIgnore
-  @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
   private String imageContentType;
 
   @JsonIgnore
