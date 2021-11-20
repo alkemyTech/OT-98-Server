@@ -22,12 +22,10 @@ public class ActivityController {
 
   @Autowired
   ICreateActivityService createActivityService;
-
-  @Autowired
-  private ConvertUtils convertUtils;
-
   @Autowired
   IUpdateActivityService updateActivityService;
+  @Autowired
+  private ConvertUtils convertUtils;
 
   @PostMapping(value = "/activities",
       consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -41,13 +39,11 @@ public class ActivityController {
 
   @PutMapping(value = "/activities/{id}")
   public ResponseEntity<ActivityDetailsResponse> update(@PathVariable long id,
-      @RequestBody ActivityDetailsRequest activityDetailsRequest) {
-
+      @Valid @RequestBody ActivityDetailsRequest activityDetailsRequest) {
     Activity activity = updateActivityService.update(id, activityDetailsRequest);
     ActivityDetailsResponse activityDetailsResponse = convertUtils.toResponse(activity);
     return new ResponseEntity<>(activityDetailsResponse, HttpStatus.OK);
 
   }
-
 
 }
