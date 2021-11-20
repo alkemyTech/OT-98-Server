@@ -2,11 +2,13 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.ExternalServiceException;
+import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.request.CreateSlideRequest;
 import com.alkemy.ong.model.response.DetailsSlideResponse;
 import com.alkemy.ong.service.abstraction.ICreateSlideService;
 import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.service.abstraction.IDeleteSlideService;
+import com.alkemy.ong.service.abstraction.IGetSlideService;
 import com.alkemy.ong.service.abstraction.IListSlidesService;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -39,6 +41,9 @@ public class SlideController {
 
   @Autowired
   private ICreateSlideService createSlideService;
+  
+  @Autowired
+  private IGetSlideService getSlideService;
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") long id) throws EntityNotFoundException {
@@ -52,6 +57,12 @@ public class SlideController {
     return new ResponseEntity<>(listSlidesResponse, HttpStatus.OK);
   }
 
+  @GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<DetailsSlideResponse> getBy(@PathVariable("id") long id){
+    Slide slide = getSlideService.getBy(id);
+    return new ResponseEntity<>(convertUtils.toResponse(slide), HttpStatus.OK);
+  }
+  
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<DetailsSlideResponse> create(
