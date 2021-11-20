@@ -1,9 +1,10 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.model.response.ListMemberResponse;
+import com.alkemy.ong.model.entity.Member;
+import org.springframework.data.domain.Page;
 
 public interface IListMembersService {
 
-  ListMemberResponse list();
+  Page<Member> list(int page, int size);
 
 }

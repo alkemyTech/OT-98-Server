@@ -10,8 +10,8 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.ActivityDetailsResponse;
+import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
@@ -20,6 +20,7 @@ import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.DetailsNewsCommentsResponse;
 import com.alkemy.ong.model.response.DetailsSlideResponse;
+import com.alkemy.ong.model.response.ListMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
@@ -177,12 +178,12 @@ public class ConvertUtils {
     return detailsMemberResponse;
   }
 
-  public List<DetailsMemberResponse> toResponseList(List<Member> members) {
+  public ListMemberResponse toResponseList(List<Member> members) {
     List<DetailsMemberResponse> detailsMemberResponses = new ArrayList<>(members.size());
     members.forEach(member -> {
       detailsMemberResponses.add(toResponse(member));
     });
-    return detailsMemberResponses;
+    return new ListMemberResponse(detailsMemberResponses);
   }
 
   public CategoriesResponse categoryToResponse(Category category) {
