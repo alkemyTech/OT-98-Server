@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5bfbec79-9a31-4531-9c3f-da52fb15c6fe",
+		"_postman_id": "274e38f7-8257-4a85-83f8-2015a689a50d",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -222,13 +222,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categories",
+							"raw": "localhost:8080/categories?page=0",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
 							]
 						}
 					},
@@ -936,6 +942,93 @@
 							"path": [
 								"slides",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create slides",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/slides",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/slides/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/slides",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides"
 							]
 						}
 					},

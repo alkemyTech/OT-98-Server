@@ -7,6 +7,7 @@ import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
@@ -25,6 +26,7 @@ import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.model.response.NewsCategoryResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
+import com.alkemy.ong.model.response.SlideOrganizationResponse;
 import com.alkemy.ong.model.response.TestimonialResponse;
 import com.alkemy.ong.model.response.UserRegisterResponse;
 import java.util.ArrayList;
@@ -213,17 +215,37 @@ public class ConvertUtils {
     DetailsSlideResponse detailsSlideResponse = new DetailsSlideResponse();
     detailsSlideResponse.setImage(slide.getImageUrl());
     detailsSlideResponse.setOrder(slide.getOrder());
+    detailsSlideResponse.setText(slide.getText());
+    detailsSlideResponse.setOrganization(toSlideOrganizationResponse(slide.getOrganizationId()));
     return detailsSlideResponse;
+  }
+
+  private SlideOrganizationResponse toSlideOrganizationResponse(Organization organization) {
+    SlideOrganizationResponse slideOrganizationResponse = new SlideOrganizationResponse();
+    slideOrganizationResponse.setName(organization.getName());
+    slideOrganizationResponse.setImage(organization.getImage());
+    slideOrganizationResponse.setAddress(organization.getAddress());
+    slideOrganizationResponse.setPhone(organization.getPhone());
+    slideOrganizationResponse.setFacebookUrl(organization.getFacebookUrl());
+    slideOrganizationResponse.setInstagramUrl(organization.getInstagramUrl());
+    slideOrganizationResponse.setLinkedinUrl(organization.getLinkedinUrl());
+    return slideOrganizationResponse;
   }
 
   public ListSlidesResponse listSlidesToResponse(List<Slide> slides) {
     List<DetailsSlideResponse> slidesResponse = new ArrayList<>();
     for (Slide slide : slides) {
-      slidesResponse.add(toResponse(slide));
+      slidesResponse.add(slideListSingleResponse(slide));
     }
     return new ListSlidesResponse(slidesResponse);
   }
 
+  private DetailsSlideResponse slideListSingleResponse(Slide slide) {
+    DetailsSlideResponse detailsSlideResponse = new DetailsSlideResponse();
+    detailsSlideResponse.setImage(slide.getImageUrl());
+    detailsSlideResponse.setOrder(slide.getOrder());
+    return detailsSlideResponse;
+  }
 
   public List<DetailsSlideResponse> listSlidesToListDetailsSlideResponse(List<Slide> slides) {
     List<DetailsSlideResponse> slidesResponse = new ArrayList<>();
