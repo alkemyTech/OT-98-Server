@@ -23,4 +23,9 @@ public class DetailsSlideResponse {
 
   @JsonInclude(Include.NON_NULL)
   private SlideOrganizationResponse organization;
+
+  public DetailsSlideResponse(String image, Integer order) {
+    this.image = image;
+    this.order = order;
+  }
 }
