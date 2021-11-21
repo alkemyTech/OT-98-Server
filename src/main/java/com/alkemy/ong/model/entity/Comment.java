@@ -1,5 +1,6 @@
 package com.alkemy.ong.model.entity;
 
+import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "COMMENTS")
@@ -41,5 +43,8 @@ public class Comment {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   private News newsId;
 
+  @CreationTimestamp
+  @Column(name = "TIMESTAMP", nullable = true)
+  private Timestamp timestamp;
 
 }
