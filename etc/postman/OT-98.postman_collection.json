@@ -1178,7 +1178,7 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "localhost:8080/slides",
@@ -1247,6 +1247,45 @@
 							"port": "8080",
 							"path": [
 								"slides"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8020/slides/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2Mzc1Mjg2ODQsImV4cCI6MTYzNzU2NDY4NH0.7tJjiORMcQURf3Hj26BASoKD0ToEaC94oNZK2A_dvDI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageUrl\": \"slideImage.com\",\r\n    \"text\": \"Slide TExt\",\r\n    \"order\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/slides/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides",
+								"1"
 							]
 						}
 					},
