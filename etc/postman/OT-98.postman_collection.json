@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b886258c-aa39-4ec4-bba8-76cbe7523e2d",
-		"name": "SomosMasA",
+		"_postman_id": "5bfbec79-9a31-4531-9c3f-da52fb15c6fe",
+		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,9 +11,6 @@
 				{
 					"name": "auth/register",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -42,9 +39,6 @@
 				{
 					"name": "auth/register with Exception",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -78,7 +72,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{userJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -140,7 +134,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoib3NjYXJydWluYUBnbWFpbC5jb20iLCJpYXQiOjE2MzYwNDU3NjEsImV4cCI6MTYzNjA4MTc2MX0.iZ9AVWeh0KOvMe7fCFfXbAGxJOeR9NsSCyxOpiXU6Ew",
 									"type": "string"
 								}
 							]
@@ -169,45 +163,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "http://localhost:8080/activities/1",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Learning in School\",\r\n    \"content\": \"Learning\",\r\n    \"image\": \"imageLearning.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/activities/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"activities",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -222,7 +177,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -259,7 +214,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -287,7 +242,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -316,7 +271,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "{{jwt}}",
 									"type": "string"
 								}
 							]
@@ -345,35 +300,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete Category by Id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/categories/3",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"categories",
-								"3"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -383,16 +309,6 @@
 				{
 					"name": "Comments",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -428,41 +344,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "localhost:8080/comments/1",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNjQ5MTU4NiwiZXhwIjoxNjM2NTI3NTg2fQ.Vu0iye9zQh5Tm0DYTWaCUo-ACCnABTMd9fbIAJHeZ6k",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/comments/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comments",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -477,7 +358,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -500,16 +381,6 @@
 				{
 					"name": "localhost:8080/contacts",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -534,31 +405,18 @@
 					"name": "localhost:8080/members",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
+							"type": "bearer"
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/members?page=0",
+							"raw": "localhost:8080/members",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"members"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								}
 							]
 						}
 					},
@@ -572,10 +430,41 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{userJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNzQ3MDY2OSwiZXhwIjoxNjM3NTA2NjY5fQ.NaoX_PfngMI7n0yThjq8A1G8phoJYwCCjSAntL2Vj88",
 									"type": "string"
 								}
 							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"joaquinPrueba\",\r\n    \"image\":\"image.pngPrueba\",\r\n    \"description\":\"descPrueba\",\r\n    \"facebookUrl\":\"fb\",\r\n    \"linkedinUrl\":\"ln\",\r\n    \"instagramUrl\":\"ig\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/members/7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/members",
+					"request": {
+						"auth": {
+							"type": "bearer"
 						},
 						"method": "POST",
 						"header": [],
@@ -600,7 +489,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -634,7 +523,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -663,7 +552,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{userJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -692,16 +581,6 @@
 				{
 					"name": "localhost:8080/news/1",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -726,7 +605,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -765,7 +644,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -805,16 +684,6 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -849,7 +718,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6Im5wYWV6QGFsa2VteS5jb20iLCJpYXQiOjE2MzYzOTY5NjYsImV4cCI6MTYzNjQzMjk2Nn0.04K9DRa3P2vBIpPwA2z1SR7DTNgwMufTytGNbfY8_Mg",
 									"type": "string"
 								}
 							]
@@ -893,7 +762,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImpzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzY0MjIzOTksImV4cCI6MTYzNjQ1ODM5OX0.z2FtuGcgPdpNNUukEHHY05nJ4mYSRvKDdLnMu5gne4w",
 									"type": "string"
 								}
 							]
@@ -926,16 +795,6 @@
 				{
 					"name": "localhost:8080/testimonials?page=0",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -956,35 +815,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "localhost:8080/testimonials/id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/testimonials/155",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"testimonials",
-								"155"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -994,16 +824,6 @@
 				{
 					"name": "localhost:8080/users/2",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userJWT}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [],
 						"url": {
@@ -1028,7 +848,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{userJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoianVhbnBhbG90ZXNAZ21haWwuY29tIiwiaWF0IjoxNjM2MTE4OTM3LCJleHAiOjE2MzYxNTQ5Mzd9.8ZkhXSlKh3cMjQZJV1GgeyeYSowa2zylOF8YZoJ5m3E",
 									"type": "string"
 								}
 							]
@@ -1057,7 +877,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJ1c2VyIl0sInN1YiI6InJvcXVlQGdtYWlsLmNvbSIsImlhdCI6MTYzNTg4MDUzNywiZXhwIjoxNjM1OTE2NTM3fQ.D_FI-Jw6w7RcIa411KNnXRfqrG8Jdkk_v_kgnuMTFAY",
 									"type": "string"
 								}
 							]
@@ -1090,7 +910,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{adminJWT}}",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImZlc2FudG9yb0BhbGtlbXkuY29tIiwiaWF0IjoxNjM2OTQxMTkxLCJleHAiOjE2MzY5NzcxOTF9.EgV6pDtmtVFshBIYU8J-RS661QU3R4FQQ-hA3Fxac9s",
 									"type": "string"
 								}
 							]
@@ -1120,72 +940,27 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Create slides",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminJWT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/slides",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"slides"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"let adminEmail = \"esantoro@alkemy.com\";",
-					"let adminPassword = \"foo12345\";",
-					"",
-					"let userEmail = \"klugo@alkemy.com\";",
-					"let userPassword = \"foo12345\";",
-					"",
-					"authenticate(adminEmail, adminPassword, \"adminJWT\");",
-					"authenticate(userEmail, userPassword, \"userJWT\");",
-					"",
-					"function authenticate(email, password, variable) {",
-					"pm.sendRequest({",
-					"  url: \"localhost:8080/auth/login\", ",
-					"  method: \"POST\",",
-					"  header: {",
-					"      'content-type': 'application/json',",
-					"      'x-site-code': pm.environment.get(\"x-site-code\")",
-					"  },",
-					"  body: {",
-					"      mode: 'raw',",
-					"      raw: JSON.stringify({ email: email, password:password })",
-					"  }}",
-					"  , function (err, response) {",
-					"",
-					"  let responseData= response.json();",
-					"  let jwtToken = responseData.userDetails.jwt;",
-					"  pm.collectionVariables.set(variable, jwtToken);",
-					"});",
-					"}"
+					""
 				]
 			}
 		},
@@ -1201,12 +976,8 @@
 	],
 	"variable": [
 		{
-			"key": "userJWT",
-			"value": ""
-		},
-		{
-			"key": "adminJWT",
-			"value": ""
+			"key": "jwt",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImVzYW50b3JvQGFsa2VteS5jb20iLCJpYXQiOjE2MzcwODQ3OTcsImV4cCI6MTYzNzEyMDc5N30.K2XHyZlfeE6ncSLcZ5CDGrBz-DT-0YkUpjAjrBA3tkY"
 		}
 	]
 }
