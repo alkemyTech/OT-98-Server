@@ -127,6 +127,13 @@ public class ErrorHandler {
         .body(buildResponse(errorMessage, HttpStatus.BAD_REQUEST));
   }
 
+  @ExceptionHandler(UnableToDeleteObjectException.class)
+  public ResponseEntity<?> handleUnableToDeleteObjectException(HttpServletRequest request,
+      UnableToDeleteObjectException e) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        .body(buildResponse(e, HttpStatus.FORBIDDEN));
+  }
+
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
@@ -134,4 +141,6 @@ public class ErrorHandler {
   private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
     return new ErrorResponse(message, httpStatus.value());
   }
+
+
 }

@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ActivityController {
 
   @Autowired
-  ICreateActivityService createActivityService;
+  private ICreateActivityService createActivityService;
 
   @Autowired
   private ConvertUtils convertUtils;
 
   @Autowired
-  IUpdateActivityService updateActivityService;
+  private IUpdateActivityService updateActivityService;
 
   @PostMapping(value = "/activities",
       consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -41,13 +41,10 @@ public class ActivityController {
 
   @PutMapping(value = "/activities/{id}")
   public ResponseEntity<ActivityDetailsResponse> update(@PathVariable long id,
-      @RequestBody ActivityDetailsRequest activityDetailsRequest) {
-
+      @Valid @RequestBody ActivityDetailsRequest activityDetailsRequest) {
     Activity activity = updateActivityService.update(id, activityDetailsRequest);
     ActivityDetailsResponse activityDetailsResponse = convertUtils.toResponse(activity);
     return new ResponseEntity<>(activityDetailsResponse, HttpStatus.OK);
-
   }
-
 
 }

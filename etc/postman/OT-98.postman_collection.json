@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "6f8ae33d-2cff-40af-bea5-362e7530a147",
-		"name": "SomosMasA",
+		"_postman_id": "339aeadc-9c25-49b3-838d-8d96aaf6b1e8",
+		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -267,13 +267,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categories",
+							"raw": "localhost:8080/categories?page=0",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
 							]
 						}
 					},
@@ -428,6 +434,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "localhost:8080/comments/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNjQ5MTU4NiwiZXhwIjoxNjM2NTI3NTg2fQ.Vu0iye9zQh5Tm0DYTWaCUo-ACCnABTMd9fbIAJHeZ6k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/comments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -511,13 +552,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/members",
+							"raw": "localhost:8080/members?page=0",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"members"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
 							]
 						}
 					},
@@ -575,6 +622,44 @@
 							"path": [
 								"members",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/members",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNzQ3MDY2OSwiZXhwIjoxNjM3NTA2NjY5fQ.NaoX_PfngMI7n0yThjq8A1G8phoJYwCCjSAntL2Vj88",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"joaquinPrueba\",\r\n    \"image\":\"image.pngPrueba\",\r\n    \"description\":\"descPrueba\",\r\n    \"facebookUrl\":\"fb\",\r\n    \"linkedinUrl\":\"ln\",\r\n    \"instagramUrl\":\"ig\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/members/7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"members",
+								"7"
 							]
 						}
 					},
@@ -1075,6 +1160,64 @@
 							"path": [
 								"slides",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create slides",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/slides",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/slides/1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminJWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/slides/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"slides",
+								"1"
 							]
 						}
 					},
