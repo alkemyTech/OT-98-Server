@@ -216,12 +216,11 @@ public class ConvertUtils {
     detailsSlideResponse.setImage(slide.getImageUrl());
     detailsSlideResponse.setOrder(slide.getOrder());
     detailsSlideResponse.setText(slide.getText());
-    detailsSlideResponse.setOrganization(slideOrganizationToResponse(slide));
+    detailsSlideResponse.setOrganization(toSlideOrganizationResponse(slide.getOrganizationId()));
     return detailsSlideResponse;
   }
 
-  private SlideOrganizationResponse slideOrganizationToResponse(Slide slide) {
-    Organization organization = slide.getOrganizationId();
+  private SlideOrganizationResponse toSlideOrganizationResponse(Organization organization) {
     SlideOrganizationResponse slideOrganizationResponse = new SlideOrganizationResponse();
     slideOrganizationResponse.setName(organization.getName());
     slideOrganizationResponse.setImage(organization.getImage());
