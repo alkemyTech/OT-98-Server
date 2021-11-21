@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b886258c-aa39-4ec4-bba8-76cbe7523e2d",
-		"name": "SomosMasA",
+		"_postman_id": "274e38f7-8257-4a85-83f8-2015a689a50d",
+		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -267,13 +267,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/categories",
+							"raw": "localhost:8080/categories?page=0",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
 							]
 						}
 					},
