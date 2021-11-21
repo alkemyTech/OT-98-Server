@@ -13,6 +13,7 @@ import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.ActivityDetailsResponse;
 import com.alkemy.ong.model.response.CategoriesResponse;
+import com.alkemy.ong.model.response.CommentsResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
@@ -255,5 +256,18 @@ public class ConvertUtils {
     return slidesResponse;
   }
 
+  private CommentsResponse commentsToResponse(Comment comment) {
+    CommentsResponse commentsResponse = new CommentsResponse();
+    commentsResponse.setBody(comment.getBody());
+    return commentsResponse;
+  }
+
+  public List<CommentsResponse> toCommentsResponse(List<Comment> comments) {
+    List<CommentsResponse> commentsResponse = new ArrayList<>(comments.size());
+    comments.forEach(comment -> {
+      commentsResponse.add(commentsToResponse(comment));
+    });
+    return commentsResponse;
+  }
 
 }
