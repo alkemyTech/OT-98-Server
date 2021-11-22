@@ -9,7 +9,7 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.CreateCommentRequest;
-import com.alkemy.ong.model.response.CommentsResponse;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.repository.IUserRepository;
@@ -21,6 +21,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentServiceImpl implements ICreateCommentService, IDeleteCommentsService,
@@ -93,16 +94,11 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   }
 
   @Override
-  public List<CommentsResponse> list() throws EntityNotFoundException {
+  @Transactional
+  public ListCommentsResponse list(){
     List<Comment> comments = commentRepository.findAll();
-    validateComment(comments);
-    List<CommentsResponse> commentsResponseList = convertUtils.toCommentsResponse(comments);
-    return commentsResponseList;
+    ListCommentsResponse listCommentsResponse = convertUtils.toListCommentsResponse(comments);
+    return listCommentsResponse;
   }
 
-  private void validateComment(List<Comment> comments) {
-    if (comments.isEmpty()) {
-      throw new EntityNotFoundException("The requested resource could not be found.");
-    }
-  }
 }
