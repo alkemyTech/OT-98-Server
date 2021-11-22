@@ -4,13 +4,11 @@ import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.UnableToDeleteObjectException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
-import com.alkemy.ong.model.response.CommentsResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.service.abstraction.ICreateCommentService;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
 import com.alkemy.ong.service.abstraction.IListCommentsService;
-import java.util.List;
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +56,7 @@ public class CommentController {
   }
 
   @GetMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CommentsResponse>> list() throws EntityNotFoundException {
+  public ResponseEntity<ListCommentsResponse> list() {
     return new ResponseEntity<>(listCommentsService.list(), HttpStatus.OK);
   }
 
