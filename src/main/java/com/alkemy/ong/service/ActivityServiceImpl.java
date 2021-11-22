@@ -39,7 +39,7 @@ public class ActivityServiceImpl implements ICreateActivityService, IUpdateActiv
     activity.setName(activityDetailsRequest.getName());
     activity.setContent(activityDetailsRequest.getContent());
     activity.setImage(activityDetailsRequest.getImage());
-    activity.setSoftDelete(true);
+    activity.setSoftDelete(false);
     activityRepository.save(activity);
     return activity;
 
