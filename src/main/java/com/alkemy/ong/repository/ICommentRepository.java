@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICommentRepository extends JpaRepository<Comment, Long> {
 
-  @Query("select c.body from Comment c order by c.timestamp")
+  @Query("from Comment c order by c.timestamp")
   List<Comment> findAll();
 
 }
