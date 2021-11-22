@@ -29,4 +29,20 @@ public final class DocumentationMessages {
 
   public static final String MEMBER_CONTROLLER_RESPONSE_404_DESCRIPTION = "Member not found";
 
+  public static final String AUTHENTICATION_CONTROLLER = "Authentication Controller";
+  
+  public static final String AUTHENTICATION_CONTROLLER_DESCRIPTION = "Contains the endpoint of Authentication";
+  
+  public static final String AUTHENTICATION_CONTROLLER_LOGIN = "User Login";
+  
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried out successfully";
+  
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+  
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_401_DESCRIPTION = "Bad Credentials";
+  
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_404_DESCRIPTION = "User not found";
+  
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_500_DESCRIPTION = "Internal Server Error";
+
 }
