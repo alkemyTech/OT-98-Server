@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@JsonRootName("Comments")
+@JsonRootName("comments")
 @Getter
 @Setter
 @NoArgsConstructor

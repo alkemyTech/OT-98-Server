@@ -95,10 +95,9 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
   @Override
   @Transactional
-  public ListCommentsResponse list(){
+  public ListCommentsResponse list() {
     List<Comment> comments = commentRepository.findAll();
-    ListCommentsResponse listCommentsResponse = convertUtils.toListCommentsResponse(comments);
-    return listCommentsResponse;
+    return convertUtils.toListCommentsResponse(comments);
   }
 
 }
