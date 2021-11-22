@@ -21,6 +21,7 @@ import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.DetailsSlideResponse;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.model.response.ListMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.ListSlidesResponse;
@@ -256,18 +257,20 @@ public class ConvertUtils {
     return slidesResponse;
   }
 
-  private CommentsResponse commentsToResponse(Comment comment) {
+  private CommentsResponse commentToResponse(Comment comment) {
     CommentsResponse commentsResponse = new CommentsResponse();
     commentsResponse.setBody(comment.getBody());
     return commentsResponse;
+
   }
 
-  public List<CommentsResponse> toCommentsResponse(List<Comment> comments) {
-    List<CommentsResponse> commentsResponse = new ArrayList<>(comments.size());
-    comments.forEach(comment -> {
-      commentsResponse.add(commentsToResponse(comment));
-    });
-    return commentsResponse;
+  public ListCommentsResponse toListCommentsResponse(List<Comment> comments) {
+    List<CommentsResponse> commentsResponse = new ArrayList<>();
+    for (Comment comment : comments) {
+      commentsResponse.add(commentToResponse(comment));
+    }
+    return new ListCommentsResponse(commentsResponse);
+
   }
 
 }
