@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
+import com.alkemy.ong.common.PaginationUtils;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.response.ErrorResponse;
@@ -97,8 +98,10 @@ public class ListTestimonialsIntegrationTest extends AbstractBaseTestimonialsInt
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getTestimonials().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String nextURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
+    String prevURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertNull(prevURI);
   }
@@ -122,8 +125,10 @@ public class ListTestimonialsIntegrationTest extends AbstractBaseTestimonialsInt
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getTestimonials().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String nextURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
+    String prevURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
     assertNull(nextURI);
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
@@ -147,8 +152,10 @@ public class ListTestimonialsIntegrationTest extends AbstractBaseTestimonialsInt
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getTestimonials().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String nextURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
+    String prevURI =
+        PaginationUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }

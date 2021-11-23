@@ -5,19 +5,19 @@ import com.alkemy.ong.exception.EntityAlreadyExistException;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CategoryUpdateRequest;
 import com.alkemy.ong.model.request.CreateCategoryRequest;
-import com.alkemy.ong.model.response.CategoriesResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
-import com.alkemy.ong.model.response.ListCategoryResponse;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICreateCategoryService;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.alkemy.ong.service.abstraction.IGetCategoryService;
 import com.alkemy.ong.service.abstraction.IListCategoryService;
 import com.alkemy.ong.service.abstraction.IUpdateCategoryService;
-import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,10 +45,9 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
 
   @Override
   @Transactional
-  public ListCategoryResponse findAll() {
-    List<Category> categories = categoryRepository.findBySoftDeleteFalse();
-    List<CategoriesResponse> categoriesResponses = convertUtils.toCategoriesResponse(categories);
-    return new ListCategoryResponse(categoriesResponses);
+  public Page<Category> findAll(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return categoryRepository.findBySoftDeleteFalse(pageable);
   }
 
   @Override
@@ -57,19 +56,6 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     validateCategory(category);
     return convertUtils.toDetailsCategoryResponseResponse(category);
   }
-
-  private void validateCategory(Category category) {
-    if (category == null || category.isSoftDelete()) {
-      throw new EntityNotFoundException("The requested resource could not be found.");
-    }
-  }
-
-  private void validateIfCategoryExists(Optional<Category> optionalCategory) {
-    if (optionalCategory.isPresent()) {
-      throw new EntityNotFoundException("The requested resource could not be found.");
-    }
-  }
-
 
   @Override
   public DetailsCategoryResponse update(CategoryUpdateRequest categoryUpdateRequest, long id)
@@ -84,12 +70,6 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     return convertUtils.toDetailsCategoryResponseResponse(category);
   }
 
-  private void throwErrorIfDoesNotExist(String name) throws EntityAlreadyExistException {
-    if (categoryRepository.findByName(name) != null) {
-      throw new EntityAlreadyExistException("category");
-    }
-  }
-
   @Override
   public void deleteBy(long id) throws EntityNotFoundException {
     Optional<Category> optionalCategory = categoryRepository.findById(id);
@@ -98,6 +78,24 @@ public class CategoryServiceImpl implements ICreateCategoryService, IListCategor
     validateCategory(category);
     category.setSoftDelete(true);
     categoryRepository.save(category);
-
   }
+
+  private void validateCategory(Category category) {
+    if (category == null || category.isSoftDelete()) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
+    }
+  }
+
+  private void validateIfCategoryExists(Optional<Category> optionalCategory) {
+    if (optionalCategory.isEmpty()) {
+      throw new EntityNotFoundException("The requested resource could not be found.");
+    }
+  }
+
+  private void throwErrorIfDoesNotExist(String name) throws EntityAlreadyExistException {
+    if (categoryRepository.findByName(name) != null) {
+      throw new EntityAlreadyExistException("category");
+    }
+  }
+
 }

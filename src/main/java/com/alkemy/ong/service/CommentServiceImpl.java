@@ -1,26 +1,34 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.exception.UnableToDeleteObjectException;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.CreateCommentRequest;
+import com.alkemy.ong.model.request.UpdateCommentRequest;
+import com.alkemy.ong.model.response.DetailsCommentResponse;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.ICreateCommentService;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
+import com.alkemy.ong.service.abstraction.IListCommentsService;
+import com.alkemy.ong.service.abstraction.IUpdateCommentService;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CommentServiceImpl implements ICreateCommentService, IDeleteCommentsService {
+public class CommentServiceImpl implements ICreateCommentService, IDeleteCommentsService,
+    IListCommentsService, IUpdateCommentService {
 
   @Autowired
   private ICommentRepository commentRepository;
@@ -33,6 +41,9 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
   @Autowired
   private JwtUtil jwtUtil;
+
+  @Autowired
+  private ConvertUtils convertUtils;
 
   @Override
   public Comment create(CreateCommentRequest createCommentRequest, String authorizationHeader) {
@@ -64,19 +75,13 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   }
 
   @Override
-  public void delete(long id, String authorizationHeader) throws UnableToDeleteObjectException {
-    Optional<Comment> commentOptional = commentRepository.findById(id);
-    if (commentOptional.isEmpty()) {
-      throw new EntityNotFoundException("Comment not found");
-    }
+  public void delete(long id, String authorizationHeader) throws OperationNotAllowedException {
+    Comment comment = getComment(id);
 
-    Comment comment = commentOptional.get();
-    User user = getUser(authorizationHeader);
-    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getName(), user.getRoles());
-
-    if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
-      throw new UnableToDeleteObjectException("User is not able to delete comment.");
-    }
+    throwExceptionIfOperationIsNotAllowed(
+        authorizationHeader,
+        comment,
+        "User is not able to delete comment.");
 
     commentRepository.delete(comment);
   }
@@ -84,4 +89,50 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   private boolean haveRole(String nameRole, List<Role> roles) {
     return roles.stream().anyMatch(role -> nameRole.equals(role.getName()));
   }
+
+  @Override
+  @Transactional
+  public ListCommentsResponse list() {
+    List<Comment> comments = commentRepository.findAll();
+    return convertUtils.toListCommentsResponse(comments);
+  }
+
+
+  @Override
+  @Transactional
+  public DetailsCommentResponse update(long id, String authorizationHeader,
+      UpdateCommentRequest updateCommentRequest)
+      throws OperationNotAllowedException {
+
+    Comment comment = getComment(id);
+    throwExceptionIfOperationIsNotAllowed(
+        authorizationHeader,
+        comment,
+        "User is not able to update comment.");
+
+    comment.setBody(updateCommentRequest.getBody());
+    commentRepository.save(comment);
+    return convertUtils.updateCommentResponse(comment);
+  }
+
+  private void throwExceptionIfOperationIsNotAllowed(
+      String authorizationHeader,
+      Comment comment,
+      String errorMessage) {
+    User user = getUser(authorizationHeader);
+    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
+
+    if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
+      throw new OperationNotAllowedException(errorMessage);
+    }
+  }
+
+  private Comment getComment(long id) {
+    Optional<Comment> commentOptional = commentRepository.findById(id);
+    if (commentOptional.isEmpty()) {
+      throw new EntityNotFoundException("Comment not found");
+    }
+    return commentOptional.get();
+  }
+
 }

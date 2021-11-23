@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
+import com.alkemy.ong.common.PaginationUtils;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.NewsDetailsRequest;
@@ -77,7 +78,7 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
 
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getNews().isEmpty());
-    assertTrue((response.getHeaders().getFirst("Link")).isBlank());
+    assertTrue(PaginationUtils.getLink(response.getHeaders()).isBlank());
   }
 
   @Test
@@ -99,8 +100,9 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getNews().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String link = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(link, "next");
+    String prevURI = PaginationUtils.extractURIByRel(link, "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertNull(prevURI);
   }
@@ -124,8 +126,9 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getNews().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String link = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(link, "next");
+    String prevURI = PaginationUtils.extractURIByRel(link, "prev");
     assertNull(nextURI);
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
@@ -149,8 +152,9 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getNews().isEmpty());
 
-    String nextURI = extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String link = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(link, "next");
+    String prevURI = PaginationUtils.extractURIByRel(link, "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }

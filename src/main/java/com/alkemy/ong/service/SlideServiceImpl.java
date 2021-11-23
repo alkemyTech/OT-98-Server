@@ -5,15 +5,19 @@ import com.alkemy.ong.common.s3.S3ObjectHelper;
 import com.alkemy.ong.exception.ExternalServiceException;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.request.CreateSlideRequest;
+import com.alkemy.ong.model.request.SlideDetailsRequest;
 import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.repository.ISlideRepository;
 import com.alkemy.ong.service.abstraction.ICreateSlideService;
 import com.alkemy.ong.service.abstraction.IDeleteSlideService;
+import com.alkemy.ong.service.abstraction.IGetSlideService;
 import com.alkemy.ong.service.abstraction.IListSlidesService;
+import com.alkemy.ong.service.abstraction.IUpdateSlideService;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService,
-    ICreateSlideService {
+public class SlideServiceImpl
+    implements IDeleteSlideService, IListSlidesService, ICreateSlideService, IGetSlideService,
+    IUpdateSlideService {
 
   @Autowired
   private ISlideRepository slideRepository;
@@ -48,6 +53,17 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
     List<Slide> slides = slideRepository.findAll();
 
     return convertUtils.listSlidesToResponse(slides);
+  }
+
+  @Transactional(readOnly = true)
+  @Override
+  public Slide getBy(Long id) throws EntityNotFoundException {
+    Optional<Slide> slide = slideRepository.findById(id);
+    if (slide.isEmpty()) {
+      throw new EntityNotFoundException("Slide not found!");
+    }
+
+    return slide.get();
   }
 
   @Transactional
@@ -82,6 +98,20 @@ public class SlideServiceImpl implements IDeleteSlideService, IListSlidesService
     slide.setText(createSlideRequest.getText());
     slide.setOrder(order);
     return slide;
+  }
+
+  @Override
+  public Slide update(long id, SlideDetailsRequest slideDetailsRequest) {
+    Optional<Slide> slideOptional = slideRepository.findById(id);
+    if (slideOptional.isEmpty()) {
+      throw new EntityNotFoundException("Slide not found");
+    }
+
+    Slide slide = slideOptional.get();
+    slide.setImageUrl(slideDetailsRequest.getImageUrl());
+    slide.setText(slideDetailsRequest.getText());
+    slide.setOrder(slideDetailsRequest.getOrder());
+    return slideRepository.save(slide);
   }
 }
 
