@@ -11,6 +11,7 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.request.UpdateCommentRequest;
+import com.alkemy.ong.model.response.DetailsCommentResponse;
 import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.repository.INewsRepository;
@@ -110,20 +111,32 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
       throws ForbiddenAccessException {
 
     Optional<Comment> commentOptional = commentRepository.findById(id);
-    if (commentOptional.isEmpty()) {
-      throw new EntityNotFoundException("Comment not found");
-    }
+    verifyExistence(commentOptional);
 
     Comment comment = commentOptional.get();
     User user = getUser(authorizationHeader);
 
-    if (comment.getUserId().getId().equals(user.getId()) ||
-        user.getRoles().stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()))) {
+    if (verifyAllowAccess(comment, user)) {
       comment.setBody(updateCommentRequest.getBody());
       commentRepository.save(comment);
       return convertUtils.updateCommentResponse(comment);
+    } else {
+      throw new ForbiddenAccessException("User is not able to update comment.");
     }
 
-    throw new ForbiddenAccessException("User is not able to update comment.");
+  }
+
+  private void verifyExistence(Optional<Comment> commentOptional) {
+    if (commentOptional.isEmpty()) {
+      throw new EntityNotFoundException("Comment not found");
+    }
+  }
+
+  private boolean verifyAllowAccess(Comment comment, User user) {
+    if (comment.getUserId().getId().equals(user.getId()) ||
+        user.getRoles().stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()))) {
+      return true;
+    }
+    return false;
   }
 }
