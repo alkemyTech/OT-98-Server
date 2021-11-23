@@ -1,8 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.common.converter.ConvertUtils;
-import com.alkemy.ong.exception.ForbiddenAccessException;
-import com.alkemy.ong.exception.UnableToDeleteObjectException;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.request.UpdateCommentRequest;
@@ -58,7 +57,7 @@ public class CommentController {
   @DeleteMapping("/comments/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") long id,
       @RequestHeader(value = "Authorization") String authorizationHeader)
-      throws UnableToDeleteObjectException {
+      throws OperationNotAllowedException {
     deleteCommentsService.delete(id, authorizationHeader);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
@@ -76,7 +75,7 @@ public class CommentController {
       @PathVariable("id") long id,
       @RequestHeader(value = "Authorization") String authorizationHeader,
       @Valid @RequestBody(required = true) UpdateCommentRequest updateCommentRequest)
-      throws ForbiddenAccessException {
+      throws OperationNotAllowedException {
     return new ResponseEntity<>(
         updateCommentService.update(id, authorizationHeader, updateCommentRequest),
         HttpStatus.OK);
