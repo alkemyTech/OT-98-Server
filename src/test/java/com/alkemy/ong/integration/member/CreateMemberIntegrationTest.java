@@ -25,7 +25,7 @@ public class CreateMemberIntegrationTest extends AbstractBaseMemberIntegrationTe
   private final String PATH = "/members";
 
   @Test
-  public void shouldReturnForbbidenWhenUserIsNotUser() {
+  public void shouldReturnForbiddenWhenUserIsNotUser() {
     login(ApplicationRole.ADMIN.getFullRoleName());
 
     ResponseEntity<Object> response = restTemplate.exchange(createURLWithPort(PATH),
