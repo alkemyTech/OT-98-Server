@@ -18,6 +18,7 @@ import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.DetailsCategoryResponse;
+import com.alkemy.ong.model.response.DetailsCommentResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.DetailsSlideResponse;
@@ -271,6 +272,14 @@ public class ConvertUtils {
     }
     return new ListCommentsResponse(commentsResponse);
 
+  }
+  public DetailsCommentResponse updateCommentResponse(Comment comment) {
+    DetailsCommentResponse detailsCommentResponse = new DetailsCommentResponse();
+    detailsCommentResponse.setId(comment.getId());
+    detailsCommentResponse.setBody(comment.getBody());
+    detailsCommentResponse.setUserId(comment.getUserId().getId());
+    detailsCommentResponse.setNewsId(comment.getNewsId().getId());
+    return detailsCommentResponse;
   }
 
 }
