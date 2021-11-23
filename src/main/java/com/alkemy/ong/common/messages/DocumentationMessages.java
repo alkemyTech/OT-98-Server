@@ -45,4 +45,13 @@ public final class DocumentationMessages {
   
   public static final String AUTHENTICATION_CONTROLLER_RESPONSE_500_DESCRIPTION = "Internal Server Error";
 
+  public static final String USER_CONTROLLER = "User Controller";
+  
+  public static final String USER_CONTROLLER_DESCRIPTION = "Contains the endpoint of User";
+  
+  public static final String USER_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried out successfully";
+
+  public static final String USER_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+
+  public static final String USER_CONTROLLER_RESPONSE_403_DESCRIPTION = "Action forbidden";
 }
