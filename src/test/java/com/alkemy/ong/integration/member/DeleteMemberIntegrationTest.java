@@ -35,7 +35,7 @@ public class DeleteMemberIntegrationTest extends AbstractBaseMemberIntegrationTe
 
 
   @Test
-  public void shouldReturnNotFoundWhenIdNotExist() {
+  public void shouldReturnNotFoundWhenIdDoesNotExist() {
     when(memberRepository.findById(eq(ID_TO_DELETE))).thenReturn(Optional.empty());
 
     login(ApplicationRole.ADMIN.getFullRoleName());
@@ -49,7 +49,7 @@ public class DeleteMemberIntegrationTest extends AbstractBaseMemberIntegrationTe
   }
 
   @Test
-  public void shouldSoftDeleteAMemberSuccesfully() {
+  public void shouldSoftDeleteAMemberSuccessfully() {
     when(memberRepository.getById(eq(ID_TO_DELETE))).thenReturn(stubMember());
     when(memberRepository.save(eq(stubMember()))).thenReturn(stubMember());
 
