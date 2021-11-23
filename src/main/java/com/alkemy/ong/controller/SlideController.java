@@ -83,11 +83,11 @@ public class SlideController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> update(@PathVariable("id") long id,
+  public ResponseEntity<DetailsSlideResponse> update(@PathVariable("id") long id,
       @RequestBody SlideDetailsRequest slideDetailsRequest) {
     Slide slide = updateSlideService.update(id, slideDetailsRequest);
     DetailsSlideResponse detailsSlideResponse = convertUtils.toResponse(slide);
-    return new ResponseEntity<>(detailsSlideResponse, HttpStatus.CREATED);
+    return new ResponseEntity<>(detailsSlideResponse, HttpStatus.OK);
   }
 }
 

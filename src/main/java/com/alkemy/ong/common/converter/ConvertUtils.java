@@ -13,6 +13,7 @@ import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.ActivityDetailsResponse;
 import com.alkemy.ong.model.response.CategoriesResponse;
+import com.alkemy.ong.model.response.CommentsResponse;
 import com.alkemy.ong.model.response.CreateCategoryResponse;
 import com.alkemy.ong.model.response.CreateCommentResponse;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
@@ -20,6 +21,7 @@ import com.alkemy.ong.model.response.DetailsCategoryResponse;
 import com.alkemy.ong.model.response.DetailsContactResponse;
 import com.alkemy.ong.model.response.DetailsMemberResponse;
 import com.alkemy.ong.model.response.DetailsSlideResponse;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.model.response.ListMemberResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.ListSlidesResponse;
@@ -255,5 +257,20 @@ public class ConvertUtils {
     return slidesResponse;
   }
 
+  private CommentsResponse commentToResponse(Comment comment) {
+    CommentsResponse commentsResponse = new CommentsResponse();
+    commentsResponse.setBody(comment.getBody());
+    return commentsResponse;
+
+  }
+
+  public ListCommentsResponse toListCommentsResponse(List<Comment> comments) {
+    List<CommentsResponse> commentsResponse = new ArrayList<>();
+    for (Comment comment : comments) {
+      commentsResponse.add(commentToResponse(comment));
+    }
+    return new ListCommentsResponse(commentsResponse);
+
+  }
 
 }
