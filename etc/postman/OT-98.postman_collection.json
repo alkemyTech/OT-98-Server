@@ -1083,7 +1083,7 @@
 			"name": "Slides",
 			"item": [
 				{
-					"name": "http://localhost:8080/slides",
+					"name": "Delete Slide",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1159,7 +1159,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/slides/1",
+					"name": "Update Slide",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1205,6 +1205,7 @@
 						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/slides",
+
 							"protocol": "http",
 							"host": [
 								"localhost"
