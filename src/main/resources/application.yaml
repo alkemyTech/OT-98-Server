@@ -1,7 +1,7 @@
 amazonProperties:
   endpointUrl: https://s3.sa-east-1.amazonaws.com
-  accessKeyId: AKIAS2JWQJCDGOFZZEPF
-  secretAccessKey: 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
+  accessKeyId: foo
+  secretAccessKey: foo
   region: us-east-1
   bucketName: cohorte-octubre-e8bd4748
 
