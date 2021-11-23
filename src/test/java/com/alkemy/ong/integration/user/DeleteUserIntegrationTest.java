@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.model.request.NewsDetailsRequest;
 import com.alkemy.ong.model.response.ErrorResponse;
 import java.util.Optional;
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class DeleteUserIntegrationTest extends AbstractBaseUserIntegrationTest {
   public void shouldReturnNotFoundWhenIdNoExist() {
     when(userRepository.findById(eq(ID_TO_DELETE))).thenReturn(Optional.empty());
     login(ApplicationRole.USER.getFullRoleName());
-    HttpEntity<NewsDetailsRequest> entity = new HttpEntity<>(headers);
+    HttpEntity<Object> entity = new HttpEntity<>(headers);
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(createURLWithPort(PATH),
         HttpMethod.DELETE, entity, ErrorResponse.class);
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
