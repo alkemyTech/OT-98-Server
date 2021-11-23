@@ -117,7 +117,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
     boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
 
     if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
-      throw new OperationNotAllowedException("User is not able to delete comment.");
+      throw new OperationNotAllowedException("User is not able to update comment.");
     } else {
       comment.setBody(updateCommentRequest.getBody());
       commentRepository.save(comment);
