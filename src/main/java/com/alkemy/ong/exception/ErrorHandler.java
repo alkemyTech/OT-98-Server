@@ -141,6 +141,11 @@ public class ErrorHandler {
   private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
     return new ErrorResponse(message, httpStatus.value());
   }
-
+  @ExceptionHandler(ForbiddenAccessException.class)
+  public ResponseEntity<?> handleForbiddenAccessException(HttpServletRequest request,
+      ForbiddenAccessException e) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+        .body(buildResponse(e, HttpStatus.FORBIDDEN));
+  }
 
 }
