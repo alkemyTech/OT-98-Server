@@ -58,7 +58,7 @@ public class UpdateMemberIntegrationTest extends AbstractBaseMemberIntegrationTe
   }
 
   @Test
-  public void shouldReturnNotFoundWhenIdNotExist() {
+  public void shouldReturnNotFoundWhenIdDoesNotExist() {
     when(memberRepository.findById(eq(ID_TO_UPDATE))).thenReturn(Optional.empty());
 
     login(ApplicationRole.USER.getFullRoleName());
