@@ -76,18 +76,12 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
   @Override
   public void delete(long id, String authorizationHeader) throws OperationNotAllowedException {
-    Optional<Comment> commentOptional = commentRepository.findById(id);
-    if (commentOptional.isEmpty()) {
-      throw new EntityNotFoundException("Comment not found");
-    }
+    Comment comment = getComment(id);
 
-    Comment comment = commentOptional.get();
-    User user = getUser(authorizationHeader);
-    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
-
-    if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
-      throw new OperationNotAllowedException("User is not able to delete comment.");
-    }
+    throwExceptionIfOperationIsNotAllowed(
+        authorizationHeader,
+        comment,
+        "User is not able to delete comment.");
 
     commentRepository.delete(comment);
   }
@@ -106,30 +100,39 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
   @Override
   @Transactional
-  public DetailsCommentResponse update(long id, String authorizationHeader, UpdateCommentRequest updateCommentRequest)
+  public DetailsCommentResponse update(long id, String authorizationHeader,
+      UpdateCommentRequest updateCommentRequest)
       throws OperationNotAllowedException {
 
-    Optional<Comment> commentOptional = commentRepository.findById(id);
-    verifyExistence(commentOptional);
+    Comment comment = getComment(id);
+    throwExceptionIfOperationIsNotAllowed(
+        authorizationHeader,
+        comment,
+        "User is not able to update comment.");
 
-    Comment comment = commentOptional.get();
+    comment.setBody(updateCommentRequest.getBody());
+    commentRepository.save(comment);
+    return convertUtils.updateCommentResponse(comment);
+  }
+
+  private void throwExceptionIfOperationIsNotAllowed(
+      String authorizationHeader,
+      Comment comment,
+      String errorMessage) {
     User user = getUser(authorizationHeader);
     boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
 
     if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
-      throw new OperationNotAllowedException("User is not able to update comment.");
-    } else {
-      comment.setBody(updateCommentRequest.getBody());
-      commentRepository.save(comment);
-      return convertUtils.updateCommentResponse(comment);
+      throw new OperationNotAllowedException(errorMessage);
     }
-
   }
 
-  private void verifyExistence(Optional<Comment> commentOptional) {
+  private Comment getComment(long id) {
+    Optional<Comment> commentOptional = commentRepository.findById(id);
     if (commentOptional.isEmpty()) {
       throw new EntityNotFoundException("Comment not found");
     }
+    return commentOptional.get();
   }
 
 }
