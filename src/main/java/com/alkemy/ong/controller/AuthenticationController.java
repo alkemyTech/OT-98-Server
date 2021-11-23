@@ -44,7 +44,8 @@ public class AuthenticationController {
       @ApiResponse(responseCode = "500",
       description = DocumentationMessages.AUTHENTICATION_CONTROLLER_RESPONSE_500_DESCRIPTION)
   })
-  public ResponseEntity<?> login(@RequestBody UserAuthenticationRequest userRequest)
+  public ResponseEntity<UserDetailsResponse> login(
+      @RequestBody UserAuthenticationRequest userRequest)
       throws EntityNotFoundException, AuthenticationException, InvalidCredentialsException {
     UserDetailsResponse user = authenticationService.login(userRequest);
     return ResponseEntity.ok(user);
