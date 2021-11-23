@@ -4,15 +4,10 @@ import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.UserUpdateRequest;
-import com.alkemy.ong.repository.IUserRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 public class AbstractBaseUserIntegrationTest extends AbstractBaseIntegrationTest {
-
-  @MockBean
-  protected IUserRepository userRepository;
 
   protected UserUpdateRequest exampleUserRequest() {
     UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
