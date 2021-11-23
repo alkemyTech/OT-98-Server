@@ -6,12 +6,18 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+
+import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
+import com.alkemy.ong.common.PaginationUtils;
+import com.alkemy.ong.config.ApplicationRole;
+import com.alkemy.ong.model.entity.Member;
+import com.alkemy.ong.model.request.DetailsMemberRequest;
+import com.alkemy.ong.model.response.ErrorResponse;
+import com.alkemy.ong.model.response.ListMemberResponse;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -21,27 +27,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.alkemy.ong.common.ListTestUtils;
-import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
-import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.integration.news.AbstractBaseNewsIntegrationTest;
-import com.alkemy.ong.model.entity.Member;
-import com.alkemy.ong.model.entity.News;
-import com.alkemy.ong.model.request.DetailsMemberRequest;
-import com.alkemy.ong.model.request.NewsDetailsRequest;
-import com.alkemy.ong.model.response.ErrorResponse;
-import com.alkemy.ong.model.response.ListMemberResponse;
-import com.alkemy.ong.model.response.ListNewsResponse;
-import com.alkemy.ong.common.ListTestUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ListMemberIntegrationTest extends AbstractBaseMemberIntegrationTest {
 
   private final String PATH = "/members?page=";
-
-
-  ListTestUtils listTestUtils = new ListTestUtils();
 
   @Test
   public void shouldReturnForbiddenWhenUserIsNotAdmin() {
@@ -91,7 +82,7 @@ public class ListMemberIntegrationTest extends AbstractBaseMemberIntegrationTest
 
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getMembers().isEmpty());
-    assertTrue((response.getHeaders().getFirst("Link")).isBlank());
+    assertTrue((PaginationUtils.getLink(response.getHeaders())).isBlank());
   }
 
 
@@ -114,8 +105,9 @@ public class ListMemberIntegrationTest extends AbstractBaseMemberIntegrationTest
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getMembers().isEmpty());
 
-    String nextURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String link = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(link, "next");
+    String prevURI = PaginationUtils.extractURIByRel(link, "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertNull(prevURI);
   }
@@ -139,8 +131,9 @@ public class ListMemberIntegrationTest extends AbstractBaseMemberIntegrationTest
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getMembers().isEmpty());
 
-    String nextURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String link = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(link, "next");
+    String prevURI = PaginationUtils.extractURIByRel(link, "prev");
     assertNull(nextURI);
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
@@ -164,8 +157,9 @@ public class ListMemberIntegrationTest extends AbstractBaseMemberIntegrationTest
     assertEquals(response.getStatusCode(), HttpStatus.OK);
     assertFalse(response.getBody().getMembers().isEmpty());
 
-    String nextURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "next");
-    String prevURI = listTestUtils.extractURIByRel(response.getHeaders().getFirst("Link"), "prev");
+    String linkHeader = PaginationUtils.getLink(response.getHeaders());
+    String nextURI = PaginationUtils.extractURIByRel(linkHeader, "next");
+    String prevURI = PaginationUtils.extractURIByRel(linkHeader, "prev");
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
