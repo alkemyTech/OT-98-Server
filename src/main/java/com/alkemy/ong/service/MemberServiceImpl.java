@@ -76,7 +76,7 @@ public class MemberServiceImpl
     member.setName(detailsMemberRequest.getName());
     member.setImage(detailsMemberRequest.getImage());
     member.setDescription(detailsMemberRequest.getDescription());
-    member.setSoftDelete(true);
+    member.setSoftDelete(false);
     member.setFacebookUrl(detailsMemberRequest.getFacebookUrl());
     member.setLinkedinUrl(detailsMemberRequest.getLinkedinUrl());
     member.setInstagramUrl(detailsMemberRequest.getInstagramUrl());

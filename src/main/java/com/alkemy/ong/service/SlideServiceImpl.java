@@ -5,12 +5,14 @@ import com.alkemy.ong.common.s3.S3ObjectHelper;
 import com.alkemy.ong.exception.ExternalServiceException;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.model.request.CreateSlideRequest;
+import com.alkemy.ong.model.request.SlideDetailsRequest;
 import com.alkemy.ong.model.response.ListSlidesResponse;
 import com.alkemy.ong.repository.ISlideRepository;
 import com.alkemy.ong.service.abstraction.ICreateSlideService;
 import com.alkemy.ong.service.abstraction.IDeleteSlideService;
 import com.alkemy.ong.service.abstraction.IGetSlideService;
 import com.alkemy.ong.service.abstraction.IListSlidesService;
+import com.alkemy.ong.service.abstraction.IUpdateSlideService;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Base64;
@@ -24,7 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SlideServiceImpl
-    implements IDeleteSlideService, IListSlidesService, ICreateSlideService, IGetSlideService {
+    implements IDeleteSlideService, IListSlidesService, ICreateSlideService, IGetSlideService,
+    IUpdateSlideService {
 
   @Autowired
   private ISlideRepository slideRepository;
@@ -95,6 +98,20 @@ public class SlideServiceImpl
     slide.setText(createSlideRequest.getText());
     slide.setOrder(order);
     return slide;
+  }
+
+  @Override
+  public Slide update(long id, SlideDetailsRequest slideDetailsRequest) {
+    Optional<Slide> slideOptional = slideRepository.findById(id);
+    if (slideOptional.isEmpty()) {
+      throw new EntityNotFoundException("Slide not found");
+    }
+
+    Slide slide = slideOptional.get();
+    slide.setImageUrl(slideDetailsRequest.getImageUrl());
+    slide.setText(slideDetailsRequest.getText());
+    slide.setOrder(slideDetailsRequest.getOrder());
+    return slideRepository.save(slide);
   }
 }
 

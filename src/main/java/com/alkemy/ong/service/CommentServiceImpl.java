@@ -83,7 +83,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
 
     Comment comment = commentOptional.get();
     User user = getUser(authorizationHeader);
-    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getName(), user.getRoles());
+    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
 
     if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
       throw new UnableToDeleteObjectException("User is not able to delete comment.");
