@@ -1,4 +1,4 @@
-package com.alkemy.ong.user;
+package com.alkemy.ong.integration.user;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
