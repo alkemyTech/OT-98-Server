@@ -3,8 +3,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.config.ApplicationRole;
-import com.alkemy.ong.exception.ForbiddenAccessException;
-import com.alkemy.ong.exception.UnableToDeleteObjectException;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.entity.Role;
@@ -76,7 +75,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   }
 
   @Override
-  public void delete(long id, String authorizationHeader) throws UnableToDeleteObjectException {
+  public void delete(long id, String authorizationHeader) throws OperationNotAllowedException {
     Optional<Comment> commentOptional = commentRepository.findById(id);
     if (commentOptional.isEmpty()) {
       throw new EntityNotFoundException("Comment not found");
@@ -87,7 +86,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
     boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
 
     if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
-      throw new UnableToDeleteObjectException("User is not able to delete comment.");
+      throw new OperationNotAllowedException("User is not able to delete comment.");
     }
 
     commentRepository.delete(comment);
@@ -108,20 +107,21 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   @Override
   @Transactional
   public DetailsCommentResponse update(long id, String authorizationHeader, UpdateCommentRequest updateCommentRequest)
-      throws ForbiddenAccessException {
+      throws OperationNotAllowedException {
 
     Optional<Comment> commentOptional = commentRepository.findById(id);
     verifyExistence(commentOptional);
 
     Comment comment = commentOptional.get();
     User user = getUser(authorizationHeader);
+    boolean isRoleAdmin = haveRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
 
-    if (verifyAllowAccess(comment, user)) {
+    if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
+      throw new OperationNotAllowedException("User is not able to delete comment.");
+    } else {
       comment.setBody(updateCommentRequest.getBody());
       commentRepository.save(comment);
       return convertUtils.updateCommentResponse(comment);
-    } else {
-      throw new ForbiddenAccessException("User is not able to update comment.");
     }
 
   }
@@ -132,11 +132,4 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
     }
   }
 
-  private boolean verifyAllowAccess(Comment comment, User user) {
-    if (comment.getUserId().getId().equals(user.getId()) ||
-        user.getRoles().stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()))) {
-      return true;
-    }
-    return false;
-  }
 }
