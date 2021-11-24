@@ -60,7 +60,7 @@ public class TestimonialServiceImpl implements ICreateTestimonialService, IListT
     testimonial.get().setName(testimonialRequest.getName());
     testimonial.get().setContent(testimonialRequest.getContent());
     testimonial.get().setImage(testimonialRequest.getImage());
-
+    testimonial.get().setSoftDelete(false);
     return testimonial.get();
   }
 }
