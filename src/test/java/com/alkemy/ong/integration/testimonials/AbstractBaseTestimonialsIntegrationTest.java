@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.alkemy.ong.common.AbstractBaseIntegrationTest;
 import com.alkemy.ong.model.entity.Testimonial;
-import com.alkemy.ong.model.request.CreateTestimonialRequest;
+import com.alkemy.ong.model.request.TestimonialDetailsRequest;
 import com.alkemy.ong.repository.ITestimonialRepository;
 
 public abstract class AbstractBaseTestimonialsIntegrationTest extends AbstractBaseIntegrationTest {
@@ -17,8 +17,8 @@ public abstract class AbstractBaseTestimonialsIntegrationTest extends AbstractBa
     return new Testimonial(1L, "Example", "Example.png", "Example", null, false);
   }
 
-  protected CreateTestimonialRequest exampleTestimonialRequest() {
-    CreateTestimonialRequest createTestimonialRequest = new CreateTestimonialRequest();
+  protected TestimonialDetailsRequest exampleTestimonialRequest() {
+    TestimonialDetailsRequest createTestimonialRequest = new TestimonialDetailsRequest();
     createTestimonialRequest.setName("Example");
     createTestimonialRequest.setImage("Example.png");
     createTestimonialRequest.setContent("Example");

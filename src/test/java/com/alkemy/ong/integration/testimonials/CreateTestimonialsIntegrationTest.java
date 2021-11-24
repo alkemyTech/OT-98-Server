@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.Testimonial;
-import com.alkemy.ong.model.request.CreateTestimonialRequest;
+import com.alkemy.ong.model.request.TestimonialDetailsRequest;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.ErrorResponse;
 
@@ -39,11 +39,11 @@ public class CreateTestimonialsIntegrationTest extends AbstractBaseTestimonialsI
   public void shouldReturnBadRequestWhenAnAttributeIsNull() {
     login(ApplicationRole.ADMIN.getFullRoleName());
 
-    CreateTestimonialRequest createTestimonialRequest = exampleTestimonialRequest();
+    TestimonialDetailsRequest createTestimonialRequest = exampleTestimonialRequest();
     createTestimonialRequest.setName("");
     createTestimonialRequest.setContent("");
 
-    HttpEntity<CreateTestimonialRequest> entity =
+    HttpEntity<TestimonialDetailsRequest> entity =
         new HttpEntity<>(createTestimonialRequest, headers);
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(createURLWithPort(PATH),
         HttpMethod.POST, entity, ErrorResponse.class);
@@ -60,12 +60,12 @@ public class CreateTestimonialsIntegrationTest extends AbstractBaseTestimonialsI
   public void shouldReturnBadRequestWhenAnAttributeExceedsMaxSize() {
     login(ApplicationRole.ADMIN.getFullRoleName());
 
-    CreateTestimonialRequest createTestimonialRequest = exampleTestimonialRequest();
+    TestimonialDetailsRequest createTestimonialRequest = exampleTestimonialRequest();
     String invalidAttribute = StringUtils.repeat("A", 251);
     createTestimonialRequest.setName(invalidAttribute);
     createTestimonialRequest.setContent(invalidAttribute);
 
-    HttpEntity<CreateTestimonialRequest> entity =
+    HttpEntity<TestimonialDetailsRequest> entity =
         new HttpEntity<>(createTestimonialRequest, headers);
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(createURLWithPort(PATH),
         HttpMethod.POST, entity, ErrorResponse.class);
@@ -84,9 +84,9 @@ public class CreateTestimonialsIntegrationTest extends AbstractBaseTestimonialsI
 
     login(ApplicationRole.ADMIN.getFullRoleName());
 
-    CreateTestimonialRequest createTestimonialRequest = exampleTestimonialRequest();
+    TestimonialDetailsRequest createTestimonialRequest = exampleTestimonialRequest();
 
-    HttpEntity<CreateTestimonialRequest> entity =
+    HttpEntity<TestimonialDetailsRequest> entity =
         new HttpEntity<>(createTestimonialRequest, headers);
     ResponseEntity<CreateTestimonialResponse> response = restTemplate.exchange(
         createURLWithPort(PATH), HttpMethod.POST, entity, CreateTestimonialResponse.class);

@@ -5,7 +5,7 @@ import com.alkemy.ong.common.PaginatedResultsHeaderUtils;
 import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.Testimonial;
-import com.alkemy.ong.model.request.CreateTestimonialRequest;
+import com.alkemy.ong.model.request.TestimonialDetailsRequest;
 import com.alkemy.ong.model.response.CreateTestimonialResponse;
 import com.alkemy.ong.model.response.ListTestimonialResponse;
 import com.alkemy.ong.service.abstraction.ICreateTestimonialService;
@@ -57,7 +57,7 @@ public class TestimonialController {
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateTestimonialResponse> create(@Valid @RequestBody
-      CreateTestimonialRequest createTestimonialRequest) {
+      TestimonialDetailsRequest createTestimonialRequest) {
     Testimonial testimonial = createTestimonialService.create(createTestimonialRequest);
     CreateTestimonialResponse createTestimonialResponse = convertUtils.toResponse(testimonial);
     return new ResponseEntity<>(createTestimonialResponse, HttpStatus.CREATED);
@@ -88,7 +88,7 @@ public class TestimonialController {
   @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CreateTestimonialResponse> update(@PathVariable("id") Long id,
-      @RequestBody(required = true) @Valid CreateTestimonialRequest createTestimonialRequest) {
+      @RequestBody(required = true) @Valid TestimonialDetailsRequest createTestimonialRequest) {
     CreateTestimonialResponse testimonialDetailsResponse =
         convertUtils.toResponse(updateTestimonialService.update(createTestimonialRequest, id));
     return new ResponseEntity<>(testimonialDetailsResponse, HttpStatus.OK);
