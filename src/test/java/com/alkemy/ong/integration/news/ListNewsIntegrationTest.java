@@ -158,4 +158,5 @@ public class ListNewsIntegrationTest extends AbstractBaseNewsIntegrationTest {
     assertEquals(nextURI, createURLWithPort(PATH + (page + 1)));
     assertEquals(prevURI, createURLWithPort(PATH + (page - 1)));
   }
+
 }
