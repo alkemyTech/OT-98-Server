@@ -6,6 +6,7 @@ import com.alkemy.ong.repository.ITestimonialRepository;
 import com.alkemy.ong.service.abstraction.ICreateTestimonialService;
 import com.alkemy.ong.service.abstraction.IDeleteTestimonialService;
 import com.alkemy.ong.service.abstraction.IListTestimonialsService;
+import com.alkemy.ong.service.abstraction.IUpdateTestimonialService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TestimonialServiceImpl implements ICreateTestimonialService, IListTestimonialsService,
-    IDeleteTestimonialService {
+    IDeleteTestimonialService, IUpdateTestimonialService {
 
   @Autowired
   private ITestimonialRepository testimonialRepository;
@@ -50,4 +51,16 @@ public class TestimonialServiceImpl implements ICreateTestimonialService, IListT
     testimonialRepository.save(testimonial.get());
   }
 
+  @Override
+  public Testimonial update(CreateTestimonialRequest testimonialRequest, Long id) {
+    Optional<Testimonial> testimonial = testimonialRepository.findById(id);
+    if (testimonial.isEmpty() || testimonial.get().isSoftDelete()) {
+      throw new EntityNotFoundException("Testimonial not found.");
+    }
+    testimonial.get().setName(testimonialRequest.getName());
+    testimonial.get().setContent(testimonialRequest.getContent());
+    testimonial.get().setImage(testimonialRequest.getImage());
+
+    return testimonial.get();
+  }
 }
