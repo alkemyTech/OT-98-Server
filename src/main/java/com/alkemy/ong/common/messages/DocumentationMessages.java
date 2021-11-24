@@ -29,4 +29,57 @@ public final class DocumentationMessages {
 
   public static final String MEMBER_CONTROLLER_RESPONSE_404_DESCRIPTION = "Member not found";
 
+  public static final String AUTHENTICATION_CONTROLLER = "Authentication Controller";
+
+  public static final String AUTHENTICATION_CONTROLLER_DESCRIPTION = "Contains the endpoint of Authentication";
+
+  public static final String AUTHENTICATION_CONTROLLER_LOGIN = "User Login";
+
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried out successfully";
+
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_401_DESCRIPTION = "Bad Credentials";
+
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_404_DESCRIPTION = "User not found";
+
+  public static final String AUTHENTICATION_CONTROLLER_RESPONSE_500_DESCRIPTION = "Internal Server Error";
+
+  public static final String USER_CONTROLLER = "User Controller";
+
+  public static final String USER_CONTROLLER_DESCRIPTION = "Contains the endpoint of User";
+
+  public static final String USER_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried out successfully";
+
+  public static final String USER_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+
+  public static final String USER_CONTROLLER_RESPONSE_403_DESCRIPTION = "Action forbidden";
+
+  public static final String CATEGORY_CONTROLLER = "Category Controller";
+
+  public static final String CATEGORY_CONTROLLER_DESCRIPTION = "Contains the "
+      + "endpoints of category entity";
+
+  public static final String CATEGORY_CONTROLLER_SUMMARY_CREATE = "Create Category";
+
+  public static final String CATEGORY_CONTROLLER_SUMMARY_LIST = "List of Categories";
+
+  public static final String CATEGORY_CONTROLLER_SUMMARY_UPDATE = "Update Category";
+
+  public static final String CATEGORY_CONTROLLER_SUMMARY_DELETE = "Delete Category";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried "
+      + "out successfully";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_201_DESCRIPTION = "Category created";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_204_DESCRIPTION = "Category deleted";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_403_DESCRIPTION = "Forbidden, "
+      + "you can not access";
+
+  public static final String CATEGORY_CONTROLLER_RESPONSE_404_DESCRIPTION = "Category not found";
+
 }
