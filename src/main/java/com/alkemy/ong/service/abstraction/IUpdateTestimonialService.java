@@ -1,9 +1,9 @@
 package com.alkemy.ong.service.abstraction;
 
 import com.alkemy.ong.model.entity.Testimonial;
-import com.alkemy.ong.model.request.CreateTestimonialRequest;
+import com.alkemy.ong.model.request.TestimonialDetailsRequest;
 
 public interface IUpdateTestimonialService {
 
-  Testimonial update(CreateTestimonialRequest testimonialRequest, Long id);
+  Testimonial update(TestimonialDetailsRequest testimonialRequest, Long id);
 }
