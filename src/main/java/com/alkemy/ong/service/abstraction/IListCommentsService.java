@@ -6,4 +6,5 @@ public interface IListCommentsService {
 
   ListCommentsResponse list();
 
+  ListCommentsResponse listCommentsWithNewsId(Long id);
 }
