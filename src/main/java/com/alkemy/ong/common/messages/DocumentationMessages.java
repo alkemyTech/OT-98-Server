@@ -81,5 +81,29 @@ public final class DocumentationMessages {
       + "you can not access";
 
   public static final String CATEGORY_CONTROLLER_RESPONSE_404_DESCRIPTION = "Category not found";
+  
+  
+  public static final String TESTIMONIAL_CONTROLLER = "Testimonial controller";
+  
+  public static final String TESTIMONIAL_CONTROLLER_DESCRIPTION = "Contains the endpoints of testimonial entity";
+  
+  public static final String TESTIMONIAL_CONTROLLER_SUMMARY_CREATE = "Create testimonial";
+  
+  public static final String TESTIMONIAL_CONTROLLER_SUMMARY_LIST = "List of Categories pageds";
+  
+  public static final String TESTIMONIAL_CONTROLLER_SUMMARY_DELETE = "Delete testimonial";
+  
+  public static final String TESTIMONIAL_CONTROLLER_SUMMARY_UPDATE = "Update testimonial";
+  
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_201_DESCRIPTION = "Testimonial created";
+  
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_403_DESCRIPTION = "Forbidden, you can not access";
 
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_400_DESCRIPTION = "Bad Request";
+  
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_200_DESCRIPTION = "Action carried out successfully";
+  
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_204_DESCRIPTION = "Testimonial deleted";
+  
+  public static final String TESTIMONIAL_CONTROLLER_RESPONSE_404_DESCRIPTION = "Testimonial not found";
 }
