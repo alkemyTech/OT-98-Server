@@ -135,4 +135,13 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
     return commentOptional.get();
   }
 
+  @Override
+  @Transactional
+  public ListCommentsResponse listCommentsWithNewsId(Long id) throws EntityNotFoundException {
+    if (newsRepository.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("News not found");
+    }
+    List<Comment> comments = commentRepository.findByNewsId(newsRepository.findById(id));
+    return convertUtils.toListCommentsResponse(comments);
+  }
 }
