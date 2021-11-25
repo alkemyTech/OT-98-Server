@@ -5,11 +5,13 @@ import com.alkemy.ong.common.converter.ConvertUtils;
 import com.alkemy.ong.exception.PageOutOfRangeException;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.NewsDetailsRequest;
+import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
 import com.alkemy.ong.service.abstraction.IGetNewsService;
+import com.alkemy.ong.service.abstraction.IListCommentsService;
 import com.alkemy.ong.service.abstraction.IListNewsService;
 import com.alkemy.ong.service.abstraction.IUpdateNewsService;
 import javax.persistence.EntityNotFoundException;
@@ -48,6 +50,9 @@ public class NewsController {
   private IListNewsService listNewsService;
 
   @Autowired
+  private IListCommentsService listCommentsService;
+
+  @Autowired
   private IUpdateNewsService updateNewsService;
 
   @Autowired
@@ -78,6 +83,13 @@ public class NewsController {
       throws EntityNotFoundException {
     NewsDetailsResponse newsDetailsResponse = convertUtils.getToResponse(getNewsService.getBy(id));
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.OK);
+  }
+
+  @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ListCommentsResponse> getByNewsId(@PathVariable("id") long id)
+      throws EntityNotFoundException {
+    ListCommentsResponse listCommentsResponse = listCommentsService.listCommentsWithNewsId(id);
+    return new ResponseEntity<>(listCommentsResponse, HttpStatus.OK);
   }
 
   @GetMapping(params = "page")
