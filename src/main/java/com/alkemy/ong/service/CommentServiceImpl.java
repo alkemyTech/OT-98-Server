@@ -144,7 +144,6 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   @Transactional
   public NewsDetailsCommentsResponse listNewsWithComments(long id) throws EntityNotFoundException {
 
-
     List<Comment> commentsList = commentRepository.findByNewsId(id);
 
     if (commentsList.size() == 0) {
@@ -170,28 +169,4 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   }
 
 
-
-  // @Override
-  // @Transactional
-  // public ListCommentsResponse listCommentsWithNewsIdPrueba(Long id) throws
-  // EntityNotFoundException {
-  //
-  // ListCommentsResponse newsResponse = new ListCommentsResponse();
-  //
-  // List<Comment> commentList = newsRepository.getAll(id);
-  // if(commentList.isEmpty()) {
-  // throw new EntityNotFoundException("Comment not found");
-  // }
-  // News news = commentList.get(0).getNewsId();
-  // newsResponse.setId(news.getId());
-  // newsResponse.setName(news.getName());
-  // newsResponse.setContent(news.getContent());
-  // newsResponse.setImage(news.getImage());
-  // newsResponse.setListComentsResponse(
-  // commentList.stream().map(comment -> convertUtils.detailsNewsCommentsToResponse(comment))
-  // .collect(
-  // Collectors.toList()));
-  //
-  //
-  // }
 }
