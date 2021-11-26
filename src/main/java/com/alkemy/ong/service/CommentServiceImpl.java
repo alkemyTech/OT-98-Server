@@ -145,7 +145,7 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
   public NewsDetailsCommentsResponse listNewsWithComments(long id) throws EntityNotFoundException {
 
 
-    List<Comment> commentsList = commentRepository.getAll(id);
+    List<Comment> commentsList = commentRepository.findByNewsId(id);
 
     if (commentsList.size() == 0) {
       throw new EntityNotFoundException("News not found");

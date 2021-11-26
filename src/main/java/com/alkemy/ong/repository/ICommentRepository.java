@@ -18,6 +18,6 @@ public interface ICommentRepository extends JpaRepository<Comment, Long> {
 
   List<Comment> findByNewsId(Optional<News> news);
 
-  @Query(value = "from Comment c where c.newsId.id = :id")
-  List<Comment> getAll(@Param("id") long id);
+  @Query(value = "select * from Comments c where c.news_id = :id", nativeQuery = true)
+  List<Comment> findByNewsId(@Param("id") Long id);
 }

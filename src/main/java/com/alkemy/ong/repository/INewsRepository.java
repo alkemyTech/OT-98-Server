@@ -18,7 +18,4 @@ public interface INewsRepository extends JpaRepository<News, Long> {
   Category findCategoryByName(@Param("name") String name);
 
   Page<News> findBySoftDeleteIsFalse(Pageable pageable);
-
-  List<Comment> getAll(Long id);
-
 }
