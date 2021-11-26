@@ -7,6 +7,7 @@ import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.request.NewsDetailsRequest;
 import com.alkemy.ong.model.response.ListCommentsResponse;
 import com.alkemy.ong.model.response.ListNewsResponse;
+import com.alkemy.ong.model.response.NewsDetailsCommentsResponse;
 import com.alkemy.ong.model.response.NewsDetailsResponse;
 import com.alkemy.ong.service.abstraction.ICreateNewsService;
 import com.alkemy.ong.service.abstraction.IDeleteNewsService;
@@ -85,12 +86,22 @@ public class NewsController {
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.OK);
   }
 
+  // @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+  // public ResponseEntity<ListCommentsResponse> getByNewsId(@PathVariable("id") long id)
+  // throws EntityNotFoundException {
+  // ListCommentsResponse listCommentsResponse = listCommentsService.listCommentsWithNewsId(id);
+  // return new ResponseEntity<>(listCommentsResponse, HttpStatus.OK);
+  // }
+
   @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ListCommentsResponse> getByNewsId(@PathVariable("id") long id)
+  public ResponseEntity<NewsDetailsCommentsResponse> newsWithComments(@PathVariable("id") long id)
       throws EntityNotFoundException {
-    ListCommentsResponse listCommentsResponse = listCommentsService.listCommentsWithNewsId(id);
-    return new ResponseEntity<>(listCommentsResponse, HttpStatus.OK);
+    NewsDetailsCommentsResponse newsDetailsCommentsResponse =
+        listCommentsService.listNewsWithComments(id);
+    return new ResponseEntity<>(newsDetailsCommentsResponse, HttpStatus.OK);
   }
+
+
 
   @GetMapping(params = "page")
   public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
