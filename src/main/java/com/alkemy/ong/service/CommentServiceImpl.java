@@ -10,19 +10,24 @@ import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.CreateCommentRequest;
 import com.alkemy.ong.model.request.UpdateCommentRequest;
+import com.alkemy.ong.model.response.CommentDetailsResponse;
 import com.alkemy.ong.model.response.DetailsCommentResponse;
 import com.alkemy.ong.model.response.ListCommentsResponse;
+import com.alkemy.ong.model.response.NewsDetailsCommentsResponse;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.ICreateCommentService;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
 import com.alkemy.ong.service.abstraction.IListCommentsService;
+import com.alkemy.ong.service.abstraction.IListNewsService;
 import com.alkemy.ong.service.abstraction.IUpdateCommentService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -134,5 +139,34 @@ public class CommentServiceImpl implements ICreateCommentService, IDeleteComment
     }
     return commentOptional.get();
   }
+
+  @Override
+  @Transactional
+  public NewsDetailsCommentsResponse listNewsWithComments(long id) throws EntityNotFoundException {
+
+    List<Comment> commentsList = commentRepository.findByNewsId(id);
+
+    if (commentsList.size() == 0) {
+      throw new EntityNotFoundException("News not found");
+    }
+
+    NewsDetailsCommentsResponse newsResponse = new NewsDetailsCommentsResponse();
+
+    List<CommentDetailsResponse> commentsResponse = new ArrayList();
+
+    News news = commentsList.get(0).getNewsId();
+    newsResponse.setId(news.getId());
+    newsResponse.setName(news.getName());
+    newsResponse.setContent(news.getContent());
+    newsResponse.setImage(news.getImage());
+
+    for (Comment comment : commentsList) {
+      commentsResponse.add(new CommentDetailsResponse(comment.getId(), comment.getBody()));
+    }
+    newsResponse.setComments(commentsResponse);
+
+    return newsResponse;
+  }
+
 
 }

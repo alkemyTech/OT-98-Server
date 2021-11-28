@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2142ec62-e5aa-458a-b9a3-7cd84f0e9b5e",
+		"_postman_id": "82b08f3a-41ba-40bf-922b-2b181f335303",
 		"name": "SomosMas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -784,6 +784,36 @@
 									"key": "page",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/news/1/comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiamFtYW5AYWxrZW15LmNvbSIsImlhdCI6MTYzNzg2MTI5NywiZXhwIjoxNjM3ODk3Mjk3fQ.EtX-7tO0dEoEJa8pp1KvRzjIHyPrnDxlSdggrqlijn0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/news/1/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"news",
+								"1",
+								"comments"
 							]
 						}
 					},
