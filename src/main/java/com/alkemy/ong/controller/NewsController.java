@@ -15,6 +15,10 @@ import com.alkemy.ong.service.abstraction.IGetNewsService;
 import com.alkemy.ong.service.abstraction.IListCommentsService;
 import com.alkemy.ong.service.abstraction.IListNewsService;
 import com.alkemy.ong.service.abstraction.IUpdateNewsService;
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -64,6 +68,13 @@ public class NewsController {
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Create news", description = "Service for create news")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201",
+          description = "News created correctly"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request")
+  })
   public ResponseEntity<NewsDetailsResponse> create(
       @RequestBody(required = true) @Valid NewsDetailsRequest createNewsRequest)
       throws EntityNotFoundException {
@@ -72,21 +83,50 @@ public class NewsController {
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.CREATED);
   }
 
+
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") long id)
+  @Operation(summary = "Delete news", description = "Service for delete news")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204",
+          description = "News deleted"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request"),
+      @ApiResponse(responseCode = "404",
+          description = "News not found"),
+  })
+  public ResponseEntity<Empty> delete(@PathVariable("id") long id)
       throws EntityNotFoundException {
     deleteNewsService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Get new", description = "Service to get new")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Request made successfully"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request"),
+      @ApiResponse(responseCode = "404",
+          description = "News not found")
+  })
   public ResponseEntity<NewsDetailsResponse> getBy(@PathVariable("id") long id)
       throws EntityNotFoundException {
     NewsDetailsResponse newsDetailsResponse = convertUtils.getToResponse(getNewsService.getBy(id));
     return new ResponseEntity<>(newsDetailsResponse, HttpStatus.OK);
   }
 
+
   @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Get comments from new", description = "Service to get comments from new")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Request made successfully"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request"),
+      @ApiResponse(responseCode = "404",
+          description = "News not found")
+  })
   public ResponseEntity<NewsDetailsCommentsResponse> listNewsWithComments(
       @PathVariable("id") long id)
       throws EntityNotFoundException {
@@ -95,8 +135,19 @@ public class NewsController {
     return new ResponseEntity<>(newsDetailsCommentsResponse, HttpStatus.OK);
   }
 
+
   @GetMapping(params = "page")
-  public ResponseEntity<?> list(@RequestParam("page") int page, UriComponentsBuilder uriBuilder,
+  @Operation(summary = "List news", description = "Service for get all news with pagination")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Request made successfully"),
+      @ApiResponse(responseCode = "400",
+          description = "Request error"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request")
+  })
+  public ResponseEntity<ListNewsResponse> list(@RequestParam("page") int page,
+      UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws PageOutOfRangeException {
     Page<News> pageResponse = listNewsService.list(page, PaginatedResultsHeaderUtils.PAGE_SIZE);
 
@@ -110,8 +161,18 @@ public class NewsController {
     return new ResponseEntity<>(toResponse, HttpStatus.OK);
   }
 
+
   @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Update new", description = "Service for update news")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Request made successfully"),
+      @ApiResponse(responseCode = "403",
+          description = "You are not authorized to make the request"),
+      @ApiResponse(responseCode = "404",
+          description = "New not found")
+  })
   public ResponseEntity<NewsDetailsResponse> update(@PathVariable("id") long id,
       @RequestBody(required = true) @Valid NewsDetailsRequest newsDetailsRequest) {
     NewsDetailsResponse newsDetailsResponse =
